@@ -12,20 +12,22 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseMotionAdapter;
 
+import proj2.document.*;
 import proj2.view.gui.shapes.*;
-import proj2.view.gui.*;
 
 /*
 * Extension of JPanel that handles drawing of states and vertex objects
 * Adapted from this tutorial: https://docs.oracle.com/javase/tutorial/uiswing/painting/refining.html
 */
-class DrawPanel extends JPanel implements MouseMotionListener {
+public class DrawPanel extends JPanel implements MouseListener {
 
   VertexShape testVertex;
+  //testVertex.addMouseListener(this);
+  //addMouseListener(this);
 
     public DrawPanel() {
 
-        setBorder(BorderFactory.createLineBorder(Color.black));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // addMouseListener(new MouseAdapter(){
         //     public void mousePressed(MouseEvent e){
@@ -40,7 +42,7 @@ class DrawPanel extends JPanel implements MouseMotionListener {
         // });
 
         testVertex = new VertexShape(10,10, false);
-        testVertex.addMouseMotionListener(this);
+        testVertex.addMouseListener(this);
 
 
     }
@@ -81,9 +83,34 @@ class DrawPanel extends JPanel implements MouseMotionListener {
 
         testVertex.paintSquare(g);
     }
+    public void mousePressed(MouseEvent e) {
+           saySomething("Mouse pressed; # of clicks: "
+                        + e.getClickCount(), e);
+        }
 
+        public void mouseReleased(MouseEvent e) {
+           saySomething("Mouse released; # of clicks: "
+                        + e.getClickCount(), e);
+        }
+
+        public void mouseEntered(MouseEvent e) {
+           saySomething("Mouse entered", e);
+        }
+
+        public void mouseExited(MouseEvent e) {
+           saySomething("Mouse exited", e);
+        }
+
+        public void mouseClicked(MouseEvent e) {
+           saySomething("Mouse clicked (# of clicks: "
+                        + e.getClickCount() + ")", e);
+        }
     public void mouseMoved(MouseEvent e) {
       saySomething("Mouse moved", e);
+    }
+
+    public void mouseDragged(MouseEvent e) {
+      saySomething("Mouse dragged", e);
     }
 
     void saySomething(String eventDescription, MouseEvent e) {

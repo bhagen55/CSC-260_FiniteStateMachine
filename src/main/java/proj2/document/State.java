@@ -12,7 +12,7 @@ public class State {
   int y;
 
   public State(String n, int xloc, int yloc) {
-    name = this.n;
+    name = this.name;
     x = xloc;
     y = yloc;
   }

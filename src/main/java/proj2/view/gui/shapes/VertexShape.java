@@ -1,4 +1,4 @@
-package proj2.view.gui;
+package proj2.view.gui.shapes;
 
 import javax.swing.SwingUtilities;
 import java.awt.Graphics;
@@ -11,7 +11,7 @@ import java.awt.Component;
 * Represents shape of a vertex for the gui
 */
 
-class VertexShape extends Component{
+public class VertexShape extends Component{
 
     private int xPos;
     private int yPos;
