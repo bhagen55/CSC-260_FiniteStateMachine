@@ -22,14 +22,18 @@ import proj2.view.gui.shapes.*;
 /*
 * Extension of JPanel that handles drawing of states and vertex objects
 * Adapted from this tutorial: https://docs.oracle.com/javase/tutorial/uiswing/painting/refining.html
-* Dragging: https://stackoverflow.com/questions/35525460/java-drawing-shape-with-mouse-and-drag-after-clicking-button
+* Dragging: http://www.java2s.com/Code/Java/Event/MoveShapewithmouse.htm
 */
 public class DrawPanel extends JPanel implements MouseListener, MouseMotionListener {
 
   ArrayList<VertexShape> vertices;
 
   // Holds last known location of mouse for dragging
-  private Point p;
+
+    int preX;
+    int preY;
+    int preXDrag;
+    int preYDrag;
 
 
     public DrawPanel() {
@@ -62,6 +66,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
         }
 
         this.addMouseListener(this);
+        this.addMouseMotionListener(this);
 
 
     }
@@ -120,7 +125,6 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
     public void mouseClicked(MouseEvent e) {
 
-      p = e.getPoint();
 
       boolean foundVertex = false;
       for (VertexShape vertex: vertices) {
@@ -128,6 +132,10 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
           if (e.getClickCount() == 2) {
             vertex.toggleAccept();
           }
+          preX = vertex.getX() - e.getX();
+          preY = vertex.getY() - e.getY();
+          preXDrag = e.getX();
+          preYDrag = e.getY();
           foundVertex = true;
         }
       }
@@ -143,14 +151,19 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     public void mouseDragged(MouseEvent e) {
+      //System.out.println("Dragging to " + x + " " + y);
 
-      int x = Math.min(p.x, e.getX());
-      int y = Math.min(p.y, e.getY());
 
       for (VertexShape vertex: vertices) {
         if (vertex.getBounds().contains(e.getPoint())) {
-          vertex.moveShape(x, y);
-        }
+          int Xoff = e.getX() - preXDrag;
+          System.out.println("X Offset: " + Xoff);
+          int Yoff = e.getY() - preYDrag;
+          System.out.println("Y Offset: " + Yoff);
+          vertex.moveShape(Xoff + e.getX(), Yoff + e.getY());
+          preXDrag = e.getX();
+          preYDrag = e.getY();
+          }
       }
       repaint();
     }

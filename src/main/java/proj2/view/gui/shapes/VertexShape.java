@@ -51,8 +51,9 @@ public class VertexShape extends Component{
     * Changes coordinates of vertex object
     */
     public void moveShape(int xPos, int yPos) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+      ellipse = new Ellipse2D.Double(xPos, yPos, width, height);
+      this.xPos = xPos;
+      this.yPos = yPos;
     }
 
     public String getName() {
