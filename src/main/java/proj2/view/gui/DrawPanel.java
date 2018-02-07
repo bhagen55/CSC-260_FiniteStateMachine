@@ -12,6 +12,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseMotionAdapter;
 
+import java.util.ArrayList;
+
 import proj2.document.*;
 import proj2.view.gui.shapes.*;
 
@@ -19,13 +21,15 @@ import proj2.view.gui.shapes.*;
 * Extension of JPanel that handles drawing of states and vertex objects
 * Adapted from this tutorial: https://docs.oracle.com/javase/tutorial/uiswing/painting/refining.html
 */
-public class DrawPanel extends JPanel implements MouseListener {
+public class DrawPanel extends JPanel implements MouseListener, MouseMotionListener {
 
-  VertexShape testVertex;
+  ArrayList<VertexShape> vertices;
   //testVertex.addMouseListener(this);
   //addMouseListener(this);
 
     public DrawPanel() {
+
+      System.out.println("Setting up");
 
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -41,8 +45,18 @@ public class DrawPanel extends JPanel implements MouseListener {
         //     }
         // });
 
-        testVertex = new VertexShape(10,10, false);
-        testVertex.addMouseListener(this);
+        vertices = new ArrayList<VertexShape>();
+
+        VertexShape testVertex1 = new VertexShape(10,10, "test1", false);
+        VertexShape testVertex2 = new VertexShape(60,10, "test2", false);
+        vertices.add(testVertex1);
+        vertices.add(testVertex2);
+
+        for (VertexShape vertex: vertices) {
+          vertex.addMouseListener(this);
+        }
+
+        this.addMouseListener(this);
 
 
     }
@@ -81,39 +95,36 @@ public class DrawPanel extends JPanel implements MouseListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        testVertex.paintSquare(g);
+        for (VertexShape vertex: vertices) {
+          vertex.paintSquare(g);
+        }
+
     }
+
     public void mousePressed(MouseEvent e) {
-           saySomething("Mouse pressed; # of clicks: "
-                        + e.getClickCount(), e);
-        }
+    }
 
-        public void mouseReleased(MouseEvent e) {
-           saySomething("Mouse released; # of clicks: "
-                        + e.getClickCount(), e);
-        }
+    public void mouseReleased(MouseEvent e) {
+    }
 
-        public void mouseEntered(MouseEvent e) {
-           saySomething("Mouse entered", e);
-        }
+    public void mouseEntered(MouseEvent e) {
+    }
 
-        public void mouseExited(MouseEvent e) {
-           saySomething("Mouse exited", e);
-        }
+    public void mouseExited(MouseEvent e) {
+    }
 
-        public void mouseClicked(MouseEvent e) {
-           saySomething("Mouse clicked (# of clicks: "
-                        + e.getClickCount() + ")", e);
-        }
+    public void mouseClicked(MouseEvent e) {
+      for (VertexShape vertex: vertices) {
+
+      }
+
+      System.out.println("click");
+      System.out.println(e.getComponent().getName());
+    }
+
     public void mouseMoved(MouseEvent e) {
-      saySomething("Mouse moved", e);
     }
 
     public void mouseDragged(MouseEvent e) {
-      saySomething("Mouse dragged", e);
-    }
-
-    void saySomething(String eventDescription, MouseEvent e) {
-      System.out.println(eventDescription + " Detected on " + e.getComponent().getClass().getName());
     }
 }
