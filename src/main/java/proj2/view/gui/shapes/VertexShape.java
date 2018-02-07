@@ -4,6 +4,7 @@ import javax.swing.SwingUtilities;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
+import java.awt.Rectangle;
 import java.awt.Color;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
@@ -43,7 +44,7 @@ public class VertexShape extends Component{
 
       this.isAccepting = isAccepting;
 
-      ellipse = new Ellipse2D.Double(xPos, yPos, width, height)
+      ellipse = new Ellipse2D.Double(xPos, yPos, width, height);
       }
 
     /*
@@ -127,6 +128,10 @@ public class VertexShape extends Component{
       return isAccepting;
     }
 
+    public Rectangle getBounds() {
+      return(ellipse.getBounds());
+    }
+
     /*
     * Does the actual painting of this object on a JPanel
     */
@@ -134,7 +139,7 @@ public class VertexShape extends Component{
 
       Graphics2D g2d = (Graphics2D) g;
       g2d.setColor(Color.BLACK);
-      g2d.fill(ellipse);
+      g2d.draw(ellipse);
       g.drawString(name,xPos,yPos);
 
       if(isAccepting){
