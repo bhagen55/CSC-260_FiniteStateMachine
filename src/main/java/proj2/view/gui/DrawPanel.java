@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.Rectangle;
 
 import java.util.ArrayList;
 
@@ -114,17 +115,31 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     public void mouseClicked(MouseEvent e) {
+      boolean foundVertex = false;
       for (VertexShape vertex: vertices) {
-
+        if (vertex.getBounds().contains(e.getPoint())) {
+          System.out.println("Found me!");
+          foundVertex = true;
+        }
       }
-
-      System.out.println("click");
-      System.out.println(e.getComponent().getName());
+      if (!foundVertex) {
+        System.out.println("Adding Vertex");
+        System.out.println(vertices.size());
+        String name = ""+(vertices.size()+1);
+        vertices.add(new VertexShape(e.getX(),e.getY(), name, false));
+      }
+      repaint();
     }
 
     public void mouseMoved(MouseEvent e) {
     }
 
     public void mouseDragged(MouseEvent e) {
+      for (VertexShape vertex: vertices) {
+        if (vertex.getBounds().contains(e.getPoint())) {
+          vertex.moveShape(e.getX(), e.getY());
+        }
+      }
+      repaint();
     }
 }
