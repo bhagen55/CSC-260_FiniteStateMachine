@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.Rectangle;
+import java.awt.Point;
 
 import java.util.ArrayList;
 
@@ -21,12 +22,15 @@ import proj2.view.gui.shapes.*;
 /*
 * Extension of JPanel that handles drawing of states and vertex objects
 * Adapted from this tutorial: https://docs.oracle.com/javase/tutorial/uiswing/painting/refining.html
+* Dragging: https://stackoverflow.com/questions/35525460/java-drawing-shape-with-mouse-and-drag-after-clicking-button
 */
 public class DrawPanel extends JPanel implements MouseListener, MouseMotionListener {
 
   ArrayList<VertexShape> vertices;
-  //testVertex.addMouseListener(this);
-  //addMouseListener(this);
+
+  // Holds last known location of mouse for dragging
+  private Point p;
+
 
     public DrawPanel() {
 
@@ -115,15 +119,19 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     public void mouseClicked(MouseEvent e) {
+
+      p = e.getPoint();
+
       boolean foundVertex = false;
       for (VertexShape vertex: vertices) {
         if (vertex.getBounds().contains(e.getPoint())) {
-          System.out.println("Found me!");
+          if (e.getClickCount() == 2) {
+            vertex.toggleAccept();
+          }
           foundVertex = true;
         }
       }
       if (!foundVertex) {
-        System.out.println("Adding Vertex");
         System.out.println(vertices.size());
         String name = ""+(vertices.size()+1);
         vertices.add(new VertexShape(e.getX(),e.getY(), name, false));
@@ -135,9 +143,13 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     public void mouseDragged(MouseEvent e) {
+
+      int x = Math.min(p.x, e.getX());
+      int y = Math.min(p.y, e.getY());
+
       for (VertexShape vertex: vertices) {
         if (vertex.getBounds().contains(e.getPoint())) {
-          vertex.moveShape(e.getX(), e.getY());
+          vertex.moveShape(x, y);
         }
       }
       repaint();
