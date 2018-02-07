@@ -140,10 +140,10 @@ public class VertexShape extends Component{
       Graphics2D g2d = (Graphics2D) g;
       g2d.setColor(Color.BLACK);
       g2d.draw(ellipse);
-      g.drawString(name,xPos,yPos);
+      g2d.drawString(name,xPos,yPos);
 
       if(isAccepting){
-        g.drawOval(xPos,yPos,width+acceptOffset,height+acceptOffset);
+        g2d.draw(new Ellipse2D.Double(xPos,yPos,width+acceptOffset,height+acceptOffset));
       }
     }
 }
