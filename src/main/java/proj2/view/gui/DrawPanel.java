@@ -56,8 +56,8 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
         vertices = new ArrayList<VertexShape>();
 
-        VertexShape testVertex1 = new VertexShape(10,10, "test1", false);
-        VertexShape testVertex2 = new VertexShape(60,10, "test2", false);
+        VertexShape testVertex1 = new VertexShape(10,10, "A", false);
+        VertexShape testVertex2 = new VertexShape(120,10, "B", false);
         vertices.add(testVertex1);
         vertices.add(testVertex2);
 
@@ -137,6 +137,9 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
           preXDrag = e.getX();
           preYDrag = e.getY();
           foundVertex = true;
+          vertex.setY(e.getY());
+          vertex.setX(e.getX());
+          repaint();
         }
       }
       if (!foundVertex) {
@@ -156,11 +159,10 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
       for (VertexShape vertex: vertices) {
         if (vertex.getBounds().contains(e.getPoint())) {
-          int Xoff = e.getX() - preXDrag;
-          System.out.println("X Offset: " + Xoff);
-          int Yoff = e.getY() - preYDrag;
-          System.out.println("Y Offset: " + Yoff);
-          vertex.moveShape(Xoff + e.getX(), Yoff + e.getY());
+          vertex.setY(e.getY());
+          vertex.setX(e.getX());
+          repaint();
+          vertex.moveShape(preX + e.getX(), preY + e.getY());
           preXDrag = e.getX();
           preYDrag = e.getY();
           }

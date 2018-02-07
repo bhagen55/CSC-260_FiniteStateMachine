@@ -37,8 +37,8 @@ public class VertexShape extends Component{
       this.xPos = xPos;
       this.yPos = yPos;
 
-      this.width = 40;
-      this.height = 40;
+      this.width = 100;
+      this.height = 100;
 
       this.acceptOffset = 10;
 
@@ -71,15 +71,22 @@ public class VertexShape extends Component{
     * Set the x coordinate of the vertex object
     */
     public void setX(int newX) {
-        xPos = newX;
+        xPos = getXOffset(newX);
     }
 
+    private int getXOffset(int newX) {
+        return newX + (getWidth()/2);
+    }
+
+    private int getYOffset(int newY) {
+        return newY + (getHeight()/2);
+    }
 
     /*
     * Set the y coordinate of the vertex object
     */
     public void setY(int newY) {
-        yPos = newY;
+        yPos = getYOffset(newY);
     }
 
     /*
@@ -141,10 +148,10 @@ public class VertexShape extends Component{
       Graphics2D g2d = (Graphics2D) g;
       g2d.setColor(Color.BLACK);
       g2d.draw(ellipse);
-      g2d.drawString(name,xPos,yPos);
+      g2d.drawString(name,getXOffset(getX()), getYOffset(getY()));
 
       if(isAccepting){
-        g2d.draw(new Ellipse2D.Double(xPos,yPos,width+acceptOffset,height+acceptOffset));
+        g2d.draw(new Ellipse2D.Double(getX(),getY(),width+acceptOffset,height+acceptOffset));
       }
     }
 }
