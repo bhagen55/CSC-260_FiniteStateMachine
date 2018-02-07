@@ -2,8 +2,12 @@ package proj2.view.gui.shapes;
 
 import javax.swing.SwingUtilities;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.Rectangle;
 import java.awt.Color;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
 import java.awt.Component;
 
 
@@ -12,6 +16,8 @@ import java.awt.Component;
 */
 
 public class VertexShape extends Component{
+
+    private String name;
 
     private int xPos;
     private int yPos;
@@ -22,24 +28,36 @@ public class VertexShape extends Component{
 
     private boolean isAccepting;
 
-    public VertexShape(int xPos, int yPos, boolean isAccepting) {
+    Ellipse2D ellipse;
+
+    public VertexShape(int xPos, int yPos, String name, boolean isAccepting) {
+
+      this.name = name;
+
       this.xPos = xPos;
       this.yPos = yPos;
 
-      this.width = 10;
-      this.height = 10;
+      this.width = 40;
+      this.height = 40;
 
-      this.acceptOffset = 5;
+      this.acceptOffset = 10;
 
       this.isAccepting = isAccepting;
-    }
+
+      ellipse = new Ellipse2D.Double(xPos, yPos, width, height);
+      }
 
     /*
     * Changes coordinates of vertex object
     */
     public void moveShape(int xPos, int yPos) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+      ellipse = new Ellipse2D.Double(xPos, yPos, width, height);
+      this.xPos = xPos;
+      this.yPos = yPos;
+    }
+
+    public String getName() {
+      return name;
     }
 
     /*
@@ -111,15 +129,22 @@ public class VertexShape extends Component{
       return isAccepting;
     }
 
+    public Rectangle getBounds() {
+      return(ellipse.getBounds());
+    }
+
     /*
     * Does the actual painting of this object on a JPanel
     */
     public void paintSquare(Graphics g){
-      g.setColor(Color.BLACK);
-      g.drawOval(xPos,yPos,width,height);
+
+      Graphics2D g2d = (Graphics2D) g;
+      g2d.setColor(Color.BLACK);
+      g2d.draw(ellipse);
+      g2d.drawString(name,xPos,yPos);
 
       if(isAccepting){
-        g.drawOval(xPos,yPos,width+acceptOffset,height+acceptOffset);
+        g2d.draw(new Ellipse2D.Double(xPos,yPos,width+acceptOffset,height+acceptOffset));
       }
     }
 }

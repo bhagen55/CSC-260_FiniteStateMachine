@@ -11,6 +11,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.Rectangle;
+import java.awt.Point;
+
+import java.util.ArrayList;
 
 import proj2.document.*;
 import proj2.view.gui.shapes.*;
@@ -18,14 +22,23 @@ import proj2.view.gui.shapes.*;
 /*
 * Extension of JPanel that handles drawing of states and vertex objects
 * Adapted from this tutorial: https://docs.oracle.com/javase/tutorial/uiswing/painting/refining.html
+* Dragging: http://www.java2s.com/Code/Java/Event/MoveShapewithmouse.htm
 */
-public class DrawPanel extends JPanel implements MouseListener {
+public class DrawPanel extends JPanel implements MouseListener, MouseMotionListener {
 
-  VertexShape testVertex;
-  //testVertex.addMouseListener(this);
-  //addMouseListener(this);
+  ArrayList<VertexShape> vertices;
+
+  // Holds last known location of mouse for dragging
+
+    int preX;
+    int preY;
+    int preXDrag;
+    int preYDrag;
+
 
     public DrawPanel() {
+
+      System.out.println("Setting up");
 
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -41,8 +54,19 @@ public class DrawPanel extends JPanel implements MouseListener {
         //     }
         // });
 
-        testVertex = new VertexShape(10,10, false);
-        testVertex.addMouseListener(this);
+        vertices = new ArrayList<VertexShape>();
+
+        VertexShape testVertex1 = new VertexShape(10,10, "test1", false);
+        VertexShape testVertex2 = new VertexShape(60,10, "test2", false);
+        vertices.add(testVertex1);
+        vertices.add(testVertex2);
+
+        for (VertexShape vertex: vertices) {
+          vertex.addMouseListener(this);
+        }
+
+        this.addMouseListener(this);
+        this.addMouseMotionListener(this);
 
 
     }
@@ -81,39 +105,66 @@ public class DrawPanel extends JPanel implements MouseListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        testVertex.paintSquare(g);
+        for (VertexShape vertex: vertices) {
+          vertex.paintSquare(g);
+        }
+
     }
+
     public void mousePressed(MouseEvent e) {
-           saySomething("Mouse pressed; # of clicks: "
-                        + e.getClickCount(), e);
-        }
+    }
 
-        public void mouseReleased(MouseEvent e) {
-           saySomething("Mouse released; # of clicks: "
-                        + e.getClickCount(), e);
-        }
+    public void mouseReleased(MouseEvent e) {
+    }
 
-        public void mouseEntered(MouseEvent e) {
-           saySomething("Mouse entered", e);
-        }
+    public void mouseEntered(MouseEvent e) {
+    }
 
-        public void mouseExited(MouseEvent e) {
-           saySomething("Mouse exited", e);
-        }
+    public void mouseExited(MouseEvent e) {
+    }
 
-        public void mouseClicked(MouseEvent e) {
-           saySomething("Mouse clicked (# of clicks: "
-                        + e.getClickCount() + ")", e);
+    public void mouseClicked(MouseEvent e) {
+
+
+      boolean foundVertex = false;
+      for (VertexShape vertex: vertices) {
+        if (vertex.getBounds().contains(e.getPoint())) {
+          if (e.getClickCount() == 2) {
+            vertex.toggleAccept();
+          }
+          preX = vertex.getX() - e.getX();
+          preY = vertex.getY() - e.getY();
+          preXDrag = e.getX();
+          preYDrag = e.getY();
+          foundVertex = true;
         }
+      }
+      if (!foundVertex) {
+        System.out.println(vertices.size());
+        String name = ""+(vertices.size()+1);
+        vertices.add(new VertexShape(e.getX(),e.getY(), name, false));
+      }
+      repaint();
+    }
+
     public void mouseMoved(MouseEvent e) {
-      saySomething("Mouse moved", e);
     }
 
     public void mouseDragged(MouseEvent e) {
-      saySomething("Mouse dragged", e);
-    }
+      //System.out.println("Dragging to " + x + " " + y);
 
-    void saySomething(String eventDescription, MouseEvent e) {
-      System.out.println(eventDescription + " Detected on " + e.getComponent().getClass().getName());
+
+      for (VertexShape vertex: vertices) {
+        if (vertex.getBounds().contains(e.getPoint())) {
+          int Xoff = e.getX() - preXDrag;
+          System.out.println("X Offset: " + Xoff);
+          int Yoff = e.getY() - preYDrag;
+          System.out.println("Y Offset: " + Yoff);
+          vertex.moveShape(Xoff + e.getX(), Yoff + e.getY());
+          preXDrag = e.getX();
+          preYDrag = e.getY();
+          }
+      }
+      repaint();
     }
 }
