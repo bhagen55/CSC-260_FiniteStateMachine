@@ -64,7 +64,7 @@ public class VertexShape extends Component{
   * @return an ellipse representation fo the vertex with the given
   * coordinates and size.
   */
-  private Ellipse2D.double makeEllipse(xPos, yPos, radius) {
+  private Ellipse2D.Double makeEllipse(int xPos, int yPos, int radius) {
     return new Ellipse2D.Double(xPos - radius, yPos + radius, radius*2, radius*2);
   }
 
@@ -192,7 +192,7 @@ public class VertexShape extends Component{
     *
     * @return an Ellipse2D representation of the vertex
     */
-    public Ellipse2D.double getEllipse() {
+    public Ellipse2D getEllipse() {
       return ellipse;
     }
 

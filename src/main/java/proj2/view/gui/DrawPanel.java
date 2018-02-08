@@ -108,7 +108,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
         super.paintComponent(g);
 
         for (VertexShape vertex: vertices) {
-          vertex.paintSquare(g);
+          vertex.paintShape(g);
         }
 
     }
