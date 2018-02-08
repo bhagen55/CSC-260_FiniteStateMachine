@@ -28,6 +28,8 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
   ArrayList<VertexShape> vertices;
 
+  VertexShape selVertex;
+
   // Holds last known location of mouse for dragging
 
     int preX;
@@ -115,6 +117,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     public void mouseReleased(MouseEvent e) {
+      selVertex = null;
     }
 
     public void mouseEntered(MouseEvent e) {
@@ -128,7 +131,11 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
       boolean foundVertex = false;
       for (VertexShape vertex: vertices) {
-        if (vertex.getBounds().contains(e.getPoint())) {
+        if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
+
+          // Record selected vertex to keep dragging from affecting other vertices
+          selVertex = vertex;
+
           if (e.getClickCount() == 2) {
             vertex.toggleAccept();
           }
@@ -156,17 +163,14 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     public void mouseDragged(MouseEvent e) {
       //System.out.println("Dragging to " + x + " " + y);
 
-
-      for (VertexShape vertex: vertices) {
-        if (vertex.getBounds().contains(e.getPoint())) {
-          vertex.setY(e.getY());
-          vertex.setX(e.getX());
-          repaint();
-          vertex.moveShape(preX + e.getX(), preY + e.getY());
-          preXDrag = e.getX();
-          preYDrag = e.getY();
-          }
+      // Only move if a vertex was clicked on before the mouse was dragged
+      if (selVertex != null) {
+        selVertex.setY(e.getY());
+        selVertex.setX(e.getX());
+        selVertex.moveShape(preX + e.getX(), preY + e.getY());
+        preXDrag = e.getX();
+        preYDrag = e.getY();
+        repaint();
       }
-      repaint();
     }
 }

@@ -1,6 +1,13 @@
 package proj2.view.gui.shapes;
 
 import java.awt.Point;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
+import java.awt.Color;
+
+import proj2.view.gui.shapes.VertexShape;
 
 /*
 * Represents shape of an edge for the gui
@@ -26,13 +33,11 @@ public class EdgeShape extends Component{
     Point desCenter = new Point(destination.getX(), destination.getY());
 
     // Get projection to destination from origin
-    Double orAngle = orCenter.project(desCenter);
-    Double desAngle = desCenter.project(orCenter);
+    return null;
 
-    
   }
 
-  public void paintEdgeShape(Graphics g) {
+  public void paintShape(Graphics g) {
 
     // Calculate start and end coordinates
 

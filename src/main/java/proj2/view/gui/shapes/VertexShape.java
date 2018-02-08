@@ -136,14 +136,14 @@ public class VertexShape extends Component{
       return isAccepting;
     }
 
-    public Rectangle getBounds() {
-      return(ellipse.getBounds());
+    public Ellipse2D getEllipse() {
+      return ellipse;
     }
 
     /*
     * Does the actual painting of this object on a JPanel
     */
-    public void paintSquare(Graphics g){
+    public void paintShape(Graphics g){
 
       Graphics2D g2d = (Graphics2D) g;
       g2d.setColor(Color.BLACK);
