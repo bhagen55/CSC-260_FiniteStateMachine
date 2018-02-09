@@ -93,50 +93,89 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     * @param g graphics object to be painted
     */
     public void paintComponent(Graphics g) {
+
+		// Paints the panel
     	super.paintComponent(g);
 
+		// Paints the vertices
         for (VertexShape vertex: vertices) {
         	vertex.paintShape(g);
         }
     }
 
+	/**
+	* Indicates the start of a drag.
+	* Saves the vertex that is being pressed to be modified by the dragging
+	* handler.
+	*
+	* @param e mouse event passed by mouse listener
+	*/
     public void mousePressed(MouseEvent e) {
+
+		// Check if actually pressing on a vertex
 		for (VertexShape vertex: vertices) {
     		if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
-          		System.out.println("Saving selected vertex");
+				// Save the vertex as the currently selected one
           		selVertex = vertex;
         	}
       	}
     }
 
+	/**
+	* Indicates release of mouse.
+	* Clears out the selected vertex at the end of a drag.
+	*
+	* @param e mouse event passed by mouse listener
+	*/
     public void mouseReleased(MouseEvent e) {
-    	System.out.println("Releasing selected vertex");
+		// Release the currently selected vertex
     	selVertex = null;
     }
 
+	/**
+	* Indicates mouse has entered the panel.
+	* Currently not used.
+	*
+	* @param e mouse event passed by mouse listener
+	*/
     public void mouseEntered(MouseEvent e) {
     }
 
+	/**
+	* Indicates mouse has exited the panel.
+	* Currently not used.
+	*
+	* @param e mouse event passed by mouse listener
+	*/
     public void mouseExited(MouseEvent e) {
     }
 
+	/**
+	* Indicates the mouse has been clicked a number of times
+	* Checks if the user is clicking on a vertex. If it isn't, creates a vertex
+	* If the user double clicks on a vertex the accept state is toggled.
+	*
+	* @param e mouse event passed by mouse listener
+	*/
 	public void mouseClicked(MouseEvent e) {
 
     	boolean foundVertex = false;
+
+		// check if the user is clicking on a vertex
     	for (VertexShape vertex: vertices) {
         	System.out.println("Looking for vertexes");
         	if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
+
+				// If they are double clicking, toggle the accept state
           		if (e.getClickCount() == 2) {
             		vertex.toggleAccept();
           		}
-        		preX = vertex.getX() - e.getX();
-        		preY = vertex.getY() - e.getY();
-        		preXDrag = e.getX();
-        		preYDrag = e.getY();
         		foundVertex = true;
         		repaint();
     		}
 		}
+
+		// If the user didn't click on a vertex, make a new one
     	if (!foundVertex) {
 			System.out.println(vertices.size());
         	String name = ""+(vertices.size()+1);
@@ -145,19 +184,29 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
       	repaint();
     }
 
+	/**
+	* Indicates the mouse is moved.
+	* Currently not used.
+	*
+	* @param e mouse event passed by mouse listener
+	*/
 	public void mouseMoved(MouseEvent e) {
     }
 
+	/**
+	* Indicates the mouse has been dragged with the button pressed down.
+	* If a vertex was pressed on, this moves the vertex.
+	*
+	* @param e mouse event passed by mouse listener
+	*/
     public void mouseDragged(MouseEvent e) {
-      //System.out.println("Dragging to " + x + " " + y);
 
       // Only move if a vertex was clicked on before the mouse was dragged
 		if (selVertex != null) {
 			selVertex.setY(e.getY());
 			selVertex.setX(e.getX());
 			selVertex.moveShape(preX + e.getX(), preY + e.getY());
-			preXDrag = e.getX();
-			preYDrag = e.getY();
+			
 			repaint();
 		}
 	}
