@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.QuadCurve2D;
 import java.awt.Color;
 
 import proj2.view.gui.shapes.VertexShape;
@@ -12,7 +13,6 @@ import proj2.view.gui.shapes.VertexShape;
 /*
 * Represents shape of an edge for the gui
 */
-
 public class EdgeShape extends Component{
 
 	private String name;
@@ -20,11 +20,15 @@ public class EdgeShape extends Component{
 	private VertexShape origin;
 	private VertexShape destination;
 
-	public EdgeShape(VertexShape origin, VertexShape destination, String name) {
+	private QuadCurve2D.Double edge;
+
+	public EdgeShape(VertexShape o, VertexShape d, String name) {
 		this.name = name;
 
-    	this.origin = origin;
-    	this.destination = destination;
+    	this.origin = o;
+    	this.destination = d;
+
+		edge.setCurve(origin.getX(), origin.getY(), 0, 0, destination.getX(), destination.getY());
 	}
 
  	private Point calcStartEndPoint() {
@@ -41,5 +45,8 @@ public class EdgeShape extends Component{
     	Graphics2D g2d = (Graphics2D) g;
 
     	g2d.setColor(Color.BLACK);
+
+
+		g2d.draw(edge);
   }
 }
