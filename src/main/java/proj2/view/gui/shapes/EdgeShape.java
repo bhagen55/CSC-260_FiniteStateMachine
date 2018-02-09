@@ -20,14 +20,16 @@ public class EdgeShape extends Component{
 	private VertexShape origin;
 	private VertexShape destination;
 
-	private QuadCurve2D.Double edge;
+	private QuadCurve2D edge;
 
-	public EdgeShape(VertexShape o, VertexShape d, String name) {
-		this.name = name;
+	public EdgeShape(VertexShape o, VertexShape d, String n) {
+		System.out.println("made an edge!");
+		edge = new QuadCurve2D.Double();
+		this.name = n;
 
     	this.origin = o;
     	this.destination = d;
-
+		//System.out.println("----- GOT HERE -----");
 		edge.setCurve(origin.getX(), origin.getY(), 0, 0, destination.getX(), destination.getY());
 	}
 

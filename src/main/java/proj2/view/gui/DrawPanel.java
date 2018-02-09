@@ -14,6 +14,7 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.Rectangle;
 import java.awt.Point;
 
+
 import java.util.ArrayList;
 
 import proj2.document.*;
@@ -152,7 +153,9 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 					String name = ""+(edges.size()+1);
 					System.out.println(selVertex.getName());
 					System.out.println(vertex.getName());
-	          		edges.add(new EdgeShape(selVertex, vertex, name));
+                EdgeShape eS = new EdgeShape(selVertex, vertex, name);
+	          		edges.add(eS);
+                eS.paintShape(new Graphics());
 
 					// Release the selected vertex
 					selVertex = null;
@@ -190,6 +193,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 	public void mouseClicked(MouseEvent e) {
 
 		// Only look for left clicks
+    System.out.println("e button # " + e.getButton());
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			boolean foundVertex = false;
 
@@ -232,9 +236,8 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 	* @param e mouse event passed by mouse listener
 	*/
     public void mouseDragged(MouseEvent e) {
-
 		// Only move with a left click
-		if (e.getButton() == MouseEvent.BUTTON1) {
+		if (e.getButton() == 0) {
 			// Only move if a vertex was clicked on before the mouse was dragged
 			  if (selVertex != null) {
 				  selVertex.setY(e.getY());
