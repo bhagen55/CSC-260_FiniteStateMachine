@@ -16,69 +16,69 @@ import java.awt.Component;
 */
 public class VertexShape extends Component{
 
-  // Unique string name that will be shown in the middle of the shape
-  private String name;
+	// Unique string name that will be shown in the middle of the shape
+	private String name;
 
-  // Boolean to store whether or not this is an accept state
-  private boolean isAccepting;
+	// Boolean to store whether or not this is an accept state
+	private boolean isAccepting;
 
-  // Position information (Refers to the center of the ellipse)
-  private int xPos;
-  private int yPos;
-  private int radius;
+	// Position information (Refers to the center of the ellipse)
+	private int xPos;
+	private int yPos;
+	private int radius;
 
-  // Amount to offset the second ellipse when shape is an accpet state
-  private int acceptOffset;
+	// Amount to offset the second ellipse when shape is an accpet state
+	private int acceptOffset;
 
-  // Graphics object used to represent shape
-  Ellipse2D ellipse;
-  Ellipse2D acceptEllipse;
+	// Graphics object used to represent shape
+	Ellipse2D ellipse;
+	Ellipse2D acceptEllipse;
 
-  public VertexShape(int xPos, int yPos, String name, boolean isAccepting) {
+	public VertexShape(int xPos, int yPos, String name, boolean isAccepting) {
 
-    this.name = name;
+		this.name = name;
 
-    this.xPos = xPos;
-    this.yPos = yPos;
+		this.xPos = xPos;
+		this.yPos = yPos;
 
-    this.radius = 50;
+		this.radius = 50;
 
-    this.acceptOffset = 10;
+		this.acceptOffset = 10;
 
-    this.isAccepting = isAccepting;
+		this.isAccepting = isAccepting;
 
-    // Construct the ellipse to represent this shape
-    ellipse = makeEllipse(xPos, yPos, radius);
+		// Construct the ellipse to represent this shape
+		ellipse = makeEllipse(xPos, yPos, radius);
 
-    // Construct the offset ellipse for accept state
-    acceptEllipse = makeEllipse(xPos, yPos, radius+acceptOffset);
-  }
+		// Construct the offset ellipse for accept state
+		acceptEllipse = makeEllipse(xPos, yPos, radius+acceptOffset);
+	}
 
-  /**
-  * Makes an ellipse but offsets to set given coordinates in its center
-  *
-  * @param xPos the x coordinate for the center of the vertex
-  * @param yPos the y coordinate for the center of the vertex
-  * @param radius the radius of the vertex
-  *
-  * @return an ellipse representation fo the vertex with the given
-  * coordinates and size.
-  */
-  private Ellipse2D.Double makeEllipse(int xPos, int yPos, int radius) {
-    return new Ellipse2D.Double(xPos - radius, yPos - radius, radius*2, radius*2);
-  }
+	/**
+	* Makes an ellipse but offsets to set given coordinates in its center
+	*
+	* @param xPos the x coordinate for the center of the vertex
+	* @param yPos the y coordinate for the center of the vertex
+	* @param radius the radius of the vertex
+	*
+	* @return an ellipse representation fo the vertex with the given
+	* coordinates and size.
+	*/
+	private Ellipse2D.Double makeEllipse(int xPos, int yPos, int radius) {
+		return new Ellipse2D.Double(xPos - radius, yPos - radius, radius*2, radius*2);
+	}
 
-    /**
+	/**
     * Changes coordinates of vertex object
     *
     * @param xPos the x coordinate to move the center of the vertex to
     * @param yPos the y coordinate to move the center of the vertex to
     */
     public void moveShape(int xPos, int yPos) {
-      ellipse = makeEllipse(xPos, yPos, radius);
-      acceptEllipse = makeEllipse(xPos, yPos, radius+acceptOffset);
-      this.xPos = xPos;
-      this.yPos = yPos;
+    	ellipse = makeEllipse(xPos, yPos, radius);
+    	acceptEllipse = makeEllipse(xPos, yPos, radius+acceptOffset);
+    	this.xPos = xPos;
+    	this.yPos = yPos;
     }
 
     /**
@@ -87,7 +87,7 @@ public class VertexShape extends Component{
     * @return the string name of the vertex
     */
     public String getName() {
-      return name;
+    	return name;
     }
 
     /**
@@ -148,12 +148,12 @@ public class VertexShape extends Component{
     * @return the width of the vertex
     */
     public int getWidth() {
-      if (isAccepting) {
-        return (radius*2)+acceptOffset;
-      }
-      else {
-        return radius*2;
-      }
+		if (isAccepting) {
+			return (radius*2)+acceptOffset;
+		}
+		else {
+			return radius*2;
+		}
     }
 
     /**
@@ -162,12 +162,12 @@ public class VertexShape extends Component{
     * @return the height of the vertex
     */
     public int getHeight() {
-      if (isAccepting) {
-        return (radius*2)+acceptOffset;
-      }
-      else {
-        return radius*2;
-      }
+		if (isAccepting) {
+			return (radius*2)+acceptOffset;
+		}
+		else {
+			return radius*2;
+		}
     }
 
     /*
@@ -175,7 +175,7 @@ public class VertexShape extends Component{
     * If toggled, the shape needs to be re-drawn
     */
     public void toggleAccept() {
-      isAccepting = !isAccepting;
+    	isAccepting = !isAccepting;
     }
 
     /**
@@ -184,7 +184,7 @@ public class VertexShape extends Component{
     * @return whether or not this vertex is an accept state
     */
     public boolean isAcceptState() {
-      return isAccepting;
+    	return isAccepting;
     }
 
     /**
@@ -193,7 +193,7 @@ public class VertexShape extends Component{
     * @return an Ellipse2D representation of the vertex
     */
     public Ellipse2D getEllipse() {
-      return ellipse;
+    	return ellipse;
     }
 
     /*
@@ -203,13 +203,13 @@ public class VertexShape extends Component{
     */
     public void paintShape(Graphics g){
 
-      Graphics2D g2d = (Graphics2D) g;
-      g2d.setColor(Color.BLACK);
-      g2d.draw(ellipse);
-      g2d.drawString(name,xPos,yPos);
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.setColor(Color.BLACK);
+		g2d.draw(ellipse);
+		g2d.drawString(name,xPos,yPos);
 
-      if(isAccepting){
-        g2d.draw(acceptEllipse);
-      }
-    }
+		if(isAccepting){
+			g2d.draw(acceptEllipse);
+		}
+	}
 }

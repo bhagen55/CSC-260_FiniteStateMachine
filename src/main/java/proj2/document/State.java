@@ -7,34 +7,34 @@ package proj2.document;
 
 public class State {
 
-  String name;
-  int x;
-  int y;
+	String name;
+	int x;
+	int y;
 
-  public State(String n, int xloc, int yloc) {
-    name = this.name;
-    x = xloc;
-    y = yloc;
-  }
+	public State(String n, int xloc, int yloc) {
+		name = this.name;
+		x = xloc;
+		y = yloc;
+	}
 
-  /*
-  * Name getter
-  */
-  public String getName() {
-    return name;
-  }
+	/*
+	* Name getter
+	*/
+	public String getName() {
+		return name;
+	}
 
-  /*
-  * X location getter
-  */
-  public int getX() {
-    return x;
-  }
+	/*
+	* X location getter
+	*/
+	public int getX() {
+		return x;
+	}
 
-  /*
-  * Y location getter
-  */
-  public int getY() {
-    return y;
-  }
+	/*
+	* Y location getter
+	*/
+	public int getY() {
+		return y;
+	}
 }

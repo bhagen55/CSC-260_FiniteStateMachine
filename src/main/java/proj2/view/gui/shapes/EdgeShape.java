@@ -15,41 +15,31 @@ import proj2.view.gui.shapes.VertexShape;
 
 public class EdgeShape extends Component{
 
-  private String name;
+	private String name;
 
-  private VertexShape origin;
-  private VertexShape destination;
+	private VertexShape origin;
+	private VertexShape destination;
 
-  public EdgeShape(VertexShape origin, VertexShape destination, String name) {
-    this.name = name;
+	public EdgeShape(VertexShape origin, VertexShape destination, String name) {
+		this.name = name;
 
-    this.origin = origin;
-    this.destination = destination;
+    	this.origin = origin;
+    	this.destination = destination;
+	}
+
+ 	private Point calcStartEndPoint() {
+    	// Get centers of vertices
+    	Point orCenter = new Point(origin.getX(), origin.getY());
+    	Point desCenter = new Point(destination.getX(), destination.getY());
+
+    	// Get projection to destination from origin
+    	return null;
+	}
+
+ 	public void paintShape(Graphics g) {
+
+    	Graphics2D g2d = (Graphics2D) g;
+
+    	g2d.setColor(Color.BLACK);
   }
-
-  private Point calcStartEndPoint() {
-    // Get centers of vertices
-    Point orCenter = new Point(origin.getX(), origin.getY());
-    Point desCenter = new Point(destination.getX(), destination.getY());
-
-    // Get projection to destination from origin
-    return null;
-
-  }
-
-  public void paintShape(Graphics g) {
-
-    // Calculate start and end coordinates
-
-    Graphics2D g2d = (Graphics2D) g;
-
-    g2d.setColor(Color.BLACK);
-
-
-
-  }
-
-
-
-
 }
