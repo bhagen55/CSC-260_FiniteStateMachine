@@ -114,9 +114,16 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
     public void mousePressed(MouseEvent e) {
+      for (VertexShape vertex: vertices) {
+        if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
+          System.out.println("Saving selected vertex");
+          selVertex = vertex;
+        }
+      }
     }
 
     public void mouseReleased(MouseEvent e) {
+      System.out.println("Releasing selected vertex");
       selVertex = null;
     }
 
@@ -131,10 +138,9 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
       boolean foundVertex = false;
       for (VertexShape vertex: vertices) {
+        System.out.println("Looking for vertexes");
         if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
 
-          // Record selected vertex to keep dragging from affecting other vertices
-          selVertex = vertex;
 
           if (e.getClickCount() == 2) {
             vertex.toggleAccept();
@@ -165,6 +171,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
       // Only move if a vertex was clicked on before the mouse was dragged
       if (selVertex != null) {
+        System.out.println("Dragging");
         selVertex.setY(e.getY());
         selVertex.setX(e.getX());
         selVertex.moveShape(preX + e.getX(), preY + e.getY());
