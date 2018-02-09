@@ -65,7 +65,7 @@ public class VertexShape extends Component{
   * coordinates and size.
   */
   private Ellipse2D.Double makeEllipse(int xPos, int yPos, int radius) {
-    return new Ellipse2D.Double(xPos - radius, yPos + radius, radius*2, radius*2);
+    return new Ellipse2D.Double(xPos - radius, yPos - radius, radius*2, radius*2);
   }
 
     /**
@@ -206,7 +206,7 @@ public class VertexShape extends Component{
       Graphics2D g2d = (Graphics2D) g;
       g2d.setColor(Color.BLACK);
       g2d.draw(ellipse);
-      g2d.drawString(name,getXOffset(getX()), getYOffset(getY()));
+      g2d.drawString(name,xPos,yPos);
 
       if(isAccepting){
         g2d.draw(acceptEllipse);
