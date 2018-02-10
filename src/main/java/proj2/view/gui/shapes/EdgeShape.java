@@ -31,6 +31,7 @@ public class EdgeShape extends Component{
     	this.destination = d;
 		//System.out.println("----- GOT HERE -----");
 		edge.setCurve(origin.getX(), origin.getY(), 0, 0, destination.getX(), destination.getY());
+		repaint();
 	}
 
  	private Point calcStartEndPoint() {
@@ -42,13 +43,13 @@ public class EdgeShape extends Component{
     	return null;
 	}
 
- 	public void paintShape(Graphics g) {
+ 	public void paint(Graphics g) {
 
     	Graphics2D g2d = (Graphics2D) g;
 
     	g2d.setColor(Color.BLACK);
 
 
-		g2d.draw(edge);
+			g2d.drawLine(origin.getX(),origin.getY(),destination.getX(),destination.getY());
   }
 }

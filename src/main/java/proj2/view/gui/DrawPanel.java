@@ -42,6 +42,13 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
   	int preXDrag;
   	int preYDrag;
 
+    // Boolean value to know if edge is being created or set
+    boolean edgeStarted;
+
+    //
+    VertexShape fromVertex;
+    VertexShape toVertex;
+    boolean foundVertex;
 
 	public DrawPanel() {
 
@@ -155,7 +162,6 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 					System.out.println(vertex.getName());
                 EdgeShape eS = new EdgeShape(selVertex, vertex, name);
 	          		edges.add(eS);
-                eS.paintShape(new Graphics());
 
 					// Release the selected vertex
 					selVertex = null;
@@ -194,8 +200,9 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
 		// Only look for left clicks
     System.out.println("e button # " + e.getButton());
-		if (e.getButton() == MouseEvent.BUTTON1) {
-			boolean foundVertex = false;
+		if (e.getButton() == 1) {
+			foundVertex = false;
+      System.out.println("foundVertex is false");
 
 			// check if the user is clicking on a vertex
 			for (VertexShape vertex: vertices) {
@@ -208,17 +215,39 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 					}
 					foundVertex = true;
 					repaint();
-				}
-			}
+        }
+      }
+
+			} else if (e.getButton() == MouseEvent.BUTTON3) {
+          if (edgeStarted == false) {
+            for (VertexShape vertex: vertices) {
+      				if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
+                  VertexShape fromVertex = vertex;
+                  edgeStarted = true;
+      	      }
+            }
+          } else if (edgeStarted == true) {
+              for (VertexShape vertex: vertices) {
+        				if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
+                    VertexShape toVertex = vertex;
+        	      }
+              }
+              String edgeName = "" + edges.size();
+              edges.add(new EdgeShape(fromVertex, toVertex, edgeName));
+              edgeStarted = false;
+          }
+
 
 			// If the user didn't click on a vertex, make a new one
 			if (!foundVertex) {
+        System.out.println("NO VERTEX");
 				String name = ""+(vertices.size()+1);
 				vertices.add(new VertexShape(e.getX(),e.getY(), name, false));
 			}
 			repaint();
-		}
+
     }
+  }
 
 	/**
 	* Indicates the mouse is moved.
