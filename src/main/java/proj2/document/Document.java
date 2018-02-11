@@ -1,32 +1,37 @@
 package proj2.document;
 
-/*
-* Dummy class to hold basic state info
-* Like a string name and x/y coords
-*/
-import java.util.LinkedList; 
+/**
+ * Class that holds a linked list of Vertex objects
+ */
+import java.util.LinkedList;
+import java.util.ArrayList;
 
-public class Document {
+public class Document
+{
 
 	private LinkedList<Vertex> content;
+    private ArrayList<String> vertexIndices;
 
-	public Document(){
-		content= new LinkedList<Vertex>();
+	public Document()
+    {
+		content = new LinkedList<Vertex>();
+        vertexIndices = new ArrayList<String>();
 	}
 
-/**
+    /**
      * @return the number of vertices in the machine.
      */
     public int numVertices()
     {
-    	return -1;
+    	return content.size();
     }
 
-    
-   public void removeVertex(String toRemove)
-   {
-   }
-    
+
+    public void removeVertex(String toRemove)
+    {
+
+    }
+
 
 
     /**
@@ -38,6 +43,7 @@ public class Document {
      */
     public void addVertex(String vertex)
     {
+
     }
 
     /**
@@ -48,20 +54,17 @@ public class Document {
      */
     public boolean hasVertex(String vertexName)
     {
-        return false;
+        return vertexIndices.contains(vertexName);
     }
-
-
-  
 
 
     /**
     *Returns a string representation of this finite state machine
-     */
+    */
     public String toString()
     {
         return "";
     }
 
-	
+
 }
