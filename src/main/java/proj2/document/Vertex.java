@@ -1,19 +1,19 @@
 package proj2.document;
 
-import java.util.List;
+import java.util.LinkedList; 
 
 
 public class Vertex{
 
 	String symbol;
 	Boolean isAcceptState;
-	//private List<Edge> edges;
+	private LinkedList<Edge> edges;
 
 	public Vertex(String givenSymbol)
 	{
 		isAcceptState=false;
 		symbol=givenSymbol;
-		//edges= new List<Edge>();
+		edges= new LinkedList<Edge>();
 	}
 
 	    /**

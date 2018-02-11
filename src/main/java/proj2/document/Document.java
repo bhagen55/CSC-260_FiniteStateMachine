@@ -4,14 +4,14 @@ package proj2.document;
 * Dummy class to hold basic state info
 * Like a string name and x/y coords
 */
-import java.util.List;
+import java.util.LinkedList; 
 
 public class Document {
 
-	//private List<Vertex> content;
+	private LinkedList<Vertex> content;
 
 	public Document(){
-		//content= new List<Vertex>();
+		content= new LinkedList<Vertex>();
 	}
 
 /**
@@ -23,8 +23,9 @@ public class Document {
     }
 
     
-   public void removeVertex(String toRemove){
-    }
+   public void removeVertex(String toRemove)
+   {
+   }
     
 
 
