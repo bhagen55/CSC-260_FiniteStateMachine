@@ -26,10 +26,17 @@ public class Document
     	return content.size();
     }
 
-
+    /**
+     *
+     */
     public void removeVertex(String toRemove)
     {
+        if (!this.hasVertex(toRemove)) {
+            System.out.println("Vertex specified to be removed does not exist");
+        }
+        else {
 
+        }
     }
 
 
