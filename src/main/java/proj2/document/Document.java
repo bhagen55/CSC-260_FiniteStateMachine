@@ -27,15 +27,20 @@ public class Document
     }
 
     /**
+     * Removes vertex in the finite state machine.  If vertex is not in the FSM,
+     * prints out a message stating that the vertex does not exists
      *
+     * @param toRemove name of vertex to be removed
      */
     public void removeVertex(String toRemove)
     {
+        vertexIndex = -1;
         if (!this.hasVertex(toRemove)) {
             System.out.println("Vertex specified to be removed does not exist");
         }
         else {
-
+            vertexIndex = vertexIndices.indexOf(toString);
+            content.remove(vertexIndex);
         }
     }
 
