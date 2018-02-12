@@ -75,10 +75,7 @@ public class Document
         return vertexIndices.contains(vertexName);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
+
     /**
      * Adds a directed edge between two vertices.  If there is already an edge
      * between the given vertices, does nothing.  If either (or both)
@@ -138,7 +135,7 @@ public class Document
         if (this.hasVertex(from) && this.hasVertex(to)) {
             int index = vertexIndices.indexOf(from);
             Vertex v = content.get(index);
-            v.hasEdge(to, edgeWeight);
+            return v.hasEdge(to, edgeWeight);
         }
         return false;
     }
@@ -156,9 +153,7 @@ public class Document
         Vertex v = content.get(index);
         return v.numEdges();
     }
->>>>>>> e5ade4906bc0b715830bf2276313b47ba5b6883c
 
->>>>>>> cd978ea772a9359b6dd1e1a94bd1d1e4a92d9aec
     /**
     *Returns a string representation of this finite state machine
     */
@@ -168,9 +163,5 @@ public class Document
     }
 
 
-<<<<<<< HEAD
 
-	
-=======
->>>>>>> cd978ea772a9359b6dd1e1a94bd1d1e4a92d9aec
 }

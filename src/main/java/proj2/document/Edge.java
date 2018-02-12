@@ -24,7 +24,4 @@ public class Edge{
         return "("+gointTo+","+edgeWeight+")";
      }
 
-
-
-
 }

@@ -84,9 +84,9 @@ public class Vertex{
     	return isAcceptState;
     }
 
-    public Vertex goTo(String edgeWeight)
+    public Vertex getName()
     {
-    	return null;
+    	return symbol;
     }
 
     public String toString()
