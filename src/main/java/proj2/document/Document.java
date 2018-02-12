@@ -34,7 +34,7 @@ public class Document
      */
     public void removeVertex(String toRemove)
     {
-        vertexIndex = -1;
+        int vertexIndex = -1;
         if (!this.hasVertex(toRemove)) {
             System.out.println("Vertex specified to be removed does not exist");
         }
@@ -55,7 +55,11 @@ public class Document
      */
     public void addVertex(String vertex)
     {
-
+        if (!this.hasVertex(vertex)) {
+            Vertex toAdd = new Vertex(vertex);
+            content.add(toAdd);
+            vertexIndices.add(vertex);
+        }
     }
 
     /**
@@ -69,6 +73,34 @@ public class Document
         return vertexIndices.contains(vertexName);
     }
 
+    /**
+    * Adds a directed edge between two vertices.  If there is already an edge
+    * between the given vertices, does nothing.  If either (or both)
+    * of the given vertices does not exist, it is added to the
+    * graph before the edge is created between them.
+    *
+    * @param from the source vertex for the added edge
+    * @param to the destination vertex for the added edge
+    */
+    public void addEdge(String to, String edgeWeight)
+    {
+    }
+
+    public void removeEdge(String to, String edgeWeight)
+    {
+    }
+
+    public boolean hasEdge(String to, String edgeWeight)
+    {
+        return false;
+    }
+
+    public int numEdges(String vertex)
+    {
+        int index = vertexIndices.indexOf(vertex);
+        Vertex v = content.get(index);
+        return v.numEdges();
+    }
 
     /**
     *Returns a string representation of this finite state machine
