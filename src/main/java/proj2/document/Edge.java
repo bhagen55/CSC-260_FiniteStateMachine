@@ -5,7 +5,8 @@ public class Edge{
 
     //What value the edge needs 
 	String gointTo;
-    String edgeWeight
+    String edgeWeight;
+    Edge nextEdge;
 
 	public Edge(String to,String edgeWeightGiven)
 	{
@@ -18,7 +19,12 @@ public class Edge{
         return edgeWeight;
      }
 
-    
+     public string toString()
+     {
+        return "("+gointTo+","+edgeWeight+")";
+     }
+
+
 
 
 }

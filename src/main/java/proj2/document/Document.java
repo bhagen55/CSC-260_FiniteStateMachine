@@ -51,10 +51,6 @@ public class Document {
         return false;
     }
 
-
-  
-
-
     /**
     *Returns a string representation of this finite state machine
      */
@@ -62,6 +58,8 @@ public class Document {
     {
         return "";
     }
+
+
 
 	
 }
