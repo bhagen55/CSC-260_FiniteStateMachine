@@ -106,7 +106,11 @@ public class Document
 
     public boolean hasEdge(String from, String to, String edgeWeight)
     {
-
+        if (this.hasVertex(from) && this.hasVertex(to)) {
+            int index = vertexIndices.indexOf(from);
+            Vertex v = content.get(index);
+            v.hasEdge(to, edgeWeight);
+        }
     }
 
     public int numEdges(String vertex)
