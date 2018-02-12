@@ -19,6 +19,8 @@ public class Document
 	}
 
     /**
+     * Returns the number vertices in the FSM
+     *
      * @return the number of vertices in the machine.
      */
     public int numVertices()
@@ -34,7 +36,7 @@ public class Document
      */
     public void removeVertex(String toRemove)
     {
-        vertexIndex = -1;
+        int vertexIndex = -1;
         if (!this.hasVertex(toRemove)) {
             System.out.println("Vertex specified to be removed does not exist");
         }
@@ -55,7 +57,11 @@ public class Document
      */
     public void addVertex(String vertex)
     {
-
+        if (!this.hasVertex(vertex)) {
+            Vertex toAdd = new Vertex(vertex);
+            content.add(toAdd);
+            vertexIndices.add(vertex);
+        }
     }
 
     /**
@@ -70,7 +76,87 @@ public class Document
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+    /**
+     * Adds a directed edge between two vertices.  If there is already an edge
+     * between the given vertices, does nothing.  If either (or both)
+     * of the given vertices does not exist, it is added to the
+     * graph before the edge is created between them.
+     *
+     * @param from the source vertex for the added edge
+     * @param to the destination vertex for the added edge
+     * @param edgeWeight weight of edge being added
+     */
+    public void addEdge(String from, String to, String edgeWeight)
+    {
+        if (!this.hasVertex(from)) {
+            this.addVertex(from);
+        }
+        if (!this.hasVertex(to)) {
+            this.addVertex(to);
+        }
+        int index = vertexIndices.indexOf(from);
+        Vertex v = content.get(index);
+        if(v.hasEdge(to, edgeWeight)) {
+            v.addEdge(to, edgeWeight);
+        }
+    }
+
+    /**
+     * Removes an edge between two vertices.  If either of the vertices does not
+     * exist, does nothing.
+     *
+     * @param from the source vertex for the removed edge
+     * @param to the destination vertex for the removed edge
+     * @param edgeWeight weight of edge being removed
+     */
+    public void removeEdge(String from, String to, String edgeWeight)
+    {
+        if (this.hasVertex(from) && this.hasVertex(to)) {
+            int index = vertexIndices.indexOf(from);
+            Vertex v = content.get(index);
+            if(v.hasEdge(to, edgeWeight)) {
+                v.removeEdge(to, edgeWeight);
+            }
+        }
+    }
+
+    /**
+     * Checks if edge between two vertices exists or not. Returns false if either
+     * of the vertices entered are not in the FSM.
+     *
+     * @param from the source vertex for the desired edge
+     * @param to the destination vertex for the desired edge
+     * @param edgeWeight weight of desired
+     *
+     * @return true if the referenced edge between vertices exists, false otherwise
+     */
+    public boolean hasEdge(String from, String to, String edgeWeight)
+    {
+        if (this.hasVertex(from) && this.hasVertex(to)) {
+            int index = vertexIndices.indexOf(from);
+            Vertex v = content.get(index);
+            v.hasEdge(to, edgeWeight);
+        }
+        return false;
+    }
+
+    /**
+     * Returns the number of edges connected to the specified vertex.
+     *
+     * @param vertex name of specified vertex that number of edges from is desired
+     *
+     * @return number of edges from specified vertex
+     */
+    public int numEdges(String vertex)
+    {
+        int index = vertexIndices.indexOf(vertex);
+        Vertex v = content.get(index);
+        return v.numEdges();
+    }
+>>>>>>> e5ade4906bc0b715830bf2276313b47ba5b6883c
 
 >>>>>>> cd978ea772a9359b6dd1e1a94bd1d1e4a92d9aec
     /**
