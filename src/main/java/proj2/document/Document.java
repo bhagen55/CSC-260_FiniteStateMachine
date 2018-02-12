@@ -84,19 +84,23 @@ public class Document
     */
     public void addEdge(String from, String to, String edgeWeight)
     {
-        int index = vertexIndices.indexOf(from);
-        Vertex v = content.get(index);
-        if(v.hasEdge(to, edgeWeight)) {
-            v.addEdge(to, edgeWeight);
+        if (this.hasVertex(from) && this.hasVertex(to)) {
+            int index = vertexIndices.indexOf(from);
+            Vertex v = content.get(index);
+            if(v.hasEdge(to, edgeWeight)) {
+                v.addEdge(to, edgeWeight);
+            }
         }
     }
 
     public void removeEdge(String from, String to, String edgeWeight)
     {
-        int index = vertexIndices.indexOf(from);
-        Vertex v = content.get(index);
-        if(v.hasEdge(to, edgeWeight)) {
-            v.removeEdge(to, edgeWeight);
+        if (this.hasVertex(from) && this.hasVertex(to)) {
+            int index = vertexIndices.indexOf(from);
+            Vertex v = content.get(index);
+            if(v.hasEdge(to, edgeWeight)) {
+                v.removeEdge(to, edgeWeight);
+            }
         }
     }
 
