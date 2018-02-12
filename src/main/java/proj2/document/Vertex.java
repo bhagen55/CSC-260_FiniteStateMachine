@@ -8,6 +8,8 @@ public class Vertex{
 	Boolean isAcceptState;
 	private Edge firstEdge;
 	int numEdges;
+    private choords=[2];
+
 
 	public Vertex(String givenSymbol)
 	{
@@ -31,6 +33,18 @@ public class Vertex{
     	newEdge.nextEdge=firstEdge;
     	firstEdge= newEdge;
     	numEdges++;
+    }
+
+
+    public addCoordinates(int x, int y)
+    {
+        choors[0]=x;
+        choors[1]=y;
+    }
+
+    public List getCoordinates()
+    {
+        return choords;
     }
 
     public void removeEdge(String to, String edgeWeight)

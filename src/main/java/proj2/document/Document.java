@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class Document
 {
-
 	private LinkedList<Vertex> content;
     private ArrayList<String> vertexIndices;
 
