@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.QuadCurve2D;
+import java.awt.geom.Line2D;
 import java.awt.Color;
 
 import proj2.view.gui.shapes.VertexShape;
@@ -23,15 +24,41 @@ public class EdgeShape extends Component{
 	private QuadCurve2D edge;
 
 	public EdgeShape(VertexShape o, VertexShape d, String n) {
-		System.out.println("made an edge!");
-		edge = new QuadCurve2D.Double();
+
 		this.name = n;
 
-    	this.origin = o;
-    	this.destination = d;
+    this.origin = o;
+    this.destination = d;
 		//System.out.println("----- GOT HERE -----");
-		edge.setCurve(origin.getX(), origin.getY(), 0, 0, destination.getX(), destination.getY());
-		repaint();
+		//edge.setCurve(origin.getX(), origin.getY(), 0, 0, destination.getX(), destination.getY());
+
+		// System.out.println("made an edge!");
+		// System.out.println("origin x " + origin.getX());
+		// System.out.println("origin y " + origin.getY());
+		// System.out.println("destination x " + destination.getX());
+		// System.out.println("destination y " + destination.getY());
+		// System.out.println();
+		// System.out.println();
+
+		int orgX = origin.getX();
+		int orgY = origin.getY();
+		int destX = destination.getX();
+		int destY = destination.getY();
+		int contX = getCont(orgX, destX);
+		int contY = getCont(orgY, destY);
+
+		edge = new QuadCurve2D.Double(orgX,orgY,contX,contY,destX,destY);
+		//edge.setCurve(;
+
+	}
+
+	private int getCont(int start, int end) {
+		if (start > end) {
+			return ( ((start - end)/2) + end );
+		} else {
+			return ( ((end - start)/2) + start );
+
+		}
 	}
 
  	private Point calcStartEndPoint() {
@@ -43,13 +70,23 @@ public class EdgeShape extends Component{
     	return null;
 	}
 
- 	public void paint(Graphics g) {
+ 	public void paintShape(Graphics g) {
 
     	Graphics2D g2d = (Graphics2D) g;
+
+		int orgX = origin.getX();
+		int orgY = origin.getY();
+		int destX = destination.getX();
+		int destY = destination.getY();
+		int contX = getCont(orgX, orgY);
+		int contY = getCont(destX, destY);
+
+		edge.setCurve(orgX,orgY,contX,contY,destX,destY);
 
     	g2d.setColor(Color.BLACK);
 
 
-			g2d.drawLine(origin.getX(),origin.getY(),destination.getX(),destination.getY());
+			g2d.draw(edge);
+			//g2d.draw(new Line2D.Double(origin.getX(),origin.getY(),destination.getX(),destination.getY()));
   }
 }
