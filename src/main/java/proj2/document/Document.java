@@ -82,17 +82,27 @@ public class Document
     * @param from the source vertex for the added edge
     * @param to the destination vertex for the added edge
     */
-    public void addEdge(String to, String edgeWeight)
+    public void addEdge(String from, String to, String edgeWeight)
     {
+        int index = vertexIndices.indexOf(from);
+        Vertex v = content.get(index);
+        if(v.hasEdge(to, edgeWeight)) {
+            v.addEdge(to, edgeWeight);
+        }
     }
 
-    public void removeEdge(String to, String edgeWeight)
+    public void removeEdge(String from, String to, String edgeWeight)
     {
+        int index = vertexIndices.indexOf(from);
+        Vertex v = content.get(index);
+        if(v.hasEdge(to, edgeWeight)) {
+            v.removeEdge(to, edgeWeight);
+        }
     }
 
-    public boolean hasEdge(String to, String edgeWeight)
+    public boolean hasEdge(String from, String to, String edgeWeight)
     {
-        return false;
+
     }
 
     public int numEdges(String vertex)
