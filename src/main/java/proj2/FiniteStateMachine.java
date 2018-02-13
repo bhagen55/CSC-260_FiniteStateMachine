@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import proj2.document.Document;
-import proj2.view.Gui;
-import proj2.view.DrawPanel;
+import proj2.view.gui.Gui;
+import proj2.view.gui.DrawPanel;
 
 /*
 * Encompassing class to hold our implementation of a finite state machine
@@ -33,7 +33,7 @@ public class FiniteStateMachine {
 		// Create the view panel and pass it the document
 		panel = new DrawPanel(doc);
 		// Add the view panel as an observer to the document
-		doc.addObserver(panel)
+		doc.addObserver(panel);
 
 		// Create and show the GUI of the view panel
 		gui = new Gui();
