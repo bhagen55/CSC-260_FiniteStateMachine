@@ -7,8 +7,8 @@ public class Vertex{
 	String symbol;
 	Boolean isAcceptState;
 	private Edge firstEdge;
-	int numEdges;
-    private choords=[2];
+	int numEdges=0;
+    private List choords;
 
 
 	public Vertex(String givenSymbol)
@@ -27,24 +27,30 @@ public class Vertex{
      * @param from the source vertex for the added edge
      * @param to the destination vertex for the added edge
      */
-    public void addEdge(String to, String edgeWeight)
+    public void addEdge(Vertex to, String edgeWeight)
     {
-    	Edge newEdge=new Edge(to,edgeWeight)
+    	Edge newEdge=new Edge(to,edgeWeight);
     	newEdge.nextEdge=firstEdge;
     	firstEdge= newEdge;
     	numEdges++;
     }
 
 
-    public addCoordinates(int x, int y)
+    public void addCoordinates(int x, int y)
     {
-        choors[0]=x;
-        choors[1]=y;
+        choords= new List[2];
+        choords[0]=x;
+        choords[1]=y;
     }
 
-    public List getCoordinates()
+    public int getX()
     {
-        return choords;
+        return choords[0];
+    }
+
+    public int getY()
+    {
+        return choords[1];
     }
 
     public void removeEdge(String to, String edgeWeight)
@@ -103,21 +109,40 @@ public class Vertex{
     	return symbol;
     }
 
-    public String toString()
+    public List getEdges()
     {
-    	String final=symbol;
-
-		Edge runner = firstEdge;
+        List edges = [numEdges];
+        Edge runner = firstEdge;
+        int x=0;
             while (!runner.nextNode.equals(null))
             {
-            	final=final+runner.toString
-            	if(!runner.nextEdge==null)
-            	{
-            		final=final+",";
-            	}
+                edges[x]=[runner.getGoingTo(),runner.edgeWeight];
+                x++;
                 runner=runner.nextNode;
             }
-        final=final+"|";
+        return edges;
+
+    }
+
+
+
+
+    public String toString()
+    {
+        String toReturn= "";
+        toReturn = toReturn+ symbol;
+        Edge runner = firstEdge;
+            while (!runner.nextNode.equals(null))
+            {
+                toReturn=toReturn+runner.toString;
+                if(!runner.nextEdge==null)
+                {
+                    toReturn=toReturn+",";
+                }
+                runner=runner.nextNode;
+            }
+        toReturn=toReturn+"|";
+        return toReturn;
     }
 
 
