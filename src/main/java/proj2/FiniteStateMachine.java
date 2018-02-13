@@ -19,8 +19,10 @@ import proj2.view.DrawPanel;
 */
 public class FiniteStateMachine {
 
+	// Hold the document that represents the fsm
 	Document doc;
 
+	// Hold the gui view
 	DrawPanel panel;
 	Gui gui;
 
@@ -28,11 +30,13 @@ public class FiniteStateMachine {
 
 		doc = new Document();
 
+		// Create the view panel and pass it the document
 		panel = new DrawPanel(doc);
+		// Add the view panel as an observer to the document
 		doc.addObserver(panel)
 
+		// Create and show the GUI of the view panel
 		gui = new Gui();
 		gui.createAndShowGUI(panel);
-
 	}
 }

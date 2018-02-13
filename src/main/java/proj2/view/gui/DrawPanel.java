@@ -79,7 +79,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
     }
 
-    /*
+    /**
     * Updates this view based on information from the document
     *
     */
