@@ -55,6 +55,7 @@ public class Document
         else {
             int vertexIndex = vertexIndices.indexOf(toRemove);
             content.remove(vertexIndex);
+			notifyObservers();
         }
     }
 
@@ -73,6 +74,7 @@ public class Document
             Vertex toAdd = new Vertex(vertex);
             content.add(toAdd);
             vertexIndices.add(vertex);
+			notifyObservers();
         }
     }
 
@@ -92,6 +94,7 @@ public class Document
             toAdd.addCoordinates(xpos, ypos);
             content.add(toAdd);
             vertexIndices.add(vertex);
+			notifyObservers();
         }
     }
 
@@ -134,6 +137,7 @@ public class Document
 
         if(!vFrom.hasEdge(to, edgeWeight)) {
             vFrom.addEdge(vTo, edgeWeight);
+			notifyObservers();
         }
     }
 
@@ -151,6 +155,7 @@ public class Document
             int index = vertexIndices.indexOf(from);
             Vertex v = content.get(index);
             v.removeEdge(to, edgeWeight);
+			notifyObservers();
         }
     }
 
@@ -199,6 +204,7 @@ public class Document
 
     public void addObserver(Observer o) {
         observers.add(o);
+		System.out.println("Observer Added");
     }
 
     public void removeObserver(Observer o) {
