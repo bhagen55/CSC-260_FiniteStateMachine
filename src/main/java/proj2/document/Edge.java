@@ -4,14 +4,14 @@ package proj2.document;
 public class Edge{
 
     //What value the edge needs
-	Vertex gointTo;
-    String edgeWeight;
-    Edge nextEdge;
+	public Vertex goingTo;
+    public String edgeWeight;
+    public Edge nextEdge;
 
 	public Edge(Vertex to,String edgeWeightGiven)
 	{
 		edgeWeight=edgeWeightGiven;
-        gointTo=to;
+        goingTo=to;
 	}
 
 	 public String getWeight()
@@ -19,7 +19,7 @@ public class Edge{
         return edgeWeight;
      }
 
-     public string toString()
+     public String toString()
      {
         return "("+getGoingTo()+","+edgeWeight+")";
      }

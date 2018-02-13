@@ -1,6 +1,6 @@
 package proj2.document;
 
-
+import java.util.ArrayList;
 
 public class Vertex{
 
@@ -8,14 +8,16 @@ public class Vertex{
 	Boolean isAcceptState;
 	private Edge firstEdge;
 	int numEdges=0;
-    private List choords;
+    private int xCoord;
+    private int yCoord;
+    private ArrayList edges;
 
 
 	public Vertex(String givenSymbol)
 	{
 		isAcceptState=false;
 		symbol=givenSymbol;
-		edges= new LinkedList<Edge>();
+		edges= new ArrayList();
 	}
 
 	 /**
@@ -38,34 +40,33 @@ public class Vertex{
 
     public void addCoordinates(int x, int y)
     {
-        choords= new List[2];
-        choords[0]=x;
-        choords[1]=y;
+        xCoord=x;
+        yCoord=y;
     }
 
     public int getX()
     {
-        return choords[0];
+        return xCoord;
     }
 
     public int getY()
     {
-        return choords[1];
+         return yCoord;
     }
 
     public void removeEdge(String to, String edgeWeight)
     {
     	if(firstEdge.goingTo.equals(to)&&firstEdge.edgeWeight.equals(edgeWeight))
     	{
-    		firstEdge=firstEdge.next;
+    		firstEdge=firstEdge.nextEdge;
     	}
     	else{
     		Edge runner = firstEdge;
-            while (!runner.nextNode.goingTo.equals(to)&&!runner.nextNode.edgeWeight.equals(edgeWeight)&&!runner.nextNode.equals(null))
+            while (!runner.nextEdge.goingTo.equals(to)&&!runner.nextEdge.edgeWeight.equals(edgeWeight)&&!runner.nextEdge.equals(null))
             {
-                runner=runner.nextNode;
+                runner=runner.nextEdge;
             }
-            runner.nextNode=runner.nextNode.nextNode;
+            runner.nextEdge=runner.nextEdge.nextEdge;
             }
          numEdges--;
     }
@@ -79,13 +80,13 @@ public class Vertex{
     	}
     	else{
     		Edge runner = firstEdge;
-            while (!runner.nextNode.equals(null))
+            while (!runner.nextEdge.equals(null))
             {
             	if(runner.goingTo.equals(to)&&runner.edgeWeight.equals(edgeWeight))
             	{
             		return true;
             	}
-                runner=runner.nextNode;
+                runner=runner.nextEdge;
             }
 
             }
@@ -109,16 +110,16 @@ public class Vertex{
     	return symbol;
     }
 
-    public List getEdges()
+    public ArrayList getEdges()
     {
-        List edges = new ArrayList();
+        ArrayList edges = new ArrayList();
         Edge runner = firstEdge;
         int x=0;
-            while (!runner.nextNode.equals(null))
+            while (!runner.nextEdge.equals(null))
             {
                 edges.add(runner);
                 x++;
-                runner=runner.nextNode;
+                runner=runner.nextEdge;
             }
         return edges;
 
@@ -132,14 +133,14 @@ public class Vertex{
         String toReturn= "";
         toReturn = toReturn+ symbol;
         Edge runner = firstEdge;
-            while (!runner.nextNode.equals(null))
+            while (!runner.nextEdge.equals(null))
             {
-                toReturn=toReturn+runner.toString;
-                if(!runner.nextEdge==null)
+                toReturn=toReturn+runner.toString();
+                if(runner.nextEdge!=null)
                 {
                     toReturn=toReturn+",";
                 }
-                runner=runner.nextNode;
+                runner=runner.nextEdge;
             }
         toReturn=toReturn+"|";
         return toReturn;

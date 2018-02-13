@@ -20,6 +20,7 @@ import java.util.LinkedList;
 
 import proj2.document.*;
 import proj2.view.gui.shapes.*;
+import proj2.view.gui.Observer;
 
 /*
 * Extension of JPanel that handles drawing of states and vertex objects
