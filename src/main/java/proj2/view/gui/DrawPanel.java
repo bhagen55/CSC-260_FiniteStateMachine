@@ -39,9 +39,6 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     // Holds the document that the view edits
     Document doc;
 
-    // Holds the current model that the view is based off
-    LinkedList model;
-
   	// Holds last known location of mouse for dragging
   	int preX;
   	int preY;
@@ -76,7 +73,6 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
         // Add mouse listener to the panel to deal with mouse events
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
-
     }
 
     /**
@@ -85,8 +81,17 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     */
     public void Update()
     {
-        model = doc.getModel();
-        // TODO: Fill up
+        // Clear out old shapes
+        vertices = new ArrayList<VertexShape>();
+        edges = new ArrayList<EdgeShape>();
+
+        // Holds the current model that the view is based off
+        LinkedList model = doc.getModel();
+
+        for (Vertex vertex: model) {
+            vertices.add(new VertexShape(vertex.getX(),vertex.getY(), vertex.getName(), vertex.canAccept()));
+            // TODO: Add edges
+        }
     }
 
 
@@ -270,7 +275,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
   			}
         repaint();
 		}
-  }
+    }
 
 	/**
 	* Indicates the mouse is moved.
