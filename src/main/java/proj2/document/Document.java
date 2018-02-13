@@ -2,6 +2,7 @@ package proj2.document;
 
 import java.util.LinkedList;
 import java.util.ArrayList;
+import proj2.view.Observer;
 
 /**
  * Class that holds a linked list of Vertex objects
@@ -10,11 +11,13 @@ public class Document
 {
     private LinkedList<Vertex> content;
     private ArrayList<String> vertexIndices;
+    private LinkedList<Observer> observers;
 
     public Document()
     {
         content = new LinkedList<Vertex>();
         vertexIndices = new ArrayList<String>();
+        observers = new LinkedList<Observer>();
     }
 
     /**
@@ -189,9 +192,18 @@ public class Document
     /**
      * Notify method to tell views/observers to update
      */
-    public void notify()
-    {
+    public void notify() {
+        for (Observer o : observers) {
+            o.update();
+        }
+    }
 
+    public void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    public void removeObserver(Observer o) {
+        observers.remove(o);
     }
 
     /**
@@ -201,13 +213,13 @@ public class Document
     {
 
         String toReturn= "";
-        
-        for(Vertex curVertex: content)  
+
+        for(Vertex curVertex: content)
          {
             toReturn=toReturn+curVertex.toString();
             toReturn=toReturn+"\n";
-        }  
+        }
         return toReturn;
-    
+
     }
 }
