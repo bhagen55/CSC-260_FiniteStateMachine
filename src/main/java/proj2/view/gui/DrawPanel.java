@@ -16,6 +16,7 @@ import java.awt.Point;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import proj2.document.*;
 import proj2.view.gui.shapes.*;
@@ -86,7 +87,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
         edges = new ArrayList<EdgeShape>();
 
         // Holds the current model that the view is based off
-        LinkedList model = doc.getModel();
+        LinkedList<Vertex> model = doc.getModel();
 
         for (Vertex vertex: model) {
             vertices.add(new VertexShape(vertex.getX(),vertex.getY(), vertex.getName(), vertex.canAccept()));
