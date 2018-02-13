@@ -262,7 +262,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
 					// If they are double clicking, toggle the accept state
 					if (e.getClickCount() == 2) {
-						vertex.toggleAccept();
+						vertex.toggleAccept(); // TODO: toggle actual vertex througj document
 					}
 					foundVertex = true;
                 }
@@ -271,7 +271,8 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
             if (!foundVertex) {
                 System.out.println("NO VERTEX");
   				String name = ""+(vertices.size()+1);
-  				vertices.add(new VertexShape(e.getX(),e.getY(), name, false));
+  				//vertices.add(new VertexShape(e.getX(),e.getY(), name, false));
+                doc.addVertex(name, e.getX(), e.getY()); // TODO: Change to match new implementation
   			}
         repaint();
 		}
