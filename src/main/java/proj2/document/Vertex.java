@@ -111,12 +111,12 @@ public class Vertex{
 
     public List getEdges()
     {
-        List edges = [numEdges];
+        List edges = new ArrayList();
         Edge runner = firstEdge;
         int x=0;
             while (!runner.nextNode.equals(null))
             {
-                edges[x]=[runner.getGoingTo(),runner.edgeWeight];
+                edges.add(runner);
                 x++;
                 runner=runner.nextNode;
             }

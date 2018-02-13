@@ -28,5 +28,9 @@ public class Edge{
      {
         return goingTo.symbol;
      }
+     public String getEdgeWeight()
+     {
+        return edgeWeight;
+     }
 
 }
