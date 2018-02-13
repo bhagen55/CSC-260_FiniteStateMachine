@@ -125,7 +125,7 @@ public class Document
             this.addVertex(to);
         }
         int indexFrom = vertexIndices.indexOf(from);
-        int indexTo = vertexIndices.indexOf(to)
+        int indexTo = vertexIndices.indexOf(to);
         Vertex vFrom = content.get(indexFrom);
         Vertex vTo = content.get(indexTo);
         if(vFrom.hasEdge(vTo, edgeWeight)) {
