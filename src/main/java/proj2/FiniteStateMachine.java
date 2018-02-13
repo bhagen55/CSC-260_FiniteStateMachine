@@ -19,24 +19,36 @@ import proj2.view.gui.DrawPanel;
 */
 public class FiniteStateMachine {
 
-	// Hold the document that represents the fsm
-	Document doc;
+	/**
+	* Creates the frame to hold a gui view of this fsm
+	*
+	* @param panel the panel to be drawn in the frame
+	*/
+	public static void createAndShowGUI(DrawPanel panel) {
+		JFrame f = new JFrame("Finite State Machine");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.add(panel);
+		f.setSize(250,250);
+		f.setVisible(true);
+	}
 
-	// Hold the gui view
-	DrawPanel panel;
-	Gui gui;
+	/*
+	* Threaded function to draw guis related to this fsm
+	*/
+	public static void main(String[] args) {
 
-	public FiniteStateMachine() {
-
-		doc = new Document();
+		// Hold the document that represents the fsm
+		Document doc = new Document();
 
 		// Create the view panel and pass it the document
-		panel = new DrawPanel(doc);
+		DrawPanel panel = new DrawPanel(doc);
 		// Add the view panel as an observer to the document
 		doc.addObserver(panel);
 
-		// Create and show the GUI of the view panel
-		gui = new Gui();
-		gui.createAndShowGUI(panel);
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createAndShowGUI(panel);
+			}
+		});
 	}
 }

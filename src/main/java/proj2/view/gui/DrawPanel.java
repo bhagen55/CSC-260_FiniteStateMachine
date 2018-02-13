@@ -26,7 +26,7 @@ import proj2.view.gui.shapes.*;
 * Adapted from this tutorial: https://docs.oracle.com/javase/tutorial/uiswing/painting/refining.html
 * Dragging: http://www.java2s.com/Code/Java/Event/MoveShapewithmouse.htm
 */
-public class DrawPanel extends JPanel implements MouseListener, MouseMotionListener {
+public class DrawPanel extends JPanel implements Observer, MouseListener, MouseMotionListener {
 
   	// Holds shadow classes of document vertices
   	ArrayList<VertexShape> vertices;
@@ -80,7 +80,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     * Updates this view based on information from the document
     *
     */
-    public void Update()
+    public void update()
     {
         // Clear out old shapes
         vertices = new ArrayList<VertexShape>();
