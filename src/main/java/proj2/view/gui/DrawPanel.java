@@ -12,10 +12,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.Rectangle;
-import java.awt.Point;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import proj2.document.*;
 import proj2.view.gui.shapes.*;
@@ -36,6 +36,12 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
   	// Holds the current selected vertex while it is being dragged
   	VertexShape selVertex;
 
+	// Holds the document that the view edits
+	Document doc;
+
+	// Holds the current model that the view is based off
+	LinkedList model;
+
   	// Holds last known location of mouse for dragging
   	int preX;
   	int preY;
@@ -43,7 +49,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
   	int preYDrag;
 
 
-	public DrawPanel() {
+	public DrawPanel(Document d) {
 
     	System.out.println("Setting up");
 
@@ -54,10 +60,25 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
 		edges = new ArrayList<EdgeShape>();
 
+		doc = d;
+
         // Add mouse listener to the panel to deal with mouse events
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
     }
+
+
+	/*
+	* Updates this view based on information from the document
+	*
+	*/
+	public void Update()
+	{
+		model = doc.getModel();
+		// TODO: Fill up
+	}
+
+
 
     /**
     * Moves vertex to the given x and y coords
@@ -239,13 +260,13 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 		// Only move with a left click
 		if (e.getButton() == 0) {
 			// Only move if a vertex was clicked on before the mouse was dragged
-			  if (selVertex != null) {
-				  selVertex.setY(e.getY());
-				  selVertex.setX(e.getX());
-				  selVertex.moveShape(preX + e.getX(), preY + e.getY());
+			if (selVertex != null) {
+				selVertex.setY(e.getY());
+				selVertex.setX(e.getX());
+				selVertex.moveShape(preX + e.getX(), preY + e.getY());
 
-				  repaint();
-			  }
+				repaint();
+			}
 		}
 	}
 }

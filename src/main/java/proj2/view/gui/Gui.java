@@ -10,7 +10,6 @@ import proj2.view.gui.DrawPanel;
 * Main gui class
 * Adapted from this tutorial: https://docs.oracle.com/javase/tutorial/uiswing/painting/refining.html
 */
-
 public class Gui {
 
     public static void main(String[] args) {
