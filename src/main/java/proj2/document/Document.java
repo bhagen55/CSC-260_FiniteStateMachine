@@ -2,7 +2,7 @@ package proj2.document;
 
 import java.util.LinkedList;
 import java.util.ArrayList;
-import proj2.view.Observer;
+import proj2.view.gui.Observer;
 
 /**
  * Class that holds a linked list of Vertex objects
@@ -49,12 +49,11 @@ public class Document
      */
     public void removeVertex(String toRemove)
     {
-        int vertexIndex = -1;
         if (!this.hasVertex(toRemove)) {
             System.out.println("Vertex specified to be removed does not exist");
         }
         else {
-            vertexIndex = vertexIndices.indexOf(toString);
+            int vertexIndex = vertexIndices.indexOf(toRemove);
             content.remove(vertexIndex);
         }
     }
@@ -127,12 +126,14 @@ public class Document
         if (!this.hasVertex(to)) {
             this.addVertex(to);
         }
+
         int indexFrom = vertexIndices.indexOf(from);
         int indexTo = vertexIndices.indexOf(to);
         Vertex vFrom = content.get(indexFrom);
         Vertex vTo = content.get(indexTo);
-        if(vFrom.hasEdge(vTo, edgeWeight)) {
-            v.addEdge(to, edgeWeight);
+
+        if(!vFrom.hasEdge(to, edgeWeight)) {
+            vFrom.addEdge(vTo, edgeWeight);
         }
     }
 
@@ -190,7 +191,7 @@ public class Document
     /**
      * Notify method to tell views/observers to update
      */
-    public void notify() {
+    public void notifyObservers() {
         for (Observer o : observers) {
             o.update();
         }

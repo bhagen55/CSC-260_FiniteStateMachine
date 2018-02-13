@@ -15,7 +15,7 @@ plugins {
 }
 
 // Define the main class for the application
-mainClassName = "proj2.view.gui.Gui"
+mainClassName = "proj2.FiniteStateMachine"
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.

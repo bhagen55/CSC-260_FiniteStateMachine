@@ -66,7 +66,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Set border of the panel
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        vertexShape = new ArrayList<VertexShape>();
+        vertexShapes = new ArrayList<VertexShape>();
 
 		edgeShapes = new ArrayList<EdgeShape>();
 
@@ -91,18 +91,21 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         LinkedList<Vertex> model = doc.getModel();
 
         for (Vertex vertex: model) {
-            vertexShape.add(new VertexShape(vertex.getX(),vertex.getY(), vertex.getName(), vertex.canAccept()));
+            vertexShapes.add(new VertexShape(vertex.getX(),vertex.getY(), vertex.getName(), vertex.canAccept()));
         }
 
         for (VertexShape vertex: vertexShapes) {
-            ArrayList<Edge> vertexEdges = vertex.getEdges();
+
+            Vertex currVertex = model.get(vertexShapes.indexOf(vertex));
+
+            ArrayList<Edge> vertexEdges = currVertex.getEdges();
             for (Edge edge: vertexEdges) {
 
                 // Find vertexshape that corresponds to the end of the edge
-                VertexShape endVertex;
-                for (VertexShape vertex: vertexShapes) {
-                    if (vertex.getName().equals(edge.getGoingTo())) {
-                        endVertex = vertex;
+                VertexShape endVertex = vertexShapes.get(0);
+                for (VertexShape currVerShape: vertexShapes) {
+                    if (currVerShape.getName().equals(edge.getGoingTo())) {
+                        endVertex = currVerShape;
                     }
                 }
                 edgeShapes.add(new EdgeShape(vertex, endVertex, edge.getEdgeWeight()));
