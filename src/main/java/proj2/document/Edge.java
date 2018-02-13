@@ -26,7 +26,7 @@ public class Edge{
 
      public String getGoingTo()
      {
-        return goingTo.symbol;
+        return goingTo.getName();
      }
      public String getEdgeWeight()
      {

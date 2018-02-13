@@ -90,8 +90,22 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
         for (Vertex vertex: model) {
             vertices.add(new VertexShape(vertex.getX(),vertex.getY(), vertex.getName(), vertex.canAccept()));
-            // TODO: Add edges
         }
+
+        for (VertexShape vertex: vertices) {
+            for (Edge edge: vertex.getEdges()) {
+
+                // Find vertexshape that corresponds to the end of the edge
+                VertexShape endVertex;
+                for (VertexShape vertex: vertices) {
+                    if (vertex.getName().equals(edge.getGoingTo())) {
+                        endVertex = vertex;
+                    }
+                }
+                edges.add(new EdgeShape(vertex, endVertex, edge.getEdgeWeight()));
+            }
+        }
+        edges.add(new EdgeShape(fromVertex, toVertex, vertexName));
     }
 
 
