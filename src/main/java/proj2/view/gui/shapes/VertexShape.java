@@ -96,7 +96,7 @@ public class VertexShape extends Component{
     * @return the x position of the center of the vertex
     */
     public int getX() {
-        return xPos;
+        return this.xPos;
     }
 
     /**
@@ -105,7 +105,7 @@ public class VertexShape extends Component{
     * @return the y position of the center of the vertex
     */
     public int getY() {
-        return yPos;
+        return this.yPos;
     }
 
     /**

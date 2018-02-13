@@ -48,6 +48,17 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
   	int preXDrag;
   	int preYDrag;
 
+    // Boolean value to know if edge is being created or set
+    boolean edgeStarted;
+
+    //
+    VertexShape fromVertex;
+    VertexShape toVertex;
+    boolean foundVertex;
+
+    int buttonNumber;
+
+    String vertexName;
 
 	public DrawPanel(Document d) {
 
@@ -58,13 +69,14 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
         vertices = new ArrayList<VertexShape>();
 
-		edges = new ArrayList<EdgeShape>();
+		    edges = new ArrayList<EdgeShape>();
 
 		doc = d;
 
         // Add mouse listener to the panel to deal with mouse events
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+
     }
 
 
@@ -128,6 +140,10 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
         for (VertexShape vertex: vertices) {
         	vertex.paintShape(g);
         }
+
+        for (EdgeShape edge: edges) {
+          edge.paintShape(g);
+        }
     }
 
 	/**
@@ -139,12 +155,23 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 	*/
     public void mousePressed(MouseEvent e) {
 
+      buttonNumber = e.getButton();
+      System.out.println("buttonNumber is "+buttonNumber);
+      System.out.println();
+      System.out.println("PRESSED x " + e.getX());
+      System.out.println("PRESSED y " + e.getY());
+      System.out.println();
 		// Check if actually pressing on a vertex
 		for (VertexShape vertex: vertices) {
     		if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
 				// Save the vertex as the currently selected one.
-				System.out.println("Selecting vertex " + vertex.getName());
-          		selVertex = vertex;
+		         //System.out.println("Selecting vertex " + vertex.getName());
+                 System.out.println("PRESSED vertex is " + vertex.getName());
+
+          	     fromVertex = vertex;
+                 selVertex = vertex;
+                 preX = e.getX();
+                 preY = e.getY();
         	}
       	}
     }
@@ -158,32 +185,38 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     public void mouseReleased(MouseEvent e) {
 
 		// If left click, just release the selected vertex
-		System.out.println(e.getButton());
+		System.out.println("MOUSE RELEASED BUTTON " + e.getButton());
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			System.out.println("Releasing selected vertex");
 			// Release the currently selected vertex
-			selVertex = null;
+			fromVertex = null;
 		}
 		// If right click, create an edge to the vertex it was released on
 		// TODO: Get name from a GUI box
 		else if (e.getButton() == MouseEvent.BUTTON3) {
-			System.out.println("Adding an edge");
+            System.out.println();
+            System.out.println("RELEASE x " + e.getX());
+            System.out.println("RELEASE y " + e.getY());
+            System.out.println();
 			for (VertexShape vertex: vertices) {
 				if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
-					System.out.println("Found a destination vertex");
-					String name = ""+(edges.size()+1);
-					System.out.println(selVertex.getName());
-					System.out.println(vertex.getName());
-                EdgeShape eS = new EdgeShape(selVertex, vertex, name);
-	          		edges.add(eS);
-                eS.paintShape(new Graphics());
+					System.out.println("RELEASED vertex is " + vertex.getName());
+					vertexName = "" + (edges.size()+1);
+                    toVertex = vertex;
+					//System.out.println(selVertex.getName());
+					//System.out.println(vertex.getName());
 
 					// Release the selected vertex
-					selVertex = null;
-					repaint();
 	        	}
 			}
+            System.out.println("fromVertex name is " + fromVertex.getName());
+            System.out.println("toVertex name is " + toVertex.getName());
+            System.out.println("fromVertex pos "+"("+fromVertex.getX()+","+fromVertex.getY()+")");
+            System.out.println("toVertex pos "+"("+toVertex.getX()+","+toVertex.getY()+")");
+            edges.add(new EdgeShape(fromVertex, toVertex, vertexName));
+
 		}
+        repaint();
     }
 
 	/**
@@ -215,8 +248,9 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
 		// Only look for left clicks
     System.out.println("e button # " + e.getButton());
-		if (e.getButton() == MouseEvent.BUTTON1) {
-			boolean foundVertex = false;
+		if (e.getButton() == 1) {
+			foundVertex = false;
+      System.out.println("foundVertex is false");
 
 			// check if the user is clicking on a vertex
 			for (VertexShape vertex: vertices) {
@@ -228,18 +262,44 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 						vertex.toggleAccept();
 					}
 					foundVertex = true;
-					repaint();
-				}
-			}
+        }
+      }
 
-			// If the user didn't click on a vertex, make a new one
-			if (!foundVertex) {
-				String name = ""+(vertices.size()+1);
-				vertices.add(new VertexShape(e.getX(),e.getY(), name, false));
+        if (!foundVertex) {
+          System.out.println("NO VERTEX");
+  				String name = ""+(vertices.size()+1);
+  				vertices.add(new VertexShape(e.getX(),e.getY(), name, false));
+  			}
+        repaint();
+
 			}
-			repaint();
-		}
-    }
+    //   else if (e.getButton() == MouseEvent.BUTTON3) {
+    //       if (edgeStarted == false) {
+    //         for (VertexShape vertex: vertices) {
+    //           System.out.println("edgeStarted is false");
+    //   				if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
+    //               VertexShape fromVertex = vertex;
+    //   	      }
+    //         }
+    //         edgeStarted = true;
+    //       } else if (edgeStarted == true) {
+    //           for (VertexShape vertex: vertices) {
+    //     				if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
+    //                 VertexShape toVertex = vertex;
+    //                 System.out.println(toVertex.getX());
+    //     	      }
+    //           }
+    //           String edgeName = "" + edges.size();
+    //           edgeStarted = false;
+    //           edges.add(new EdgeShape(fromVertex, toVertex, edgeName));
+    //       }
+    //
+    //
+		// 	// If the user didn't click on a vertex, make a new one
+		// 	repaint();
+    //
+    // }
+  }
 
 	/**
 	* Indicates the mouse is moved.
@@ -258,8 +318,16 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 	*/
     public void mouseDragged(MouseEvent e) {
 		// Only move with a left click
-		if (e.getButton() == 0) {
+		if (buttonNumber != 3 && selVertex != null) {
 			// Only move if a vertex was clicked on before the mouse was dragged
+<<<<<<< HEAD
+				  //selVertex.setY(e.getY());
+				  //selVertex.setX(e.getX());
+          int Xoffset = e.getX() - preX;
+          int Yoffset = e.getY() - preY;
+
+			selVertex.moveShape(e.getX(), e.getY());
+=======
 			if (selVertex != null) {
 				selVertex.setY(e.getY());
 				selVertex.setX(e.getX());
@@ -267,6 +335,8 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
 				repaint();
 			}
+>>>>>>> master
 		}
+        repaint();
 	}
 }
