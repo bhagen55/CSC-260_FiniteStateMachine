@@ -110,9 +110,9 @@ public class Vertex{
     	return symbol;
     }
 
-    public ArrayList getEdges()
+    public ArrayList<Edge> getEdges()
     {
-        ArrayList edges = new ArrayList();
+        ArrayList<Edge> edges = new ArrayList();
         Edge runner = firstEdge;
         int x=0;
             while (!runner.nextEdge.equals(null))
@@ -124,9 +124,6 @@ public class Vertex{
         return edges;
 
     }
-
-
-
 
     public String toString()
     {

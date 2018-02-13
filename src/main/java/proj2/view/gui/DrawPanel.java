@@ -30,10 +30,10 @@ import proj2.view.gui.Observer;
 public class DrawPanel extends JPanel implements Observer, MouseListener, MouseMotionListener {
 
   	// Holds shadow classes of document vertices
-  	ArrayList<VertexShape> vertices;
+  	ArrayList<VertexShape> vertexShapes;
 
 	// Holds shadow classes of edges
-	ArrayList<EdgeShape> edges;
+	ArrayList<EdgeShape> edgeShapes;
 
   	// Holds the current selected vertex while it is being dragged
   	VertexShape selVertex;
@@ -66,9 +66,9 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Set border of the panel
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        vertices = new ArrayList<VertexShape>();
+        vertexShape = new ArrayList<VertexShape>();
 
-		edges = new ArrayList<EdgeShape>();
+		edgeShapes = new ArrayList<EdgeShape>();
 
         doc = d;
 
@@ -84,30 +84,31 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     public void update()
     {
         // Clear out old shapes
-        vertices = new ArrayList<VertexShape>();
-        edges = new ArrayList<EdgeShape>();
+        vertexShapes = new ArrayList<VertexShape>();
+        edgeShapes = new ArrayList<EdgeShape>();
 
         // Holds the current model that the view is based off
         LinkedList<Vertex> model = doc.getModel();
 
         for (Vertex vertex: model) {
-            vertices.add(new VertexShape(vertex.getX(),vertex.getY(), vertex.getName(), vertex.canAccept()));
+            vertexShape.add(new VertexShape(vertex.getX(),vertex.getY(), vertex.getName(), vertex.canAccept()));
         }
 
-        for (VertexShape vertex: vertices) {
-            for (Edge edge: vertex.getEdges()) {
+        for (VertexShape vertex: vertexShapes) {
+            ArrayList<Edge> vertexEdges = vertex.getEdges();
+            for (Edge edge: vertexEdges) {
 
                 // Find vertexshape that corresponds to the end of the edge
                 VertexShape endVertex;
-                for (VertexShape vertex: vertices) {
+                for (VertexShape vertex: vertexShapes) {
                     if (vertex.getName().equals(edge.getGoingTo())) {
                         endVertex = vertex;
                     }
                 }
-                edges.add(new EdgeShape(vertex, endVertex, edge.getEdgeWeight()));
+                edgeShapes.add(new EdgeShape(vertex, endVertex, edge.getEdgeWeight()));
             }
         }
-        edges.add(new EdgeShape(fromVertex, toVertex, vertexName));
+        edgeShapes.add(new EdgeShape(fromVertex, toVertex, vertexName));
     }
 
 
@@ -156,11 +157,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     	super.paintComponent(g);
 
 		// Paints the vertices
-        for (VertexShape vertex: vertices) {
+        for (VertexShape vertex: vertexShapes) {
         	vertex.paintShape(g);
         }
 
-        for (EdgeShape edge: edges) {
+        for (EdgeShape edge: edgeShapes) {
           edge.paintShape(g);
         }
     }
@@ -181,7 +182,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
       System.out.println("PRESSED y " + e.getY());
       System.out.println();
 		// Check if actually pressing on a vertex
-		for (VertexShape vertex: vertices) {
+		for (VertexShape vertex: vertexShapes) {
     		if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
 				// Save the vertex as the currently selected one.
 		         //System.out.println("Selecting vertex " + vertex.getName());
@@ -217,10 +218,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             System.out.println("RELEASE x " + e.getX());
             System.out.println("RELEASE y " + e.getY());
             System.out.println();
-			for (VertexShape vertex: vertices) {
+			for (VertexShape vertex: vertexShapes) {
 				if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
 					System.out.println("RELEASED vertex is " + vertex.getName());
-					vertexName = "" + (edges.size()+1);
+					vertexName = "" + (edgeShapes.size()+1);
                     toVertex = vertex;
 					//System.out.println(selVertex.getName());
 					//System.out.println(vertex.getName());
@@ -232,7 +233,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             System.out.println("toVertex name is " + toVertex.getName());
             System.out.println("fromVertex pos "+"("+fromVertex.getX()+","+fromVertex.getY()+")");
             System.out.println("toVertex pos "+"("+toVertex.getX()+","+toVertex.getY()+")");
-            edges.add(new EdgeShape(fromVertex, toVertex, vertexName));
+            edgeShapes.add(new EdgeShape(fromVertex, toVertex, vertexName));
 
 		}
         repaint();
@@ -272,7 +273,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             System.out.println("foundVertex is false");
 
 			// check if the user is clicking on a vertex
-			for (VertexShape vertex: vertices) {
+			for (VertexShape vertex: vertexShapes) {
 				System.out.println("Looking for vertexes");
 				if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
 
@@ -286,7 +287,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
             if (!foundVertex) {
                 System.out.println("NO VERTEX");
-  				String name = ""+(vertices.size()+1);
+  				String name = ""+(vertexShapes.size()+1);
   				//vertices.add(new VertexShape(e.getX(),e.getY(), name, false));
                 doc.addVertex(name, e.getX(), e.getY()); // TODO: Change to match new implementation
   			}
