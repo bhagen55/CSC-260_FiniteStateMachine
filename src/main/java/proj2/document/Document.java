@@ -8,14 +8,14 @@ import java.util.ArrayList;
  */
 public class Document
 {
-	private LinkedList<Vertex> content;
+    private LinkedList<Vertex> content;
     private ArrayList<String> vertexIndices;
 
-	public Document()
+    public Document()
     {
-		content = new LinkedList<Vertex>();
+        content = new LinkedList<Vertex>();
         vertexIndices = new ArrayList<String>();
-	}
+    }
 
     /**
      * Returns the number vertices in the FSM
@@ -24,7 +24,7 @@ public class Document
      */
     public int numVertices()
     {
-    	return content.size();
+        return content.size();
     }
 
     /**
@@ -199,6 +199,16 @@ public class Document
     */
     public String toString()
     {
-        return "";
+        public String toString()
+    {
+        String toReturn= "";
+        
+        for(Vertex curVertex: content)  
+         {
+            toReturn=toReturn+curVertex.toString();
+            toReturn=toReturn+"\n";
+        }  
+        return toReturn;
+    }
     }
 }

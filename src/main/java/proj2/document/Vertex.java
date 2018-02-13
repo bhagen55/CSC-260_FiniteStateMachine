@@ -104,7 +104,7 @@ public class Vertex{
     	return isAcceptState;
     }
 
-    public Vertex getName()
+    public String getName()
     {
     	return symbol;
     }
