@@ -21,10 +21,10 @@ public class Gui {
         });
     }
 
-    private static void createAndShowGUI() {
+    private static void createAndShowGUI(DrawPanel panel) {
     	JFrame f = new JFrame("Finite State Machine");
     	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.add(new DrawPanel());
+        f.add(panel);
         f.setSize(250,250);
         f.setVisible(true);
     }

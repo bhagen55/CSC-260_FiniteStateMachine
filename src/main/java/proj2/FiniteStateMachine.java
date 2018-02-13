@@ -2,6 +2,10 @@ package proj2;
 
 import java.util.ArrayList;
 
+import javax.swing.SwingUtilities;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import proj2.document.Document;
 import proj2.view.Gui;
 import proj2.view.DrawPanel;
@@ -15,13 +19,20 @@ import proj2.view.DrawPanel;
 */
 public class FiniteStateMachine {
 
-	ArrayList views;
 	Document doc;
+
+	DrawPanel panel;
+	Gui gui;
 
 	public FiniteStateMachine() {
 
+		doc = new Document();
 
+		panel = new DrawPanel(doc);
+		doc.addObserver(panel)
+
+		gui = new Gui();
+		gui.createAndShowGUI(panel);
 
 	}
-
 }
