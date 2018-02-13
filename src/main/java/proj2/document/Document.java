@@ -146,12 +146,10 @@ public class Document
      */
     public void removeEdge(String from, String to, String edgeWeight)
     {
-        if (this.hasVertex(from) && this.hasVertex(to)) {
+        if (this.hasEdge(from, to, edgeWeight)) {
             int index = vertexIndices.indexOf(from);
             Vertex v = content.get(index);
-            if(v.hasEdge(to, edgeWeight)) {
-                v.removeEdge(to, edgeWeight);
-            }
+            v.removeEdge(to, edgeWeight);
         }
     }
 
