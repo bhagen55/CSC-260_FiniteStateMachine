@@ -197,7 +197,14 @@ public class Document
     */
     public String toString()
     {
-        return "";
+        String toReturn= "";
+        
+        for(Vertex curVertex: content)  
+         {
+            toReturn=toReturn+curVertex.toString();
+            toReturn=toReturn+"\n";
+        }  
+        return toReturn;
     }
 
 
