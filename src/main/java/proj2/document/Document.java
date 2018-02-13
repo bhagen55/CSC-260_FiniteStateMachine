@@ -33,7 +33,7 @@ public class Document
      *
      * @return linked list of type Vertex which is the list of vertices in the FSM
      */
-    LinkedList<Vertex> getVertices()
+    LinkedList<Vertex> getModel()
     {
         return content;
     }
@@ -73,6 +73,26 @@ public class Document
             vertexIndices.add(vertex);
         }
     }
+
+    /**
+     * Adds a vertex to the finite state machine.  If the vertex already exists in
+     * the machine, does nothing.  If the vertex does not exist, it is
+     * added to the machine, with no edges connected to it.
+     *
+     * @param vertex the vertex to add
+     * @param xpos x coordinate of the vertex being added
+     * @param ypos y coordinate of the vertex being added
+     */
+    public void addVertex(String vertex, int xpos, int ypos)
+    {
+        if (!this.hasVertex(vertex)) {
+            Vertex toAdd = new Vertex(vertex);
+            toAdd.addCoordinates(xpos, ypos);
+            content.add(toAdd);
+            vertexIndices.add(vertex);
+        }
+    }
+
 
     /**
      * Tells whether or not a vertex is in the machine.
@@ -162,6 +182,14 @@ public class Document
         int index = vertexIndices.indexOf(vertex);
         Vertex v = content.get(index);
         return v.numEdges();
+    }
+
+    /**
+     * Notify method to tell views/observers to update
+     */
+    public void notify()
+    {
+
     }
 
     /**
