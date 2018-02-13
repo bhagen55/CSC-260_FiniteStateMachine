@@ -299,12 +299,13 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 		// Only move with a left click
 		if (buttonNumber != 3 && selVertex != null) {
 			// Only move if a vertex was clicked on before the mouse was dragged
-				  //selVertex.setY(e.getY());
-				  //selVertex.setX(e.getX());
-          int Xoffset = e.getX() - preX;
-          int Yoffset = e.getY() - preY;
+			  if (selVertex != null) {
+				  selVertex.setY(e.getY());
+				  selVertex.setX(e.getX());
+				  selVertex.moveShape(preX + e.getX(), preY + e.getY());
 
-			selVertex.moveShape(e.getX(), e.getY());
+				  repaint();
+			  }
 		}
         repaint();
 	}
