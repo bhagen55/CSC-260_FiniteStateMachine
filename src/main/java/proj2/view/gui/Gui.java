@@ -13,16 +13,7 @@ import proj2.view.gui.DrawPanel;
 
 public class Gui {
 
-    public static void main(String[] args) {
-
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
-    }
-
-    private static void createAndShowGUI(DrawPanel panel) {
+    public void createAndShowGUI(DrawPanel panel) {
     	JFrame f = new JFrame("Finite State Machine");
     	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.add(panel);
