@@ -33,7 +33,7 @@ public class FiniteStateMachine {
 		// Create the view panel and pass it the document
 		panel = new DrawPanel(doc);
 		// Add the view panel as an observer to the document
-		doc.addObserver(panel)
+		doc.addObserver(panel);
 
 		// Create and show the GUI of the view panel
 		gui = new Gui();

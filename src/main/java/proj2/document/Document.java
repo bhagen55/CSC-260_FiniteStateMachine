@@ -8,14 +8,14 @@ import java.util.ArrayList;
  */
 public class Document
 {
-	private LinkedList<Vertex> content;
+    private LinkedList<Vertex> content;
     private ArrayList<String> vertexIndices;
 
-	public Document()
+    public Document()
     {
-		content = new LinkedList<Vertex>();
+        content = new LinkedList<Vertex>();
         vertexIndices = new ArrayList<String>();
-	}
+    }
 
     /**
      * Returns the number vertices in the FSM
@@ -24,7 +24,7 @@ public class Document
      */
     public int numVertices()
     {
-    	return content.size();
+        return content.size();
     }
 
     /**
@@ -33,7 +33,7 @@ public class Document
      *
      * @return linked list of type Vertex which is the list of vertices in the FSM
      */
-    LinkedList<Vertex> getModel()
+    public LinkedList<Vertex> getModel()
     {
         return content;
     }
@@ -124,9 +124,11 @@ public class Document
         if (!this.hasVertex(to)) {
             this.addVertex(to);
         }
-        int index = vertexIndices.indexOf(from);
-        Vertex v = content.get(index);
-        if(v.hasEdge(to, edgeWeight)) {
+        int indexFrom = vertexIndices.indexOf(from);
+        int indexTo = vertexIndices.indexOf(to);
+        Vertex vFrom = content.get(indexFrom);
+        Vertex vTo = content.get(indexTo);
+        if(vFrom.hasEdge(vTo, edgeWeight)) {
             v.addEdge(to, edgeWeight);
         }
     }
@@ -199,7 +201,4 @@ public class Document
     {
         return "";
     }
-
-
-
 }
