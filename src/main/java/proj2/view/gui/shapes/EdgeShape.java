@@ -27,8 +27,8 @@ public class EdgeShape extends Component{
 
 		this.name = n;
 
-    this.origin = o;
-    this.destination = d;
+    	this.origin = o;
+    	this.destination = d;
 		//System.out.println("----- GOT HERE -----");
 		//edge.setCurve(origin.getX(), origin.getY(), 0, 0, destination.getX(), destination.getY());
 
@@ -57,7 +57,6 @@ public class EdgeShape extends Component{
 			return ( ((start - end)/2) + end );
 		} else {
 			return ( ((end - start)/2) + start );
-
 		}
 	}
 
@@ -86,7 +85,7 @@ public class EdgeShape extends Component{
     	g2d.setColor(Color.BLACK);
 
 
-			g2d.draw(edge);
-			//g2d.draw(new Line2D.Double(origin.getX(),origin.getY(),destination.getX(),destination.getY()));
+		g2d.draw(edge);
+		//g2d.draw(new Line2D.Double(origin.getX(),origin.getY(),destination.getX(),destination.getY()));
   }
 }
