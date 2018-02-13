@@ -28,6 +28,17 @@ public class Document
     }
 
     /**
+     * Package private method that returns the linked list of vertices for the
+     * view to display.
+     *
+     * @return linked list of type Vertex which is the list of vertices in the FSM
+     */
+    LinkedList<Vertex> getVertices()
+    {
+        return content;
+    }
+
+    /**
      * Removes vertex in the finite state machine.  If vertex is not in the FSM,
      * prints out a message stating that the vertex does not exists
      *
