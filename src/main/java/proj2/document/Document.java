@@ -1,11 +1,11 @@
 package proj2.document;
 
-/**
- * Class that holds a linked list of Vertex objects
- */
 import java.util.LinkedList;
 import java.util.ArrayList;
 
+/**
+ * Class that holds a linked list of Vertex objects
+ */
 public class Document
 {
 	private LinkedList<Vertex> content;
