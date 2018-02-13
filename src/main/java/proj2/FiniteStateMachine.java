@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import proj2.document.Document;
-import proj2.view.Gui;
-import proj2.view.DrawPanel;
+import proj2.view.gui.Gui;
+import proj2.view.gui.DrawPanel;
 
 /*
 * Encompassing class to hold our implementation of a finite state machine
