@@ -36,6 +36,12 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
   	// Holds the current selected vertex while it is being dragged
   	VertexShape selVertex;
 
+    // Holds the document that the view edits
+    Document doc;
+
+    // Holds the current model that the view is based off
+    LinkedList model;
+
   	// Holds last known location of mouse for dragging
   	int preX;
   	int preY;
@@ -54,7 +60,7 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
     String vertexName;
 
-	public DrawPanel() {
+	public DrawPanel(Document d) {
 
     	System.out.println("Setting up");
 
@@ -63,13 +69,26 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 
         vertices = new ArrayList<VertexShape>();
 
-		    edges = new ArrayList<EdgeShape>();
+		edges = new ArrayList<EdgeShape>();
+
+        doc = d;
 
         // Add mouse listener to the panel to deal with mouse events
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
 
     }
+
+    /*
+    * Updates this view based on information from the document
+    *
+    */
+    public void Update()
+    {
+        model = doc.getModel();
+        // TODO: Fill up
+    }
+
 
     /**
     * Moves vertex to the given x and y coords
@@ -226,10 +245,10 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 	public void mouseClicked(MouseEvent e) {
 
 		// Only look for left clicks
-    System.out.println("e button # " + e.getButton());
+        System.out.println("e button # " + e.getButton());
 		if (e.getButton() == 1) {
 			foundVertex = false;
-      System.out.println("foundVertex is false");
+            System.out.println("foundVertex is false");
 
 			// check if the user is clicking on a vertex
 			for (VertexShape vertex: vertices) {
@@ -241,43 +260,16 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
 						vertex.toggleAccept();
 					}
 					foundVertex = true;
-        }
-      }
+                }
+            }
 
-        if (!foundVertex) {
-          System.out.println("NO VERTEX");
+            if (!foundVertex) {
+                System.out.println("NO VERTEX");
   				String name = ""+(vertices.size()+1);
   				vertices.add(new VertexShape(e.getX(),e.getY(), name, false));
   			}
         repaint();
-
-			}
-    //   else if (e.getButton() == MouseEvent.BUTTON3) {
-    //       if (edgeStarted == false) {
-    //         for (VertexShape vertex: vertices) {
-    //           System.out.println("edgeStarted is false");
-    //   				if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
-    //               VertexShape fromVertex = vertex;
-    //   	      }
-    //         }
-    //         edgeStarted = true;
-    //       } else if (edgeStarted == true) {
-    //           for (VertexShape vertex: vertices) {
-    //     				if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
-    //                 VertexShape toVertex = vertex;
-    //                 System.out.println(toVertex.getX());
-    //     	      }
-    //           }
-    //           String edgeName = "" + edges.size();
-    //           edgeStarted = false;
-    //           edges.add(new EdgeShape(fromVertex, toVertex, edgeName));
-    //       }
-    //
-    //
-		// 	// If the user didn't click on a vertex, make a new one
-		// 	repaint();
-    //
-    // }
+		}
   }
 
 	/**
@@ -298,34 +290,23 @@ public class DrawPanel extends JPanel implements MouseListener, MouseMotionListe
     public void mouseDragged(MouseEvent e) {
 		// Only move with a left click
 		if (buttonNumber != 3 && selVertex != null) {
-			// Only move if a vertex was clicked on before the mouse was dragged
-<<<<<<< HEAD
-			  if (selVertex != null) {
-				  selVertex.setY(e.getY());
-				  selVertex.setX(e.getX());
-				  selVertex.moveShape(preX + e.getX(), preY + e.getY());
 
-				  repaint();
-			  }
-=======
-<<<<<<< HEAD
+            //selVertex.setY(e.getY());
+            //selVertex.setX(e.getX());
+            int Xoffset = e.getX() - preX;
+            int Yoffset = e.getY() - preY;
+
+            selVertex.moveShape(e.getX(), e.getY());
+
+			// Only move if a vertex was clicked on before the mouse was dragged
 			if (selVertex != null) {
 				selVertex.setY(e.getY());
 				selVertex.setX(e.getX());
 				selVertex.moveShape(preX + e.getX(), preY + e.getY());
 
 				repaint();
-			}
-=======
-				  //selVertex.setY(e.getY());
-				  //selVertex.setX(e.getX());
-          int Xoffset = e.getX() - preX;
-          int Yoffset = e.getY() - preY;
-
-			selVertex.moveShape(e.getX(), e.getY());
->>>>>>> 51f3ea9c45b527b41a7a8c4306863903a9b9cc2b
->>>>>>> d1f0b56676c3fb9e18b72cd56830ab914e14eb1f
+		    }
 		}
         repaint();
-	}
+    }
 }
