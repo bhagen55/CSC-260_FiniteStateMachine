@@ -28,7 +28,7 @@ public class FiniteStateMachine {
 		JFrame f = new JFrame("Finite State Machine");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.add(panel);
-		f.setSize(250,250);
+		f.setSize(800,800);
 		f.setVisible(true);
 	}
 
