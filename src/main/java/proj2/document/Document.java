@@ -199,7 +199,7 @@ public class Document
     */
     public String toString()
     {
-      
+
         String toReturn= "";
         
         for(Vertex curVertex: content)  
