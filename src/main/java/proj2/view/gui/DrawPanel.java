@@ -51,17 +51,9 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     // Holds the File Format controller
     private FileFormatController ffc;
 
-  	// Holds last known location of mouse for dragging
-  	private int preX;
-  	private int preY;
-  	// private int preXDrag;
-  	// private int preYDrag;
-
     // Boolean value to know if edge is being created or set
     private boolean edgeStarted;
 
-
-    private VertexShape fromVertex;
     private VertexShape toVertex;
     private boolean foundVertex;
 
@@ -70,8 +62,6 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
     // Holds last mouse button pushed
     private int buttonNumber;
-
-    private String vertexName;
 
 	/*
 	* Text Box
@@ -92,6 +82,9 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
     private JTextField savePath;
     private JTextField loadPath;
+
+    private static final int RIGHT_CLICK = 3;
+    private static final int LEFT_CLICK = 1;
 
 
 	public DrawPanel(Document d, FileFormatController filecontroller) {
@@ -122,6 +115,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
         ffc = filecontroller;
 
+        // Add mouse listener to the panel to deal with mouse events
+        this.addMouseListener(this);
+        this.addMouseMotionListener(this);
+
         // Call the FSM save when button pressed
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -151,9 +148,6 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             }
         });
 
-        // Add mouse listener to the panel to deal with mouse events
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
     }
 
     /**
@@ -162,7 +156,6 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     */
     public void update()
     {
-		System.out.println("Panel update called");
         // Clear out old shapes
         vertexShapes = new ArrayList<VertexShape>();
         edgeShapes = new ArrayList<EdgeShape>();
@@ -280,6 +273,16 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         }
     }
 
+    private VertexShape search(MouseEvent e) {
+        for (VertexShape vertex: vertexShapes) {
+    		if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
+    			// Save the vertex as the currently selected one.
+                 return vertex;
+        	}
+        }
+        return null;
+    }
+
 	/**
 	* Indicates the start of a drag.
 	* Saves the vertex that is being pressed to be modified by the dragging
@@ -289,25 +292,16 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 	*/
     public void mousePressed(MouseEvent e) {
 
+        // Used later to see if it is a right click or left click
         buttonNumber = e.getButton();
-        System.out.println("buttonNumber is "+buttonNumber);
-        System.out.println();
-        System.out.println("PRESSED x " + e.getX());
-        System.out.println("PRESSED y " + e.getY());
-        System.out.println();
-    	// Check if actually pressing on a vertex
-    	for (VertexShape vertex: vertexShapes) {
-    		if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
-    			// Save the vertex as the currently selected one.
-    	         //System.out.println("Selecting vertex " + vertex.getName());
-                 System.out.println("PRESSED vertex is " + vertex.getName());
 
-          	     fromVertex = vertex;
-                 selVertex = vertex;
-                 preX = e.getX();
-                 preY = e.getY();
-        	}
-      	}
+    	// Check if actually pressing on a vertex
+        VertexShape inBounds = search(e);
+    	if (inBounds != null) {
+            selVertex = inBounds;
+        } else {
+            selVertex = null;
+        }
     }
 
 	/**
@@ -319,43 +313,30 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     public void mouseReleased(MouseEvent e) {
 
 		// If left click, just release the selected vertex
-		System.out.println("MOUSE RELEASED BUTTON " + e.getButton());
-		if (e.getButton() == MouseEvent.BUTTON1) {
-			System.out.println("Releasing selected vertex");
-			// Release the currently selected vertex
-			//fromVertex = null;
-
+		if (e.getButton() == LEFT_CLICK) {
             // If a vertex was being dragged, send its new location to the document
-            if (dragging) {
+            if (dragging && selVertex != null) {
                 doc.moveVertex(selVertex.getName(), selVertex.getX(), selVertex.getY());
+                dragging = false;
             }
-            dragging = false;
-            selVertex = null;
 		}
+
+
 		// If right click, create an edge to the vertex it was released on
-		else if (e.getButton() == MouseEvent.BUTTON3) {
-            System.out.println();
-            System.out.println("RELEASE x " + e.getX());
-            System.out.println("RELEASE y " + e.getY());
-            System.out.println();
-			for (VertexShape vertex: vertexShapes) {
-				if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
-					System.out.println("RELEASED vertex is " + vertex.getName());
-					vertexName = edgeField.getText();
+		else if (e.getButton() == RIGHT_CLICK) {
 
-                    toVertex = vertex;
-                    doc.addEdge(fromVertex.getName(), toVertex.getName(), vertexName);
+            VertexShape inBounds = search(e);
+        	if (inBounds != null) {
+                String vertexName = edgeField.getText();
+                toVertex = inBounds;
 
-	        	}
-			}
-            // System.out.println("fromVertex name is " + fromVertex.getName());
-            // System.out.println("toVertex name is " + toVertex.getName());
-            // System.out.println("fromVertex pos "+"("+fromVertex.getX()+","+fromVertex.getY()+")");
-            // System.out.println("toVertex pos "+"("+toVertex.getX()+","+toVertex.getY()+")");
-
-            // Attempting to add edge
-
+                // Adds edge from selVertex to tovertex
+                if (selVertex != null) {
+                    doc.addEdge(selVertex.getName(), toVertex.getName(), vertexName);
+                }
+            }
 		}
+
         repaint();
     }
 
@@ -369,31 +350,23 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 	public void mouseClicked(MouseEvent e) {
 
 		// Only look for left clicks
-        System.out.println("e button # " + e.getButton());
-		if (e.getButton() == 1) {
+		if (e.getButton() == LEFT_CLICK) {
 			foundVertex = false;
-            System.out.println("foundVertex is false");
 
 			// check if the user is clicking on a vertex
-			for (VertexShape vertex: vertexShapes) {
-				System.out.println("Looking for vertexes");
-				if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
-
-					// If they are double clicking, toggle the accept state
-					if (e.getClickCount() == 2) {
-                        doc.toggleAccept(vertex.getName());
-					}
-					foundVertex = true;
+            VertexShape inBounds = search(e);
+            if (inBounds != null) {
+                if (e.getClickCount() == 2) {
+                    doc.toggleAccept(inBounds.getName());
                 }
+                foundVertex = true;
             }
 
-            if (!foundVertex) {
-                //System.out.println("NO VERTEX");
-  				String name = vertexField.getText();
-                System.out.println("Attempting to add vertex");
-                doc.addVertex(name, e.getX(), e.getY());
+            if (foundVertex == false) {
+  				String vertexName = vertexField.getText();
+                doc.addVertex(vertexName, e.getX(), e.getY());
   			}
-        repaint();
+            repaint();
 		}
     }
 
@@ -405,13 +378,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 	*/
     public void mouseDragged(MouseEvent e) {
 		// Only move with a left click
-		if (buttonNumber != 3 && selVertex != null) {
-
-            //selVertex.setY(e.getY());
-            //selVertex.setX(e.getX());
-            // int Xoffset = e.getX() - preX;
-            // int Yoffset = e.getY() - preY;
-
+		if (buttonNumber != RIGHT_CLICK && selVertex != null) {
             dragging = true;
             selVertex.moveShape(e.getX(), e.getY());
 		}
@@ -419,33 +386,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     }
 
     /**
-    * Indicates the mouse is moved.
-    * Currently not used.
-    *
-    * @param e mouse event passed by mouse listener
+    * Necessary implemented methods.
     */
-    public void mouseMoved(MouseEvent e) {
-    }
+    public void mouseMoved(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {}
+    public void actionPerformed(ActionEvent e) {}
 
-    /**
-    * Indicates mouse has entered the panel.
-    * Currently not used.
-    *
-    * @param e mouse event passed by mouse listener
-    */
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    /**
-    * Indicates mouse has exited the panel.
-    * Currently not used.
-    *
-    * @param e mouse event passed by mouse listener
-    */
-    public void mouseExited(MouseEvent e) {
-    }
-
-    public void actionPerformed(ActionEvent e) {
-
-    }
 }
