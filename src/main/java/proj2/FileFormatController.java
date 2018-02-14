@@ -39,7 +39,7 @@ public class FileFormatController
 	{
 		// Create a file object to hold the path to the text file
 		String home = System.getProperty("user.home");
-		File file = new File(home+"/Downloads/" + fileName + ".txt")
+		File file = new File(home+"/Downloads/" + fileName + ".txt");
 		// Create file if it doesn't exist
 		file.getParentFile().mkdirs();
 
@@ -92,12 +92,12 @@ public class FileFormatController
          catch(FileNotFoundException ex) {
              System.out.println(
                  "Unable to open file '" +
-                 filePath + "'");
+                 fileName + "'");
          }
          catch(IOException ex) {
              System.out.println(
                  "Error reading file '"
-                 + filePath + "'");
+                 + fileName + "'");
 
          }
 	}

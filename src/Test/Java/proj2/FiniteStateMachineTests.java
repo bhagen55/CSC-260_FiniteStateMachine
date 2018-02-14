@@ -39,7 +39,7 @@ public class FiniteStateMachineTests
     @Test
     public void TestingSaveAndLoad()
     {
-    	t= new TestingSaveAndLoad();
+    	//t= new TestingSaveAndLoad();
     }
 
     @Test
