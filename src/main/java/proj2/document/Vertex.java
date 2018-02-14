@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Vertex{
 
-	String symbol;
-	Boolean isAcceptState;
+	private String symbol;
+	private Boolean isAcceptState;
 	private Edge firstEdge;
-	int numEdges=0;
+	private int numEdges=0;
     private int xCoord;
     private int yCoord;
-    private ArrayList edges;
+    private ArrayList<Edge> edges;
 
 
 	public Vertex(String givenSymbol)
@@ -74,13 +74,16 @@ public class Vertex{
 
    	public boolean hasEdge(String to, String edgeWeight)
    	{
-   		if(firstEdge.goingTo.equals(to)&&firstEdge.edgeWeight.equals(edgeWeight))
+		if (firstEdge == null) {
+			return false;
+		}
+   		else if(firstEdge.goingTo.equals(to)&&firstEdge.edgeWeight.equals(edgeWeight))
     	{
     		return true;
     	}
     	else{
     		Edge runner = firstEdge;
-            while (!runner.nextEdge.equals(null))
+            while (runner.nextEdge != null)
             {
             	if(runner.goingTo.equals(to)&&runner.edgeWeight.equals(edgeWeight))
             	{
@@ -112,17 +115,18 @@ public class Vertex{
 
     public ArrayList<Edge> getEdges()
     {
-        ArrayList<Edge> edges = new ArrayList();
-        Edge runner = firstEdge;
-        int x=0;
-            while (!runner.nextEdge.equals(null))
-            {
-                edges.add(runner);
-                x++;
-                runner=runner.nextEdge;
-            }
+        ArrayList<Edge> edges = new ArrayList<Edge>();
+		if (firstEdge != null) {
+			Edge runner = firstEdge;
+			int x=0;
+				while (runner.nextEdge != null)
+				{
+					edges.add(runner);
+					x++;
+					runner=runner.nextEdge;
+				}
+		}
         return edges;
-
     }
 
     public String toString()

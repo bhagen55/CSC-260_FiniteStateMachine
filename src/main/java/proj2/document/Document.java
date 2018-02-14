@@ -90,6 +90,7 @@ public class Document
     public void addVertex(String vertex, int xpos, int ypos)
     {
         if (!this.hasVertex(vertex)) {
+                        System.out.println("Adding vertex");
             Vertex toAdd = new Vertex(vertex);
             toAdd.addCoordinates(xpos, ypos);
             content.add(toAdd);
