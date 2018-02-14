@@ -209,11 +209,16 @@ public class VertexShape extends Component{
     public void paintShape(Graphics g){
 
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(Color.BLACK);
+		if(isStart) {
+			g2d.setColor(Color.RED);
+		}
+		else {
+			g2d.setColor(Color.BLACK);
+		}
 		g2d.draw(ellipse);
 		g2d.drawString(name,xPos,yPos);
 
-		if(isAccepting){
+		if(isAccepting) {
 			g2d.draw(acceptEllipse);
 		}
 	}
