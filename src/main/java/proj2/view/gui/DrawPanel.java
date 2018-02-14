@@ -1,7 +1,22 @@
 package proj2.view.gui;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.SwingUtilities;
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.Rectangle;
+import java.awt.Point;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
