@@ -7,8 +7,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.Rectangle;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
 import java.awt.Component;
 
 
@@ -38,6 +36,12 @@ public class VertexShape extends Component{
 	Ellipse2D ellipse;
 	Ellipse2D acceptEllipse;
 
+	private static final int DEFAULT_RADIUS = 50;
+	private static final int DEFAULT_OFFSET = 10;
+	private static final int DOUBLE_MULT = 2;
+	private static final int DEFAULT_FONT_SIZE = 12;
+
+
 	/**
 	* Constructs a VertexShape object
 	*
@@ -54,9 +58,9 @@ public class VertexShape extends Component{
 		this.xPos = xPos;
 		this.yPos = yPos;
 
-		this.radius = 50;
+		this.radius = DEFAULT_RADIUS;
 
-		this.acceptOffset = 10;
+		this.acceptOffset = DEFAULT_OFFSET;
 
 		this.isAccepting = isAccepting;
 
@@ -147,14 +151,14 @@ public class VertexShape extends Component{
     * TODO: What does this do?
     */
     private int getXOffset(int newX) {
-        return newX + (getWidth()/2);
+        return newX + (getWidth()/DOUBLE_MULT);
     }
 
     /**
     * TODO: What does this do?
     */
     private int getYOffset(int newY) {
-        return newY + (getHeight()/2);
+        return newY + (getHeight()/DOUBLE_MULT);
     }
 
     /**
@@ -164,10 +168,10 @@ public class VertexShape extends Component{
     */
     public int getWidth() {
 		if (isAccepting) {
-			return (radius*2)+acceptOffset;
+			return (radius*DOUBLE_MULT)+acceptOffset;
 		}
 		else {
-			return radius*2;
+			return radius*DOUBLE_MULT;
 		}
     }
 
@@ -178,10 +182,10 @@ public class VertexShape extends Component{
     */
     public int getHeight() {
 		if (isAccepting) {
-			return (radius*2)+acceptOffset;
+			return (radius*DOUBLE_MULT)+acceptOffset;
 		}
 		else {
-			return radius*2;
+			return radius*DOUBLE_MULT;
 		}
     }
 
@@ -219,7 +223,7 @@ public class VertexShape extends Component{
     public void paintShape(Graphics g){
 
 		Graphics2D g2d = (Graphics2D) g;
-		Font font = new Font(null, Font.PLAIN, 12);
+		Font font = new Font(null, Font.PLAIN, DEFAULT_FONT_SIZE);
 		g2d.setFont(font);
 
 
@@ -232,6 +236,7 @@ public class VertexShape extends Component{
 		else {
 			g2d.setColor(Color.BLACK);
 		}
+
 		g2d.draw(ellipse);
 		g2d.drawString(name,xPos,yPos);
 
