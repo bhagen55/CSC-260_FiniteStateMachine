@@ -43,7 +43,7 @@ public class FileFormatController
         // This will reference one line at a time
         String line = null;
 
-        //try {
+        try {
             // FileReader reads text files in the default encoding.
             FileReader fileReader = new FileReader(file); 
 
@@ -85,18 +85,17 @@ public class FileFormatController
 
 	            // Always close files.
 	            bufferedReader.close(); 
-        //}
-        // catch(FileNotFoundException ex) {
-        //     System.out.println(
-        //         "Unable to open file '" +
-        //         FiniteStateMachine + "'");
-        // }
-        // catch(IOException ex) {
-        //     System.out.println(
-        //         "Error reading file '"
-        //         + FiniteStateMachine + "'");
-        //     // Or we could just do this:
-        //     // ex.printStackTrace();
-        // }
+        }
+         catch(FileNotFoundException ex) {
+             System.out.println(
+                 "Unable to open file '" +
+                 filePath + "'");
+         }
+         catch(IOException ex) {
+             System.out.println(
+                 "Error reading file '"
+                 + filePath + "'");
+             
+         }
 	}
 }
