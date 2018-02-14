@@ -46,10 +46,11 @@ public class FiniteStateMachine {
 
 		// Create the view panel and pass it the document
 		DrawPanel panel = new DrawPanel(doc, ffc);
+
 		// Add the view panel as an observer to the document
 		doc.addObserver(panel);
 
-
+		// Runs the GUI
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				createAndShowGUI(panel);
