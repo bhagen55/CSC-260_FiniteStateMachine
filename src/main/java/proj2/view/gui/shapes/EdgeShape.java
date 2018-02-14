@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 
 import proj2.view.gui.shapes.VertexShape;
 
-/*
+/**
 * Represents shape of an edge for the gui
 */
 public class EdgeShape extends Component{

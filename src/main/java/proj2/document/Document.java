@@ -173,7 +173,7 @@ public class Document
     public void addEdge(String from, String to, String edgeWeight)
     {
         if (this.hasVertex(from)&&this.hasVertex(to)) {
-        
+
             int indexFrom = vertexIndices.indexOf(from);
             int indexTo = vertexIndices.indexOf(to);
             Vertex vFrom = content.get(indexFrom);
@@ -270,6 +270,8 @@ public class Document
 
     /**
     *Returns a string representation of this finite state machine
+    *
+    * @return string representation of the document
     */
     public String toString()
     {
