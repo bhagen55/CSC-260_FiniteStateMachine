@@ -22,6 +22,8 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import java.io.*;
+
 import proj2.document.*;
 import proj2.view.gui.shapes.*;
 import proj2.view.gui.Observer;
@@ -100,8 +102,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		// Add text entry boxes and labels
-		vertexField = new JTextField(6);
-		edgeField = new JTextField(6);
+		vertexField = new JTextField("a");
+		edgeField = new JTextField("a");
 		vertexFieldName = new JLabel("New Vertex Name");
 		edgeFieldName = new JLabel("New Edge Name");
 
@@ -109,8 +111,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         saveButton = new JButton("Save");
         loadButton = new JButton("Load");
 
-        savePath = new JTextField("./fsm.txt");
-        loadPath = new JTextField("./fsm.txt");
+        savePath = new JTextField("fsm.txt");
+        loadPath = new JTextField("fsm.txt");
 
         vertexShapes = new ArrayList<VertexShape>();
 
@@ -124,7 +126,12 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // TODO: Call save fsm here
-    //        ffc.saveFile(saveButton.getText());
+                try {
+                    ffc.saveFile(savePath.getText());
+                }
+                catch (FileNotFoundException err) {
+                    System.out.println("File save error");
+                }
                 System.out.println("Saving");
             }
         });
@@ -134,7 +141,12 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             public void actionPerformed(ActionEvent e) {
                 // TODO: Call load fsm here
                 // Get the save path from savePath
-    //            ffc.loadFile(saveButton.getText());
+                try {
+                    ffc.loadFile(savePath.getText());
+                }
+                catch (FileNotFoundException err) {
+                    System.out.println("File load error");
+                }
                 System.out.println("Loading");
             }
         });
@@ -311,7 +323,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			System.out.println("Releasing selected vertex");
 			// Release the currently selected vertex
-			fromVertex = null;
+			//fromVertex = null;
 
             // If a vertex was being dragged, send its new location to the document
             if (dragging) {
@@ -332,15 +344,17 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 					vertexName = edgeField.getText();
 
                     toVertex = vertex;
+                    doc.addEdge(fromVertex.getName(), toVertex.getName(), vertexName);
+
 	        	}
 			}
-            System.out.println("fromVertex name is " + fromVertex.getName());
-            System.out.println("toVertex name is " + toVertex.getName());
-            System.out.println("fromVertex pos "+"("+fromVertex.getX()+","+fromVertex.getY()+")");
-            System.out.println("toVertex pos "+"("+toVertex.getX()+","+toVertex.getY()+")");
+            // System.out.println("fromVertex name is " + fromVertex.getName());
+            // System.out.println("toVertex name is " + toVertex.getName());
+            // System.out.println("fromVertex pos "+"("+fromVertex.getX()+","+fromVertex.getY()+")");
+            // System.out.println("toVertex pos "+"("+toVertex.getX()+","+toVertex.getY()+")");
 
             // Attempting to add edge
-			doc.addEdge(fromVertex.getName(), toVertex.getName(), vertexName);
+
 		}
         repaint();
     }

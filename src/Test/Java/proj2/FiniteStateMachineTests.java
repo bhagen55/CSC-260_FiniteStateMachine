@@ -15,11 +15,13 @@ import org.junit.runners.JUnit4;
 
 
 import proj2.document.*;
+import proj2.*;
 
 @RunWith(JUnit4.class)
 public class FiniteStateMachineTests
 {
 	Document d;
+	TestingSaveAndLoad t;
     
     
     @Before
@@ -35,7 +37,17 @@ public class FiniteStateMachineTests
     }
     
     @Test
-    public void
+    public void TestingSaveAndLoad()
+    {
+    	//t= new TestingSaveAndLoad();
+    }
+
+    @Test
+    public void TestingAddVertex()
+    {
+    	d.addVertex("A");
+    	assertTrue("Testing adding a single Vertex",d.hasVertex("A"));
+    }
 
 
 

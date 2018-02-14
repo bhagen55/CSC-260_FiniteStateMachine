@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.Rectangle;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import java.awt.Component;
@@ -209,6 +210,9 @@ public class VertexShape extends Component{
     public void paintShape(Graphics g){
 
 		Graphics2D g2d = (Graphics2D) g;
+		Font font = new Font(null, Font.PLAIN, 12);
+		g2d.setFont(font);
+
 
 		g2d.setColor(Color.WHITE);
 		g2d.fill(ellipse);
