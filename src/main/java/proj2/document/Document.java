@@ -282,8 +282,8 @@ public class Document
         if(haveAddedCoordinates){
 
         for(Vertex curVertex: content)
-         {
-            toReturn=toReturn+curVertex.toString()+"|"+curVertex.getX()+"|"+curVertex.getY();
+        {
+            toReturn=toReturn+curVertex.getName()+"|"+curVertex.getX()+"|"+curVertex.getY();
 
             toReturn=toReturn+"\n";
         }
