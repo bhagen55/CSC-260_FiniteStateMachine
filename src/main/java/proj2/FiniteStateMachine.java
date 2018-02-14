@@ -11,7 +11,7 @@ import proj2.view.gui.Gui;
 import proj2.view.gui.DrawPanel;
 import proj2.FileFormatController;
 
-/*
+/**
 * Encompassing class to hold our implementation of a finite state machine
 *
 * Deals with creation of the GUI and the document as well as allowing them to
@@ -33,7 +33,7 @@ public class FiniteStateMachine {
 		f.setVisible(true);
 	}
 
-	/*
+	/**
 	* Threaded function to draw guis related to this fsm
 	*/
 	public static void main(String[] args) {

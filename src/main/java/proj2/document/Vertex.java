@@ -12,10 +12,10 @@ public class Vertex{
     private ArrayList<Edge> edges; // ArrayList containing Edges
 
 
-/**
-*Constructor for vertex that takes a string to be the name of the vertex
-*@param givenSymbol: String to be the name of the Vertex
-*/
+	/**
+	* Constructor for vertex that takes a string to be the name of the vertex
+	* @param givenSymbol: String to be the name of the Vertex
+	*/
 	public Vertex(String givenSymbol)
 	{
 		isAcceptState=false;
@@ -152,13 +152,18 @@ public class Vertex{
     }
 
     /**
-    *@return the edges in this vertex
+    * @return the edges in this vertex
     */
     public ArrayList<Edge> getEdges()
     {
         return edges;
     }
 
+	/**
+	* Creates a string representation of the vertex
+	*
+	* @return string representation of the vertex
+	*/
     public String toString()
     {
 		String toReturn = "";

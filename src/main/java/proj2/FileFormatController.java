@@ -9,7 +9,9 @@ import java.io.BufferedReader;
 */
 import java.io.*;
 
-
+/**
+* Saves and loads finite state machines from proprietary human readable file format
+*/
 public class FileFormatController
 {
 	Document d;
@@ -18,6 +20,12 @@ public class FileFormatController
 		d=given;
 	}
 
+	/**
+	* Saves a fsm into a human readable text file format.
+	* Saves directly into user's downloads folder
+	*
+	* @param fileName string filename for file, not including filetype or path
+	*/
 	public void saveFile(String fileName) throws FileNotFoundException{
 		// Create a file object to hold the path to the text file
 		String home = System.getProperty("user.home");
@@ -46,7 +54,11 @@ public class FileFormatController
 
 
 
-
+	/**
+	* Loads a fsm from a formatted text file
+	*
+	* @param fileName string filename for file to load, not including filetype or path
+	*/
 	public void loadFile(String fileName) throws FileNotFoundException
 	{
 		// Create a file object to hold the path to the text file
