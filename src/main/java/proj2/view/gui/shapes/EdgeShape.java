@@ -29,16 +29,6 @@ public class EdgeShape extends Component{
 
     	this.origin = o;
     	this.destination = d;
-		//System.out.println("----- GOT HERE -----");
-		//edge.setCurve(origin.getX(), origin.getY(), 0, 0, destination.getX(), destination.getY());
-
-		// System.out.println("made an edge!");
-		// System.out.println("origin x " + origin.getX());
-		// System.out.println("origin y " + origin.getY());
-		// System.out.println("destination x " + destination.getX());
-		// System.out.println("destination y " + destination.getY());
-		// System.out.println();
-		// System.out.println();
 
 		int orgX = origin.getX();
 		int orgY = origin.getY();
@@ -51,8 +41,6 @@ public class EdgeShape extends Component{
 		int selfLoopContY = origin.getY() + 100;
 
 		edge = new QuadCurve2D.Double(orgX,orgY,contX,contY,destX,destY);
-		//edge.setCurve(;
-
 	}
 
 	private int getCont(int start, int end) {
@@ -61,15 +49,6 @@ public class EdgeShape extends Component{
 		} else {
 			return ( ((end - start)/2) + start );
 		}
-	}
-
- 	private Point calcStartEndPoint() {
-    	// Get centers of vertices
-    	Point orCenter = new Point(origin.getX(), origin.getY());
-    	Point desCenter = new Point(destination.getX(), destination.getY());
-
-    	// Get projection to destination from origin
-    	return null;
 	}
 
  	public void paintShape(Graphics g) {
@@ -89,14 +68,10 @@ public class EdgeShape extends Component{
 		} else {
 			int selfLoopContX = origin.getX() + 100;
 			int selfLoopContY = origin.getY() + 100;
-
-			//edge.setCurve(orgX,orgY,selfLoopContX,orgX,orgY,selfLoopContY,destX,destY);
 		}
 
     	g2d.setColor(Color.BLACK);
 
-
 		g2d.draw(edge);
-		//g2d.draw(new Line2D.Double(origin.getX(),origin.getY(),destination.getX(),destination.getY()));
-  }
+	}
 }
