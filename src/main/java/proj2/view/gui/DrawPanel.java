@@ -2,17 +2,6 @@ package proj2.view.gui;
 
 import javax.swing.*;
 import java.awt.*;
-// import javax.swing.SwingUtilities;
-// import javax.swing.JPanel;
-// import javax.swing.BorderFactory;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.event.*;
-import java.awt.Rectangle;
-import java.awt.Point;
-
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -206,17 +195,17 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 	*/
     public void mousePressed(MouseEvent e) {
 
-      buttonNumber = e.getButton();
-      System.out.println("buttonNumber is "+buttonNumber);
-      System.out.println();
-      System.out.println("PRESSED x " + e.getX());
-      System.out.println("PRESSED y " + e.getY());
-      System.out.println();
-		// Check if actually pressing on a vertex
-		for (VertexShape vertex: vertexShapes) {
+        buttonNumber = e.getButton();
+        System.out.println("buttonNumber is "+buttonNumber);
+        System.out.println();
+        System.out.println("PRESSED x " + e.getX());
+        System.out.println("PRESSED y " + e.getY());
+        System.out.println();
+    	// Check if actually pressing on a vertex
+    	for (VertexShape vertex: vertexShapes) {
     		if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
-				// Save the vertex as the currently selected one.
-		         //System.out.println("Selecting vertex " + vertex.getName());
+    			// Save the vertex as the currently selected one.
+    	         //System.out.println("Selecting vertex " + vertex.getName());
                  System.out.println("PRESSED vertex is " + vertex.getName());
 
           	     fromVertex = vertex;
@@ -275,24 +264,6 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     }
 
 	/**
-	* Indicates mouse has entered the panel.
-	* Currently not used.
-	*
-	* @param e mouse event passed by mouse listener
-	*/
-    public void mouseEntered(MouseEvent e) {
-    }
-
-	/**
-	* Indicates mouse has exited the panel.
-	* Currently not used.
-	*
-	* @param e mouse event passed by mouse listener
-	*/
-    public void mouseExited(MouseEvent e) {
-    }
-
-	/**
 	* Indicates the mouse has been clicked a number of times
 	* Checks if the user is clicking on a vertex. If it isn't, creates a vertex
 	* If the user double clicks on a vertex the accept state is toggled.
@@ -330,15 +301,6 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     }
 
 	/**
-	* Indicates the mouse is moved.
-	* Currently not used.
-	*
-	* @param e mouse event passed by mouse listener
-	*/
-	public void mouseMoved(MouseEvent e) {
-    }
-
-	/**
 	* Indicates the mouse has been dragged with the button pressed down.
 	* If a vertex was pressed on, this moves the vertex.
 	*
@@ -365,5 +327,32 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 		    }
 		}
         repaint();
+    }
+
+    /**
+    * Indicates the mouse is moved.
+    * Currently not used.
+    *
+    * @param e mouse event passed by mouse listener
+    */
+    public void mouseMoved(MouseEvent e) {
+    }
+
+    /**
+    * Indicates mouse has entered the panel.
+    * Currently not used.
+    *
+    * @param e mouse event passed by mouse listener
+    */
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    /**
+    * Indicates mouse has exited the panel.
+    * Currently not used.
+    *
+    * @param e mouse event passed by mouse listener
+    */
+    public void mouseExited(MouseEvent e) {
     }
 }
