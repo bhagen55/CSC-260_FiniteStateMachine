@@ -67,6 +67,7 @@ public class Document
         else {
             int vertexIndex = vertexIndices.indexOf(toRemove);
             content.remove(vertexIndex);
+            vertexIndices.remove(toRemove);
 			notifyObservers();
         }
     }
