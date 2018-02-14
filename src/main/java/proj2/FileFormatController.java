@@ -1,10 +1,13 @@
 package proj2;
 
 import proj2.document.Document;
+/*
 import java.io.PrintWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
+*/
+import java.io.*;
 
 
 public class FileFormatController
@@ -15,7 +18,7 @@ public class FileFormatController
 		d=given;
 	}
 
-	public void saveFile(String filePath) {
+	public void saveFile(String filePath) throws FileNotFoundException{
 		// Create a file object to hold the path to the text file
 		File file = new File(filePath);
 		// Create file if it doesn't exist
@@ -24,13 +27,14 @@ public class FileFormatController
 		// Write into the text file
 		writer = new PrintWriter(file);
 		writer.println(d.toString());
+
 	}
 
 
 
 
 
-	public void loadFile(String filePath)
+	public void loadFile(String filePath) throws FileNotFoundException
 	{
 		// Create a file object to hold the path to the text file
 		File file = new File(filePath);
@@ -40,10 +44,9 @@ public class FileFormatController
         // This will reference one line at a time
         String line = null;
 
-        //try {
+        try {
             // FileReader reads text files in the default encoding.
-            FileReader fileReader =
-                new FileReader(file);
+            FileReader fileReader = new FileReader(file);
 
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedReader =
@@ -83,18 +86,17 @@ public class FileFormatController
 
 	            // Always close files.
 	            bufferedReader.close();
-        //}
-        // catch(FileNotFoundException ex) {
-        //     System.out.println(
-        //         "Unable to open file '" +
-        //         FiniteStateMachine + "'");
-        // }
-        // catch(IOException ex) {
-        //     System.out.println(
-        //         "Error reading file '"
-        //         + FiniteStateMachine + "'");
-        //     // Or we could just do this:
-        //     // ex.printStackTrace();
-        // }
+        }
+         catch(FileNotFoundException ex) {
+             System.out.println(
+                 "Unable to open file '" +
+                 filePath + "'");
+         }
+         catch(IOException ex) {
+             System.out.println(
+                 "Error reading file '"
+                 + filePath + "'");
+
+         }
 	}
 }

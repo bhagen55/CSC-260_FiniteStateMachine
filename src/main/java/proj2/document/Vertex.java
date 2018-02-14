@@ -20,10 +20,10 @@ public class Vertex{
 	{
 		isAcceptState=false;
 		symbol=givenSymbol;
-		edges= new ArrayList();
+		edges = new ArrayList();
 	}
 
-	 /**
+	 /*
      * Adds a directed edge between two vertices.  If there is already an edge
      * between the given vertices, does nothing.  If either (or both)
      * of the given vertices does not exist, it is added to the
@@ -39,7 +39,7 @@ public class Vertex{
     }
 
     /**
-    * Adds or alters coordinates of this vertex 
+    * Adds or alters coordinates of this vertex
     *@param int x : x value of coordinate
     *@param int y : y value of coordinate
     */
@@ -101,7 +101,7 @@ public class Vertex{
 
 
     /**
-    *returns if a desired edge exists 
+    *returns if a desired edge exists
     *@param to: the name of the vertex the edge to remove goes to
     *@param edgeweight: weight of the edge to be removed
     *@return true if a certain edge exists false otherwise
@@ -134,7 +134,7 @@ public class Vertex{
     }
 
     /**
-    *if vertex is an accept state makes 
+    *if vertex is an accept state makes
     *it not an accept state and if it is not an accept state
     *the vertex becomes an accept state
     */
