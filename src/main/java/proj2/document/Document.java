@@ -156,6 +156,7 @@ public class Document
         else {
             int vertexIndex = vertexIndices.indexOf(vertexName);
             content.get(vertexIndex).toggleAccept();
+            notifyObservers();
         }
     }
 

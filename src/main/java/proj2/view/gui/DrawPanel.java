@@ -117,10 +117,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
         // Add all the vertices from the model as vertexshapes
         for (Vertex vertex: model) {
-            
+
             // Check if vertex is a start vertex
             boolean isStart = false;
-            if (doc.getStartVertex().equals(vertex.getName())) {
+            if (doc.getFirstVertex().getName().equals(vertex.getName())) {
                 isStart = true;
             }
 
@@ -261,7 +261,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
             // If a vertex was being dragged, send its new location to the document
             if (dragging) {
-                doc.moveVertex(selVertex.getName(), selVertex.getX(), selVertex.gety());
+                doc.moveVertex(selVertex.getName(), selVertex.getX(), selVertex.getY());
             }
             dragging = false;
             selVertex = null;
