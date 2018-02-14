@@ -237,7 +237,7 @@ public class Document
     {
 
         String toReturn= "";
-        if(content)
+        if(haveAddedCoordinates){
 
         for(Vertex curVertex: content)
          {
@@ -245,6 +245,7 @@ public class Document
 
             toReturn=toReturn+"\n";
         }
+    }
         toReturn=toReturn+"$";
         for(Vertex curVertex: content)
          {
