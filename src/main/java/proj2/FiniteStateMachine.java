@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import proj2.document.Document;
-import proj2.view.gui.Gui;
 import proj2.view.gui.DrawPanel;
 import proj2.FileFormatController;
 
@@ -25,7 +24,7 @@ public class FiniteStateMachine {
 	*
 	* @param panel the panel to be drawn in the frame
 	*/
-	public static void createAndShowGUI(DrawPanel panel) {
+	private static void createAndShowGUI(DrawPanel panel) {
 		JFrame f = new JFrame("Finite State Machine");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.add(panel);
