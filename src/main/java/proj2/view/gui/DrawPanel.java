@@ -79,10 +79,13 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 	private JLabel edgeFieldName;
 
     /*
-    * Save/Load Button
+    * Save/Load Button and Path
     */
     private JButton saveButton;
     private JButton loadButton;
+
+    private JTextField savePath;
+    private JTextField loadPath;
 
 
 	public DrawPanel(Document d) {
@@ -98,14 +101,18 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 		vertexFieldName = new JLabel("New Vertex Name");
 		edgeFieldName = new JLabel("New Edge Name");
 
-        // Add save/load buttons
+        // Add save/load buttons and paths
         saveButton = new JButton("Save");
         loadButton = new JButton("Load");
+
+        savePath = new JTextField("./fsm.txt");
+        loadPath = new JTextField("./fsm.txt");
 
         // Call the FSM save when button pressed
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // TODO: Call save fsm here
+                // Get the load path from savePath
                 System.out.println("Saving");
             }
         });
@@ -114,6 +121,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // TODO: Call load fsm here
+                // Get the save path from savePath
                 System.out.println("Loading");
             }
         });
@@ -232,11 +240,16 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 		add(vertexFieldName);
 		add(edgeFieldName);
 
-        // Paints the save/load buttons
+        // Paints the save/load buttons and paths
         saveButton.setBounds(300, 1, 100, 20);
         loadButton.setBounds(400, 1, 100, 20);
         add(saveButton);
         add(loadButton);
+
+        savePath.setBounds(300, 21, 100, 20);
+        loadPath.setBounds(400, 21, 100, 20);
+        add(savePath);
+        add(loadPath);
 
 		// Paints the vertices
         for (VertexShape vertex: vertexShapes) {
