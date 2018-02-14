@@ -28,6 +28,7 @@ public class FileFormatController
 		// Write into the text file
 		writer = new PrintWriter(file);
 		writer.println(d.toString());
+		writer.close();
 
 	}
 
@@ -55,7 +56,7 @@ public class FileFormatController
                 new BufferedReader(fileReader);
             boolean havePassedCoordinates=false;
             while((line = bufferedReader.readLine()) != null) {
-	            if(line.equals("$"))
+	            if(line.compareTo("$"))
 	            {
 	            	havePassedCoordinates=true;
 	            }
