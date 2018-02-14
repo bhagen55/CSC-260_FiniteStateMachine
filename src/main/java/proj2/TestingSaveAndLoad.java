@@ -15,7 +15,7 @@ public class TestingSaveAndLoad{
 		d.addVertex("A",10,52);
 
 		d.addVertex("B",55,117);
-		d.addVertex("C",0.1,27);
+		d.addVertex("C",1,27);
 		d.addEdge("A","B","z");
 		f.saveFile("FiniteStateMachine.txt");
 	}
