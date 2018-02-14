@@ -8,6 +8,7 @@ public class TestingSaveAndLoad{
 	//Static FileFormatController f;
 	public TestingSaveAndLoad()
 	{
+		try{
 		Document d;
 	    FileFormatController f;
 		d= new Document();
@@ -17,7 +18,20 @@ public class TestingSaveAndLoad{
 		d.addVertex("B",55,117);
 		d.addVertex("C",1,27);
 		d.addEdge("A","B","z");
-		//f.saveFile("FiniteStateMachine.txt");
+		f.saveFile("FiniteStateMachine");
+		
+	}
+		 catch(FileNotFoundException ex) {
+             System.out.println(
+                 "Unable to open file '" +
+                 "FiniteStateMachine" + "'");
+         }
+         catch(IOException ex) {
+             System.out.println(
+                 "Error reading file '"
+                 + "FiniteStateMachine" + "'");
+
+         }
 	}
 
 	public static void main(String[] args) throws FileNotFoundException
@@ -30,6 +44,7 @@ public class TestingSaveAndLoad{
 		d.addVertex("B");
 		d.addVertex("C");
 		d.addEdge("A","B","z");
-		//f.saveFile("FiniteStateMachine.txt");
+		f.saveFile("FiniteStateMachine");
+
 	}
 }

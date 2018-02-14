@@ -171,7 +171,7 @@ public class Vertex{
 				toReturn += ",";
 			}
 		}
-		return toReturn + "|";
+		return toReturn;
     }
 
 
