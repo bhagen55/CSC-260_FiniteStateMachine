@@ -124,7 +124,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // TODO: Call save fsm here
-                ffc.saveFile(saveButton.getText());
+                ffc.saveFile(savePath.getText());
                 System.out.println("Saving");
             }
         });
@@ -134,7 +134,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             public void actionPerformed(ActionEvent e) {
                 // TODO: Call load fsm here
                 // Get the save path from savePath
-                ffc.loadFile(saveButton.getText());
+                ffc.loadFile(savePath.getText());
                 System.out.println("Loading");
             }
         });
