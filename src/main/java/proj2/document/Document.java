@@ -105,12 +105,31 @@ public class Document
     /**
      * Tells whether or not a vertex is in the machine.
      *
-     * @param vertex a vertex
+     * @param vertexName a vertex
      * @return true iff 'vertex' is a vertex in the machine.
      */
     public boolean hasVertex(String vertexName)
     {
         return vertexIndices.contains(vertexName);
+    }
+
+    /**
+    * Move vertex to given coordinates
+    *
+    * @param vertexName a vertex to me moved
+    * @param xPos x coordinate to move to
+    * @param yPos y coordinate to move to
+    */
+    public void moveVertex(String vertexName, int xPos, int yPos) {
+        if (!this.hasVertex(vertexName)) {
+            System.out.println("Vertex specified to move does not exist");
+        }
+        else {
+            int vertexIndex = vertexIndices.indexOf(vertexName);
+            Vertex foundVertex = content.get(vertexIndex);
+            foundVertex.setX(xPos);
+            foundVertex.setY(yPos);
+        }
     }
 
     /**
@@ -237,13 +256,15 @@ public class Document
     {
 
         String toReturn= "";
+        if(haveAddedCoordinates){
 
         for(Vertex curVertex: content)
          {
-            toReturn=toReturn+curVertex.toString()+"("+curVertex.getX()+","+curVertex.getY()+")";
+            toReturn=toReturn+curVertex.toString()+"|"+curVertex.getX()+"|"+curVertex.getY();
 
             toReturn=toReturn+"\n";
         }
+    }
         toReturn=toReturn+"$";
         for(Vertex curVertex: content)
          {
