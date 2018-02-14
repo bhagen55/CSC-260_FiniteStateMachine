@@ -79,7 +79,7 @@ public class FileFormatController
                 new BufferedReader(fileReader);
             boolean havePassedCoordinates=false;
             while((line = bufferedReader.readLine()) != null) {
-            	if(line.contains("@")!=0){
+            	if(!line.contains("@")){
 		            if(line.compareTo("$") == 0)
 		            {
 		            	havePassedCoordinates=true;
