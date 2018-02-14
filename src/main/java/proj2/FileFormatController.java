@@ -61,19 +61,22 @@ public class FileFormatController
                 new BufferedReader(fileReader);
             boolean havePassedCoordinates=false;
             while((line = bufferedReader.readLine()) != null) {
-	            if(line.equals("$"))
+	            if(line.compareTo("$") == 0)
 	            {
 	            	havePassedCoordinates=true;
 	            }
 
 	           	if(!havePassedCoordinates)
 	           	{
-	           		String[] lineParts=line.split("|");
+	           		String[] lineParts=line.split("\\|");
+					for (String part: lineParts) {
+						System.out.println(part);
+					}
 	           		d.addVertex(lineParts[0],Integer.parseInt(lineParts[1]),Integer.parseInt(lineParts[2]));
 
 	           	}
 	           	else{
-	           		String[] lineParts=line.split("(");
+	           		String[] lineParts=line.split("\\(");
 	           		String vertex="";
 	           		for(String part: lineParts)
 	           		{
