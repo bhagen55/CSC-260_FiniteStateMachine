@@ -241,7 +241,7 @@ public class Document
 
         for(Vertex curVertex: content)
          {
-            toReturn=toReturn+curVertex.toString()+"("+curVertex.getX()+","+curVertex.getY()+")";
+            toReturn=toReturn+curVertex.toString()+"|"+curVertex.getX()+"|"+curVertex.getY();
 
             toReturn=toReturn+"\n";
         }
