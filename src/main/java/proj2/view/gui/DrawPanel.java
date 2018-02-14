@@ -22,6 +22,8 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import java.io.*;
+
 import proj2.document.*;
 import proj2.view.gui.shapes.*;
 import proj2.view.gui.Observer;
@@ -124,7 +126,12 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // TODO: Call save fsm here
-                ffc.saveFile(savePath.getText());
+                try {
+                    ffc.saveFile(savePath.getText());
+                }
+                catch (FileNotFoundException err) {
+                    System.out.println("File save error");
+                }
                 System.out.println("Saving");
             }
         });
@@ -134,7 +141,12 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             public void actionPerformed(ActionEvent e) {
                 // TODO: Call load fsm here
                 // Get the save path from savePath
-                ffc.loadFile(savePath.getText());
+                try {
+                    ffc.loadFile(savePath.getText());
+                }
+                catch (FileNotFoundException err) {
+                    System.out.println("File load error");
+                }
                 System.out.println("Loading");
             }
         });
