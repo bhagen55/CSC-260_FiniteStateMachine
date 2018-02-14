@@ -20,7 +20,7 @@ public class Vertex{
 	{
 		isAcceptState=false;
 		symbol=givenSymbol;
-		edges = new ArrayList();
+		edges = new ArrayList<Edge>();
 	}
 
 	 /*
