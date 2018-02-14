@@ -58,7 +58,7 @@ public class FiniteStateMachineTests
     {
     	d.addVertex("A");
     	d.removeVertex("A");
-    	assertTrue("Testing adding and removing a single Vertex",d.toString().compareTo(d2.toString()));
+    	assertTrue("Testing adding and removing a single Vertex",d.toString().compareTo(d2.toString())==0);
     }
 
     @Test
@@ -66,20 +66,14 @@ public class FiniteStateMachineTests
     {
     	d.addVertex("A");
     	d.addVertex("A");
-    	d2.addVertex("A")
+    	d2.addVertex("A");
     	assertTrue("Testing vertex is added",d.hasVertex("A"));
-    	assertTrue("Testing num Vertexes does not increase when duplicates are attempted",d.numVertexes()==1);
-    	assertTrue("Testing duplicate is the same as if only adding a vertex once",d.toString().compareTo(d2.toString()));
+    	assertTrue("Testing num Vertexes does not increase when duplicates are attempted",d.numVertices()==1);
+    	assertTrue("Testing duplicate is the same as if only adding a vertex once",d.toString().compareTo(d2.toString())==0);
     }
 
-    @Test
-    public void TestingAddVertexAndHasVertex()
-    {
-    	d.addVertex("A");
-    	assertTrue("Testing adding a single Vertex",d.hasVertex("A"));
-    }
 
-    
+
 
     
 }
