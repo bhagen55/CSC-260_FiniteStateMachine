@@ -87,8 +87,8 @@ public class Vertex{
 
     /**
     *removes an edge with Symbol to and weight edgeweight
-    *@param to: the name of the 
-    *
+    *@param to: the name of the vertex the edge to remove goes to
+    *@param edgeweight: weight of the edge to be removed
     */
     public void removeEdge(String to, String edgeWeight)
     {
@@ -100,6 +100,12 @@ public class Vertex{
     }
 
 
+    /**
+    *returns if a desired edge exists 
+    *@param to: the name of the vertex the edge to remove goes to
+    *@param edgeweight: weight of the edge to be removed
+    *@return true if a certain edge exists false otherwise
+    */
    	public boolean hasEdge(String to, String edgeWeight)
    	{
 		if (findEdge(to, edgeWeight) != null) {
@@ -110,27 +116,44 @@ public class Vertex{
    	}
 
 
-
+    /**
+    *returns the number of edges
+    *@return the number of edges in this vertex
+    */
     public int numEdges()
     {
         return numEdges;
     }
 
+    /**
+    *@return true if this is an accept state false otherwise
+    */
     public boolean canAccept()
     {
     	return isAcceptState;
     }
 
+    /**
+    *if vertex is an accept state makes 
+    *it not an accept state and if it is not an accept state
+    *the vertex becomes an accept state
+    */
 	public void toggleAccept()
 	{
 		isAcceptState = !isAcceptState;
 	}
 
+    /**
+    *@return the name of this vertex
+    */
     public String getName()
     {
     	return symbol;
     }
 
+    /**
+    *@return the edges in this vertex
+    */
     public ArrayList<Edge> getEdges()
     {
         return edges;
