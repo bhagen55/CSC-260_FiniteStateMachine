@@ -23,6 +23,8 @@ public class EdgeShape extends Component{
 
 	private QuadCurve2D edge;
 
+	private JTextField name;
+
 	public EdgeShape(VertexShape o, VertexShape d, String n) {
 
 		this.name = n;
@@ -36,6 +38,9 @@ public class EdgeShape extends Component{
 		int destY = destination.getY();
 		int contX = getCont(orgX, destX);
 		int contY = getCont(orgY, destY);
+
+		name = new JTextField(n);
+		name.setBounds(contX, contY, 60, 20);
 
 		int selfLoopContX = origin.getX() + 100;
 		int selfLoopContY = origin.getY() + 100;
@@ -60,15 +65,19 @@ public class EdgeShape extends Component{
 		int destX = destination.getX();
 		int destY = destination.getY();
 
+		// Check to see if this is a self loop
 		if (orgX != destX && orgY != destY) {
 			int contX = getCont(orgX, orgY);
 			int contY = getCont(destX, destY);
 
 			edge.setCurve(orgX,orgY,contX,contY,destX,destY);
-		} else {
+		}
+		else {
 			int selfLoopContX = origin.getX() + 100;
 			int selfLoopContY = origin.getY() + 100;
 		}
+
+		g2d.draw(name);
 
     	g2d.setColor(Color.BLACK);
 
