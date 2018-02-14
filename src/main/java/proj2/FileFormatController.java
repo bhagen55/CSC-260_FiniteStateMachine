@@ -40,7 +40,6 @@ public class FileFormatController
 		writer.println(d.toString());
 		writer.close();
 
-		writer.close();
 
 	}
 
