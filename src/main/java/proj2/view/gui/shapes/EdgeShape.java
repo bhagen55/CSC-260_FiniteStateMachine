@@ -29,6 +29,7 @@ public class EdgeShape extends Component{
 	private static final int DOUBLE_MULT = 2;
 	private static final int STANDARD_FONT_SIZE = 12;
 	private static final int LOOP_OFFSET = 90;
+	private static final int ROTATE_CORRECTION = 90;
 
 	/**
 	* EdgeShape constructor
@@ -80,7 +81,7 @@ public class EdgeShape extends Component{
     	int angle = (int) Math.toDegrees(Math.atan2(orgX-destX,orgY-destY));
 
 		// sets correct initial rotation
-		angle += 90;
+		angle += ROTATE_CORRECTION;
 
 		// sets rotation to correct direction
 		angle = getInverse(angle);
@@ -97,9 +98,9 @@ public class EdgeShape extends Component{
 	*/
 	private int getInverse(int num) {
 		if (num < 0) {
-			num += 2*Math.abs(num);
+			num += DOUBLE_MULT*Math.abs(num);
 		} else {
-			num = num - 2*num;
+			num = num - DOUBLE_MULT*num;
 		}
 
 		return num;
