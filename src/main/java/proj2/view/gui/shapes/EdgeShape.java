@@ -47,6 +47,9 @@ public class EdgeShape extends Component{
 		int contX = getCont(orgX, destX);
 		int contY = getCont(orgY, destY);
 
+		int selfLoopContX = origin.getX() + 100;
+		int selfLoopContY = origin.getY() + 100;
+
 		edge = new QuadCurve2D.Double(orgX,orgY,contX,contY,destX,destY);
 		//edge.setCurve(;
 
@@ -77,10 +80,18 @@ public class EdgeShape extends Component{
 		int orgY = origin.getY();
 		int destX = destination.getX();
 		int destY = destination.getY();
-		int contX = getCont(orgX, orgY);
-		int contY = getCont(destX, destY);
 
-		edge.setCurve(orgX,orgY,contX,contY,destX,destY);
+		if (orgX != destX && orgY != destY) {
+			int contX = getCont(orgX, orgY);
+			int contY = getCont(destX, destY);
+
+			edge.setCurve(orgX,orgY,contX,contY,destX,destY);
+		} else {
+			int selfLoopContX = origin.getX() + 100;
+			int selfLoopContY = origin.getY() + 100;
+
+			edge.setCurve(orgX,orgY,selfLoopContX,orgX,orgY,selfLoopContY,destX,destY);
+		}
 
     	g2d.setColor(Color.BLACK);
 
