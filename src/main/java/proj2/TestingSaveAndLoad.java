@@ -17,7 +17,7 @@ public class TestingSaveAndLoad{
 		d.addVertex("B",55,117);
 		d.addVertex("C",1,27);
 		d.addEdge("A","B","z");
-		f.saveFile("FiniteStateMachine.txt");
+		//f.saveFile("FiniteStateMachine.txt");
 	}
 
 	public static void main(String[] args) throws FileNotFoundException
@@ -30,6 +30,6 @@ public class TestingSaveAndLoad{
 		d.addVertex("B");
 		d.addVertex("C");
 		d.addEdge("A","B","z");
-		f.saveFile("FiniteStateMachine.txt");
+		//f.saveFile("FiniteStateMachine.txt");
 	}
 }

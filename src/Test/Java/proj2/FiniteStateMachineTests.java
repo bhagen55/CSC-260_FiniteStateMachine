@@ -46,7 +46,7 @@ public class FiniteStateMachineTests
     public void TestingAddVertex()
     {
     	d.addVertex("A");
-    	assertTrue("Testing adding a single Vertex",d.hasVertex("A");
+    	assertTrue("Testing adding a single Vertex",d.hasVertex("A"));
     }
 
 
