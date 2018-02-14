@@ -111,6 +111,22 @@ public class Document
         return vertexIndices.contains(vertexName);
     }
 
+    /**
+    * Toggle accept state of a vertex
+    *
+    * @param vertex a vertex
+    */
+    public void toggleAccept(String vertexName)
+    {
+        if (!this.hasVertex(vertexName)) {
+            System.out.println("Vertex specified to toggle state does not exist");
+        }
+        else {
+            int vertexIndex = vertexIndices.indexOf(vertexName);
+            content.get(vertexIndex).toggleAccept();
+        }
+    }
+
 
     /**
      * Adds a directed edge between two vertices.  If there is already an edge

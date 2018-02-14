@@ -108,6 +108,11 @@ public class Vertex{
     	return isAcceptState;
     }
 
+	public void toggleAccept()
+	{
+		isAcceptState = !isAcceptState;
+	}
+
     public String getName()
     {
     	return symbol;
