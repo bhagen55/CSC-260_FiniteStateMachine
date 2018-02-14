@@ -93,14 +93,24 @@ private int getInverse(int num) {
 
 		// Check to see if this is a self loop
 		if (orgX != destX && orgY != destY) {
-			//int contX = getCont(orgX, orgY);
-			//int contY = getCont(destX, destY);
 
 			edge.setCurve(orgX,orgY,contX,contY,destX,destY);
-		}
-		else {
-			int selfLoopContX = origin.getX() + 100;
-			int selfLoopContY = origin.getY() + 100;
+
+			Font font = new Font(null, Font.PLAIN, 12);
+			AffineTransform rotater = new AffineTransform();
+			System.out.println(getAngle());
+			rotater.rotate(Math.toRadians(getAngle()), 0, 0);
+			Font rotatedFont = font.deriveFont(rotater);
+			g2d.setFont(rotatedFont);
+			g2d.drawString(name + pointer,contX,contY);
+
+		// this is a self loop
+		} else {
+
+			int loopX = origin.getX();
+			int loopY = origin.getY();
+			g2d.draw(new Ellipse2D.Double(loopX,loopY,90,90));
+			g2d.drawString(name, loopX+90,loopY+90);
 		}
 
 		Font font = new Font(null, Font.PLAIN, 12);
