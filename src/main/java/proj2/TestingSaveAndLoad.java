@@ -29,6 +29,6 @@ public class TestingSaveAndLoad{
 		d.addVertex("B");
 		d.addVertex("C");
 		d.addEdge("A","B","z");
-		f.saveFile();
+//		f.saveFile();
 	}
 }
