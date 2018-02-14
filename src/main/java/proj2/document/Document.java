@@ -237,7 +237,6 @@ public class Document
     {
 
         String toReturn= "";
-        if(content)
 
         for(Vertex curVertex: content)
          {
