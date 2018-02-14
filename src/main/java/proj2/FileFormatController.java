@@ -68,37 +68,6 @@ public class FileFormatController
                 new BufferedReader(fileReader);
             boolean havePassedCoordinates=false;
             while((line = bufferedReader.readLine()) != null) {
-<<<<<<< HEAD
-	            if(line.compareTo("$") == 0)
-	            {
-	            	havePassedCoordinates=true;
-	            }
-
-	           	if(!havePassedCoordinates)
-	           	{
-	           		String[] lineParts=line.split("\\|");
-	           		d.addVertex(lineParts[0],Integer.parseInt(lineParts[1]),Integer.parseInt(lineParts[2]));
-
-	           	}
-	           	else{
-	           		String[] lineParts=line.split("\\(");
-	           		String vertex="";
-	           		for(String part: lineParts)
-	           		{
-	           			if(!part.contains(")"))
-	           			{
-	           				vertex=part;
-	           			}
-	           			else{
-	           				String[] edge=part.split(",");
-	           				String temp = edge[1];
-	           				edge[1]=temp.substring(0,edge[1].length()-1);
-	           				d.addEdge(vertex,edge[0],edge[1]);
-	           			}
-	           		}
-
-	           	}
-=======
             	if(line.charAt(0).compareTo('@')!=0){
 		            if(line.compareTo("$") == 0)
 		            {
@@ -133,7 +102,6 @@ public class FileFormatController
 
 		           	}
 	           }
->>>>>>> eac5a22cc1f663e1032f2a9124b6a969004be681
 	           }
 
 	            // Always close files.
