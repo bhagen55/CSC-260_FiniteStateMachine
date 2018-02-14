@@ -3,8 +3,8 @@ package proj2;
 import proj2.document.Document;
 
 public class TestingSaveAndLoad{
-	Document d;
-	FileFormatController f;
+	Static Document d;
+	Static FileFormatController f;
 	public TestingSaveAndLoad()
 	{
 		/*
