@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Component;
 
 
-/*
+/**
 * Represents shape of a vertex for the gui
 */
 public class VertexShape extends Component{
@@ -38,6 +38,15 @@ public class VertexShape extends Component{
 	Ellipse2D ellipse;
 	Ellipse2D acceptEllipse;
 
+	/**
+	* Constructs a VertexShape object
+	*
+	* @param xPos x coordinate
+	* @param yPos y coordinate
+	* @param name name of vertex
+	* @param isAccepting whether or not this is an accept state
+	* @param isStart whether or not this is a start state
+	*/
 	public VertexShape(int xPos, int yPos, String name, boolean isAccepting, boolean isStart) {
 
 		this.name = name;
