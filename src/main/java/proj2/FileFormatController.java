@@ -8,14 +8,14 @@ public class FileFormatController
 {
 	Document d;
 	PrintWriter writer;
-	public FileFormatController(Document given) throws IOException
+	public FileFormatController(Document given) throws FileNotFoundException
 	{
 		d=given;
 	}
 
-	public void saveFile() {
-		//writer = new PrintWriter("FiniteStateMachine.txt");
-		//writer.print(d.toString());
+	public void saveFile() throws FileNotFoundException {
+		writer = new PrintWriter("FiniteStateMachine.txt");
+		writer.println(d.toString());
 	}
 
 
