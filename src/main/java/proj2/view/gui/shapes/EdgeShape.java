@@ -26,6 +26,13 @@ public class EdgeShape extends Component{
 
 	private QuadCurve2D edge;
 
+	/**
+	* EdgeShape constructor
+	*
+	* @param 0 origin VertexShape
+	* @param d destination VertexShape
+	* @param n name/transition name for edge
+	*/
 	public EdgeShape(VertexShape o, VertexShape d, String n) {
 
 		this.name = n;
@@ -46,38 +53,63 @@ public class EdgeShape extends Component{
 		edge = new QuadCurve2D.Double(orgX,orgY,contX,contY,destX,destY);
 	}
 
+	/**
+	* Gets control point for edges
+	*
+	* @return halfway point between points
+	*
+	* @param start start point
+	* @param end end point
+	*/
 	private int getCont(int start, int end) {
 		return (start + end) / 2;
 	}
 
+	/**
+	* Gets angle to properly represent text
+	*
+	* @return calculated angle
+	*/
 	private int getAngle() {
 
-	int orgX = origin.getX();
-	int orgY = origin.getY();
-	int destX = destination.getX();
-	int destY = destination.getY();
+		int orgX = origin.getX();
+		int orgY = origin.getY();
+		int destX = destination.getX();
+		int destY = destination.getY();
 
-    int angle = (int) Math.toDegrees(Math.atan2(orgX-destX,orgY-destY));
+    	int angle = (int) Math.toDegrees(Math.atan2(orgX-destX,orgY-destY));
 
-	// sets correct initial rotation
-	angle += 90;
+		// sets correct initial rotation
+		angle += 90;
 
-	// sets rotation to correct direction
-	angle = getInverse(angle);
+		// sets rotation to correct direction
+		angle = getInverse(angle);
 
-    return angle;
-}
-
-private int getInverse(int num) {
-	if (num < 0) {
-		num += 2*Math.abs(num);
-	} else {
-		num = num - 2*num;
+    	return angle;
 	}
 
-	return num;
-}
+	/**
+	* Gets angle to correct rotation of text
+	*
+	* @return corrected angle
+	*
+	* @param num angle to correct
+	*/
+	private int getInverse(int num) {
+		if (num < 0) {
+			num += 2*Math.abs(num);
+		} else {
+			num = num - 2*num;
+		}
 
+		return num;
+	}
+
+	/**
+	* Paints the shapes needed to represent EdgeShape
+	*
+	* @param g graphics object
+	*/
  	public void paintShape(Graphics g) {
 
     	Graphics2D g2d = (Graphics2D) g;
