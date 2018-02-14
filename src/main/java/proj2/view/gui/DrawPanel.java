@@ -25,6 +25,7 @@ import java.util.LinkedList;
 import proj2.document.*;
 import proj2.view.gui.shapes.*;
 import proj2.view.gui.Observer;
+import proj2.FileFormatController;
 
 /*
 * Extension of JPanel that handles drawing of states and vertex objects
@@ -44,6 +45,9 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
     // Holds the document that the view edits
     private Document doc;
+
+    // Holds the File Format controller
+    private FileFormatController ffc;
 
   	// Holds last known location of mouse for dragging
   	private int preX;
@@ -88,7 +92,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     private JTextField loadPath;
 
 
-	public DrawPanel(Document d) {
+	public DrawPanel(Document d, FileFormatController filecontroller) {
 
     	System.out.println("Setting up");
 
@@ -108,11 +112,19 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         savePath = new JTextField("./fsm.txt");
         loadPath = new JTextField("./fsm.txt");
 
+        vertexShapes = new ArrayList<VertexShape>();
+
+		edgeShapes = new ArrayList<EdgeShape>();
+
+        doc = d;
+
+        ffc = filecontroller;
+
         // Call the FSM save when button pressed
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // TODO: Call save fsm here
-                // Get the load path from savePath
+                ffc.saveFile(saveButton.getText());
                 System.out.println("Saving");
             }
         });
@@ -122,15 +134,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             public void actionPerformed(ActionEvent e) {
                 // TODO: Call load fsm here
                 // Get the save path from savePath
+                ffc.loadFile(saveButton.getText());
                 System.out.println("Loading");
             }
         });
-
-        vertexShapes = new ArrayList<VertexShape>();
-
-		edgeShapes = new ArrayList<EdgeShape>();
-
-        doc = d;
 
         // Add mouse listener to the panel to deal with mouse events
         this.addMouseListener(this);
@@ -179,7 +186,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
                         endVertex = endShape;
                     }
                 }
-                edgeShapes.add(new EdgeShape(vertex, endVertex, edge.getEdgeWeight()));
+                edgeShapes.add(new EdgeShape(vertex, endVertex, edge.getWeight()));
             }
         }
         repaint();
