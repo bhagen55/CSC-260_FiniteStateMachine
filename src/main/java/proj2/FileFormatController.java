@@ -33,7 +33,7 @@ public class FileFormatController
 		writer.println("@@ Top section is: VertexName|xPosition|yPosition");
 		writer.println("@@ Bottom section is: VertexName than its edges, each in parenthesis separated by a comma");
 		writer.println("@@ in each parenthesis it is ordered (Vertex this edge points to, this edge's weight)");
-		writer.println("@@ the $ in the middle separates the coordiante section from the edges section");
+		writer.println("@@ the $ in the middle separates the coordinate section from the edges section");
 
 
 
@@ -68,7 +68,7 @@ public class FileFormatController
                 new BufferedReader(fileReader);
             boolean havePassedCoordinates=false;
             while((line = bufferedReader.readLine()) != null) {
-            	if(line.charAt(0).compareTo('@')!=0){
+            	if(line.charAt(0) == '@'){
 		            if(line.compareTo("$") == 0)
 		            {
 		            	havePassedCoordinates=true;
