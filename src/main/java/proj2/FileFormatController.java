@@ -1,54 +1,65 @@
 package proj2;
 
 import proj2.document.Document;
-import java.io.*;
+import java.io.PrintWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.BufferedReader;
 
 
 public class FileFormatController
 {
 	Document d;
 	PrintWriter writer;
-	public FileFormatController(Document given) throws FileNotFoundException
-	{
+	public FileFormatController(Document given){
 		d=given;
 	}
 
-	public void saveFile() throws FileNotFoundException {
-		writer = new PrintWriter("FiniteStateMachine.txt");
+	public void saveFile(String filePath) {
+		// Create a file object to hold the path to the text file
+		File file = new File(filePath);
+		// Create file if it doesn't exist
+		file.getParentFile().mkdirs();
+
+		// Write into the text file
+		writer = new PrintWriter(file);
 		writer.println(d.toString());
 	}
 
 
-	
 
 
-	public void loadFile(String FiniteStateMachine)
+
+	public void loadFile(String filePath)
 	{
-			 // The name of the file to open.
+		// Create a file object to hold the path to the text file
+		File file = new File(filePath);
+		// Create file if it doesn't exist
+		file.getParentFile().mkdirs();
 
         // This will reference one line at a time
         String line = null;
 
-        try {
+        //try {
             // FileReader reads text files in the default encoding.
-            FileReader fileReader = 
-                new FileReader(FiniteStateMachine);
+            FileReader fileReader =
+                new FileReader(file);
 
             // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader = 
+            BufferedReader bufferedReader =
                 new BufferedReader(fileReader);
             boolean havePassedCoordinates=false;
             while((line = bufferedReader.readLine()) != null) {
 	            if(line.equals("$"))
 	            {
 	            	havePassedCoordinates=true;
-	            }   
+	            }
 
 	           	if(!havePassedCoordinates)
 	           	{
 	           		String[] lineParts=line.split("|");
 	           		d.addVertex(lineParts[0],Integer.parseInt(lineParts[1]),Integer.parseInt(lineParts[2]));
-	         
+
 	           	}
 	           	else{
 	           		String[] lineParts=line.split("(");
@@ -71,22 +82,19 @@ public class FileFormatController
 	           }
 
 	            // Always close files.
-	            bufferedReader.close();         
-        }
-        catch(FileNotFoundException ex) {
-            System.out.println(
-                "Unable to open file '" + 
-                FiniteStateMachine + "'");                
-        }
-        catch(IOException ex) {
-            System.out.println(
-                "Error reading file '" 
-                + FiniteStateMachine + "'");                  
-            // Or we could just do this: 
-            // ex.printStackTrace();
-        }
+	            bufferedReader.close();
+        //}
+        // catch(FileNotFoundException ex) {
+        //     System.out.println(
+        //         "Unable to open file '" +
+        //         FiniteStateMachine + "'");
+        // }
+        // catch(IOException ex) {
+        //     System.out.println(
+        //         "Error reading file '"
+        //         + FiniteStateMachine + "'");
+        //     // Or we could just do this:
+        //     // ex.printStackTrace();
+        // }
 	}
 }
-	
-
-
