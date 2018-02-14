@@ -1,0 +1,1 @@
+A vertex with a self loop is displayed and loads/saves correctly.
