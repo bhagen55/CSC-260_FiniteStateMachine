@@ -43,6 +43,17 @@ public class Document
     }
 
     /**
+     * Returns the first vertex in the document which is also the start vertex of
+     * FSM
+     *
+     * @return first vertex in FSM
+     */
+    public Vertex getFirstVertex()
+    {
+        return content.get(0);
+    }
+
+    /**
      * Removes vertex in the finite state machine.  If vertex is not in the FSM,
      * prints out a message stating that the vertex does not exists
      *
