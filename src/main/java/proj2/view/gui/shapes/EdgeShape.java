@@ -90,7 +90,7 @@ public class EdgeShape extends Component{
 			int selfLoopContX = origin.getX() + 100;
 			int selfLoopContY = origin.getY() + 100;
 
-			edge.setCurve(orgX,orgY,selfLoopContX,orgX,orgY,selfLoopContY,destX,destY);
+			//edge.setCurve(orgX,orgY,selfLoopContX,orgX,orgY,selfLoopContY,destX,destY);
 		}
 
     	g2d.setColor(Color.BLACK);

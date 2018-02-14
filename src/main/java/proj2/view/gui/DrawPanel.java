@@ -329,19 +329,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
             //selVertex.setY(e.getY());
             //selVertex.setX(e.getX());
-            int Xoffset = e.getX() - preX;
-            int Yoffset = e.getY() - preY;
+            // int Xoffset = e.getX() - preX;
+            // int Yoffset = e.getY() - preY;
 
             selVertex.moveShape(e.getX(), e.getY());
-
-			// Only move if a vertex was clicked on before the mouse was dragged
-			if (selVertex != null) {
-				selVertex.setY(e.getY());
-				selVertex.setX(e.getX());
-				selVertex.moveShape(preX + e.getX(), preY + e.getY());
-
-				repaint();
-		    }
+		    
 		}
         repaint();
     }
