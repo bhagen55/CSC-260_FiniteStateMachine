@@ -8,6 +8,8 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Line2D;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.geom.AffineTransform;
 import javax.swing.JLabel;
 
 import proj2.view.gui.shapes.VertexShape;
@@ -24,10 +26,6 @@ public class EdgeShape extends Component{
 
 	private QuadCurve2D edge;
 
-	private int contX;
-
-	private int contY;
-
 	public EdgeShape(VertexShape o, VertexShape d, String n) {
 
 		this.name = n;
@@ -39,8 +37,8 @@ public class EdgeShape extends Component{
 		int orgY = origin.getY();
 		int destX = destination.getX();
 		int destY = destination.getY();
-		contX = getCont(orgX, destX);
-		contY = getCont(orgY, destY);
+		int contX = getCont(orgX, destX);
+		int contY = getCont(orgY, destY);
 
 		int selfLoopContX = origin.getX() + 100;
 		int selfLoopContY = origin.getY() + 100;
@@ -49,12 +47,36 @@ public class EdgeShape extends Component{
 	}
 
 	private int getCont(int start, int end) {
-		if (start > end) {
-			return ( ((start - end)/2) + end );
-		} else {
-			return ( ((end - start)/2) + start );
-		}
+		return (start + end) / 2;
 	}
+
+	private int getAngle() {
+
+	int orgX = origin.getX();
+	int orgY = origin.getY();
+	int destX = destination.getX();
+	int destY = destination.getY();
+
+    int angle = (int) Math.toDegrees(Math.atan2(orgX-destX,orgY-destY));
+
+	// sets correct initial rotation
+	angle += 90;
+
+	// sets rotation to correct direction
+	angle = getInverse(angle);
+
+    return angle;
+}
+
+private int getInverse(int num) {
+	if (num < 0) {
+		num += 2*Math.abs(num);
+	} else {
+		num = num - 2*num;
+	}
+
+	return num;
+}
 
  	public void paintShape(Graphics g) {
 
@@ -64,11 +86,15 @@ public class EdgeShape extends Component{
 		int orgY = origin.getY();
 		int destX = destination.getX();
 		int destY = destination.getY();
+		int contX = getCont(orgX, destX);
+		int contY = getCont(orgY, destY);
+
+		String pointer = "  ---> ";
 
 		// Check to see if this is a self loop
 		if (orgX != destX && orgY != destY) {
-			int contX = getCont(orgX, orgY);
-			int contY = getCont(destX, destY);
+			//int contX = getCont(orgX, orgY);
+			//int contY = getCont(destX, destY);
 
 			edge.setCurve(orgX,orgY,contX,contY,destX,destY);
 		}
@@ -77,7 +103,13 @@ public class EdgeShape extends Component{
 			int selfLoopContY = origin.getY() + 100;
 		}
 
-		g2d.drawString(name,contX,contY);
+		Font font = new Font(null, Font.PLAIN, 16);
+		AffineTransform rotater = new AffineTransform();
+		System.out.println(getAngle());
+		rotater.rotate(Math.toRadians(getAngle()), 0, 0);
+		Font rotatedFont = font.deriveFont(rotater);
+		g2d.setFont(rotatedFont);
+		g2d.drawString(name + pointer,contX,contY);
 
     	g2d.setColor(Color.BLACK);
 

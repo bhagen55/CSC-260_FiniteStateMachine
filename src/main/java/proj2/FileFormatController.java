@@ -16,6 +16,7 @@ public class FileFormatController
 	public void saveFile() throws FileNotFoundException {
 		writer = new PrintWriter("FiniteStateMachine.txt");
 		writer.println(d.toString());
+		
 	}
 
 

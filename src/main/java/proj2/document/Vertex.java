@@ -17,10 +17,10 @@ public class Vertex{
 	{
 		isAcceptState=false;
 		symbol=givenSymbol;
-		edges= new ArrayList();
+		edges = new ArrayList();
 	}
 
-	 /**
+	 /*
      * Adds a directed edge between two vertices.  If there is already an edge
      * between the given vertices, does nothing.  If either (or both)
      * of the given vertices does not exist, it is added to the
@@ -59,6 +59,7 @@ public class Vertex{
 	public void setY(int newY) {
 		yCoord = newY;
 	}
+
 	private Edge findEdge(String to, String edgeWeight) {
 
 		for (Edge currEdge:edges) {
