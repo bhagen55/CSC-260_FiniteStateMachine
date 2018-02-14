@@ -8,6 +8,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Line2D;
 import java.awt.Color;
+import javax.swing.JLabel;
 
 import proj2.view.gui.shapes.VertexShape;
 
@@ -23,7 +24,9 @@ public class EdgeShape extends Component{
 
 	private QuadCurve2D edge;
 
-	private JTextField name;
+	private int contX;
+
+	private int contY;
 
 	public EdgeShape(VertexShape o, VertexShape d, String n) {
 
@@ -36,11 +39,8 @@ public class EdgeShape extends Component{
 		int orgY = origin.getY();
 		int destX = destination.getX();
 		int destY = destination.getY();
-		int contX = getCont(orgX, destX);
-		int contY = getCont(orgY, destY);
-
-		name = new JTextField(n);
-		name.setBounds(contX, contY, 60, 20);
+		contX = getCont(orgX, destX);
+		contY = getCont(orgY, destY);
 
 		int selfLoopContX = origin.getX() + 100;
 		int selfLoopContY = origin.getY() + 100;
@@ -77,7 +77,7 @@ public class EdgeShape extends Component{
 			int selfLoopContY = origin.getY() + 100;
 		}
 
-		g2d.draw(name);
+		g2d.drawString(name,contX,contY);
 
     	g2d.setColor(Color.BLACK);
 
