@@ -102,8 +102,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		// Add text entry boxes and labels
-		vertexField = new JTextField(6);
-		edgeField = new JTextField(6);
+		vertexField = new JTextField("a");
+		edgeField = new JTextField("a");
 		vertexFieldName = new JLabel("New Vertex Name");
 		edgeFieldName = new JLabel("New Edge Name");
 
@@ -111,8 +111,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         saveButton = new JButton("Save");
         loadButton = new JButton("Load");
 
-        savePath = new JTextField("./fsm.txt");
-        loadPath = new JTextField("./fsm.txt");
+        savePath = new JTextField("fsm.txt");
+        loadPath = new JTextField("fsm.txt");
 
         vertexShapes = new ArrayList<VertexShape>();
 
