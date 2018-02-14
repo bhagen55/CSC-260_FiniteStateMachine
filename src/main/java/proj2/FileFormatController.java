@@ -35,10 +35,11 @@ public class FileFormatController
 
 
 
-	public void loadFile(String filePath) throws FileNotFoundException
+	public void loadFile(String fileName) throws FileNotFoundException
 	{
 		// Create a file object to hold the path to the text file
-		File file = new File(filePath);
+		String home = System.getProperty("user.home");
+		File file = new File(home+"/Downloads/" + fileName + ".txt")
 		// Create file if it doesn't exist
 		file.getParentFile().mkdirs();
 
