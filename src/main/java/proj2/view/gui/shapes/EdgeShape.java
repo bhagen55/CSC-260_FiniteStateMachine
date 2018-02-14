@@ -26,10 +26,13 @@ public class EdgeShape extends Component{
 
 	private QuadCurve2D edge;
 
+	private static final int DOUBLE_MULT = 2;
+	private static final int STANDARD_FONT_SIZE = 12;
+	private static final int LOOP_OFFSET = 90;
+
 	public EdgeShape(VertexShape o, VertexShape d, String n) {
 
 		this.name = n;
-
     	this.origin = o;
     	this.destination = d;
 
@@ -40,14 +43,11 @@ public class EdgeShape extends Component{
 		int contX = getCont(orgX, destX);
 		int contY = getCont(orgY, destY);
 
-		int selfLoopContX = origin.getX() + 100;
-		int selfLoopContY = origin.getY() + 100;
-
 		edge = new QuadCurve2D.Double(orgX,orgY,contX,contY,destX,destY);
 	}
 
 	private int getCont(int start, int end) {
-		return (start + end) / 2;
+		return (start + end) / DOUBLE_MULT;
 	}
 
 	private int getAngle() {
@@ -70,9 +70,9 @@ public class EdgeShape extends Component{
 
 private int getInverse(int num) {
 	if (num < 0) {
-		num += 2*Math.abs(num);
+		num += DOUBLE_MULT*Math.abs(num);
 	} else {
-		num = num - 2*num;
+		num -= DOUBLE_MULT*num;
 	}
 
 	return num;
@@ -96,34 +96,21 @@ private int getInverse(int num) {
 
 			edge.setCurve(orgX,orgY,contX,contY,destX,destY);
 
-			Font font = new Font(null, Font.PLAIN, 12);
+			Font font = new Font(null, Font.PLAIN, STANDARD_FONT_SIZE);
 			AffineTransform rotater = new AffineTransform();
 			System.out.println(getAngle());
 			rotater.rotate(Math.toRadians(getAngle()), 0, 0);
 			Font rotatedFont = font.deriveFont(rotater);
 			g2d.setFont(rotatedFont);
 			g2d.drawString(name + pointer,contX,contY);
+			g2d.setColor(Color.BLACK);
+			g2d.draw(edge);
 
 		// this is a self loop
 		} else {
-
-			int loopX = origin.getX();
-			int loopY = origin.getY();
-			g2d.draw(new Ellipse2D.Double(loopX,loopY,90,90));
-			g2d.drawString(name, loopX+90,loopY+90);
+			g2d.draw(new Ellipse2D.Double(orgX,orgY,LOOP_OFFSET,LOOP_OFFSET));
+			g2d.drawString(name, loopX+LOOP_OFFSET,loopY+LOOP_OFFSET);
 		}
-
-		Font font = new Font(null, Font.PLAIN, 12);
-		AffineTransform rotater = new AffineTransform();
-		System.out.println(getAngle());
-		rotater.rotate(Math.toRadians(getAngle()), 0, 0);
-		Font rotatedFont = font.deriveFont(rotater);
-		g2d.setFont(rotatedFont);
-		g2d.drawString(name + pointer,contX,contY);
-
-    	g2d.setColor(Color.BLACK);
-
-		g2d.draw(edge);
 
 		g2d.setFont(font);
 	}
