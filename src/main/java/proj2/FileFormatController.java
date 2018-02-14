@@ -12,7 +12,7 @@ public class FileFormatController
 	}
 
 	public void saveFile(){
-		PrintWriter writer = new PrintWriter("FiniteStateMachien.txt");
+		PrintWriter writer = new PrintWriter("FiniteStateMachine.txt");
 		writer.print(d.toString());
 	}
 
