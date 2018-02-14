@@ -43,7 +43,8 @@ public class FiniteStateMachineTests
     @Test
     public void TestingSaveAndLoad()
     {
-    	t= new TestingSaveAndLoad();
+    	//uncomment to create test file
+    	//t= new TestingSaveAndLoad();
     }
 
     @Test
@@ -62,6 +63,16 @@ public class FiniteStateMachineTests
     }
 
     @Test
+    public void TestingRemoveVertexAndHasVertex()
+    {
+    	d.addVertex("A");
+    	d.addVertex("B");
+    	d.removeVertex("B");
+    	assertTrue("Testing adding a single Vertex",d.hasVertex("A"));
+    	assertFalse("Testing removed vertex is not found by hasVertex",d.hasVertex("B"));
+    }
+
+    @Test
     public void TestingAddVertexDoesNotMakeMultipulsNumVertexes()
     {
     	d.addVertex("A");
@@ -72,9 +83,39 @@ public class FiniteStateMachineTests
     	assertTrue("Testing duplicate is the same as if only adding a vertex once",d.toString().compareTo(d2.toString())==0);
     }
 
+	@Test
+    public void TestingAddEdge()
+    {
+    	d.addVertex("A");
+    	d.addVertex("B");
+    	d.addEdge("A","B","r");
+    	assertTrue("Testing hasEdge for a single added edge",d.hasEdge("A","B","r"));
+    	assertFalse("Testing nonexistent Edge not found",d.hasEdge("B","A","z"));
+    }
 
+	@Test
+    public void TestingRemoveEdge()
+    {
+    	d.addVertex("A");
+    	d.addVertex("B");
+    	d.addEdge("A","B","r");
+    	assertTrue("Testing hasEdge for a single added edge",d.hasEdge("A","B","r"));
+    	d.removeEdge("A","B","r");
+    	assertFalse("Testing removed Edge not found",d.hasEdge("A","B","r"));
+    }
 
-
-    
+    @Test
+    public void TestingNumEdges()
+    {
+    	d.addVertex("A");
+    	d.addVertex("B");
+    	assertTrue("Testing hasEdge for a single added edge",d.numEdges("A")==0);
+    	d.addEdge("A","B","r");
+    	assertTrue("Testing Edges not both ways",d.numEdges("B")==0);
+    	assertTrue("Testing hasEdge for a single added edge",d.numEdges("A")==1);
+    	d.removeEdge("A","B","r");
+    	assertTrue("Testing removed Edge not found",d.numEdges("A")==0);
+    	assertTrue("Testing Edges not both ways",d.numEdges("B")==0);
+    }
 }
 
