@@ -301,7 +301,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
 					// If they are double clicking, toggle the accept state
 					if (e.getClickCount() == 2) {
-						vertex.toggleAccept(); // TODO: toggle actual vertex througj document
+                        doc.toggleAccept(vertex.getName());
 					}
 					foundVertex = true;
                 }
@@ -311,7 +311,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
                 //System.out.println("NO VERTEX");
   				String name = vertexField.getText();
                 System.out.println("Attempting to add vertex");
-                doc.addVertex(name, e.getX(), e.getY()); // TODO: Change to match new implementation
+                doc.addVertex(name, e.getX(), e.getY());
   			}
         repaint();
 		}
@@ -333,7 +333,6 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             // int Yoffset = e.getY() - preY;
 
             selVertex.moveShape(e.getX(), e.getY());
-		    
 		}
         repaint();
     }

@@ -12,6 +12,7 @@ public class Document
     private LinkedList<Vertex> content;
     private ArrayList<String> vertexIndices;
     private LinkedList<Observer> observers;
+    private boolean haveAddedCoordinates=false;
 
     public Document()
     {
@@ -89,6 +90,7 @@ public class Document
      */
     public void addVertex(String vertex, int xpos, int ypos)
     {
+        haveAddedCoordinates=true;
         if (!this.hasVertex(vertex)) {
                         System.out.println("Adding vertex");
             Vertex toAdd = new Vertex(vertex);
@@ -109,6 +111,22 @@ public class Document
     public boolean hasVertex(String vertexName)
     {
         return vertexIndices.contains(vertexName);
+    }
+
+    /**
+    * Toggle accept state of a vertex
+    *
+    * @param vertex a vertex
+    */
+    public void toggleAccept(String vertexName)
+    {
+        if (!this.hasVertex(vertexName)) {
+            System.out.println("Vertex specified to toggle state does not exist");
+        }
+        else {
+            int vertexIndex = vertexIndices.indexOf(vertexName);
+            content.get(vertexIndex).toggleAccept();
+        }
     }
 
 
@@ -219,7 +237,15 @@ public class Document
     {
 
         String toReturn= "";
+        if(content)
 
+        for(Vertex curVertex: content)
+         {
+            toReturn=toReturn+curVertex.toString()+"("+curVertex.getX()+","+curVertex.getY()+")";
+
+            toReturn=toReturn+"\n";
+        }
+        toReturn=toReturn+"$";
         for(Vertex curVertex: content)
          {
             toReturn=toReturn+curVertex.toString();
