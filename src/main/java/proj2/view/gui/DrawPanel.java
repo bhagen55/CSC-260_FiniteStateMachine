@@ -111,8 +111,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         saveButton = new JButton("Save");
         loadButton = new JButton("Load");
 
-        savePath = new JTextField("fsm.txt");
-        loadPath = new JTextField("fsm.txt");
+        savePath = new JTextField("fsm");
+        loadPath = new JTextField("fsm");
 
         vertexShapes = new ArrayList<VertexShape>();
 
