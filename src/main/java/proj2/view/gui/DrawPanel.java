@@ -45,17 +45,21 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
   	// Holds last known location of mouse for dragging
   	private int preX;
   	private int preY;
-  	private int preXDrag;
-  	private int preYDrag;
+  	// private int preXDrag;
+  	// private int preYDrag;
 
     // Boolean value to know if edge is being created or set
     private boolean edgeStarted;
 
-    //
+
     private VertexShape fromVertex;
     private VertexShape toVertex;
     private boolean foundVertex;
 
+    // Keeping track of dragging vertexes
+    private boolean dragging;
+
+    // Holds last mouse button pushed
     private int buttonNumber;
 
     private String vertexName;
@@ -113,7 +117,14 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
         // Add all the vertices from the model as vertexshapes
         for (Vertex vertex: model) {
-            vertexShapes.add(new VertexShape(vertex.getX(),vertex.getY(), vertex.getName(), vertex.canAccept()));
+            
+            // Check if vertex is a start vertex
+            boolean isStart = false;
+            if (doc.getStartVertex().equals(vertex.getName())) {
+                isStart = true;
+            }
+
+            vertexShapes.add(new VertexShape(vertex.getX(),vertex.getY(), vertex.getName(), vertex.canAccept(), isStart));
         }
 
         // Go through all the vertexshapes and add their edges from the model
@@ -135,6 +146,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
                 edgeShapes.add(new EdgeShape(vertex, endVertex, edge.getEdgeWeight()));
             }
         }
+        repaint();
     }
 
 
@@ -246,9 +258,15 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 			System.out.println("Releasing selected vertex");
 			// Release the currently selected vertex
 			fromVertex = null;
+
+            // If a vertex was being dragged, send its new location to the document
+            if (dragging) {
+                doc.moveVertex(selVertex.getName(), selVertex.getX(), selVertex.gety());
+            }
+            dragging = false;
+            selVertex = null;
 		}
 		// If right click, create an edge to the vertex it was released on
-		// TODO: Get name from a GUI box
 		else if (e.getButton() == MouseEvent.BUTTON3) {
             System.out.println();
             System.out.println("RELEASE x " + e.getX());
@@ -258,12 +276,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 				if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
 					System.out.println("RELEASED vertex is " + vertex.getName());
 					vertexName = edgeField.getText();
-					//vertexName = "" + (edgeShapes.size()+1);
-                    toVertex = vertex;
-					//System.out.println(selVertex.getName());
-					//System.out.println(vertex.getName());
 
-					// Release the selected vertex
+                    toVertex = vertex;
 	        	}
 			}
             System.out.println("fromVertex name is " + fromVertex.getName());
@@ -271,10 +285,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             System.out.println("fromVertex pos "+"("+fromVertex.getX()+","+fromVertex.getY()+")");
             System.out.println("toVertex pos "+"("+toVertex.getX()+","+toVertex.getY()+")");
 
-			// TODO: Confirm new implementation here
+            // Attempting to add edge
 			doc.addEdge(fromVertex.getName(), toVertex.getName(), vertexName);
-            //edgeShapes.add(new EdgeShape(fromVertex, toVertex, vertexName));
-
 		}
         repaint();
     }
@@ -332,6 +344,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             // int Xoffset = e.getX() - preX;
             // int Yoffset = e.getY() - preY;
 
+            dragging = true;
             selVertex.moveShape(e.getX(), e.getY());
 		}
         repaint();

@@ -22,6 +22,9 @@ public class VertexShape extends Component{
 	// Boolean to store whether or not this is an accept state
 	private boolean isAccepting;
 
+	// Boolean to store if the vertex is a start vertex
+	private boolean isStart;
+
 	// Position information (Refers to the center of the ellipse)
 	private int xPos;
 	private int yPos;
@@ -34,7 +37,7 @@ public class VertexShape extends Component{
 	Ellipse2D ellipse;
 	Ellipse2D acceptEllipse;
 
-	public VertexShape(int xPos, int yPos, String name, boolean isAccepting) {
+	public VertexShape(int xPos, int yPos, String name, boolean isAccepting, boolean isStart) {
 
 		this.name = name;
 
@@ -46,6 +49,8 @@ public class VertexShape extends Component{
 		this.acceptOffset = 10;
 
 		this.isAccepting = isAccepting;
+
+		this.isStart = isStart;
 
 		// Construct the ellipse to represent this shape
 		ellipse = makeEllipse(xPos, yPos, radius);
