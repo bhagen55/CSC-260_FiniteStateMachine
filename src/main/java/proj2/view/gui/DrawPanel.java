@@ -16,7 +16,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -112,28 +111,30 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Holds the current model that the view is based off
         LinkedList<Vertex> model = doc.getModel();
 
+        // Add all the vertices from the model as vertexshapes
         for (Vertex vertex: model) {
             vertexShapes.add(new VertexShape(vertex.getX(),vertex.getY(), vertex.getName(), vertex.canAccept()));
         }
 
+        // Go through all the vertexshapes and add their edges from the model
         for (VertexShape vertex: vertexShapes) {
 
+            // Get the vertex that corresponds with the current vertexshape
             Vertex currVertex = model.get(vertexShapes.indexOf(vertex));
 
+            // Get the edges of the vertex
             ArrayList<Edge> vertexEdges = currVertex.getEdges();
             for (Edge edge: vertexEdges) {
 
-                // Find vertexshape that corresponds to the end of the edge
-                VertexShape endVertex = vertexShapes.get(0);
-                for (VertexShape currVerShape: vertexShapes) {
-                    if (currVerShape.getName().equals(edge.getGoingTo())) {
-                        endVertex = currVerShape;
+                VertexShape endVertex = null;
+                for (VertexShape endShape: vertexShapes) {
+                    if (endShape.getName().equals(edge.getGoingTo())) {
+                        endVertex = endShape;
                     }
                 }
                 edgeShapes.add(new EdgeShape(vertex, endVertex, edge.getEdgeWeight()));
             }
         }
-        edgeShapes.add(new EdgeShape(fromVertex, toVertex, vertexName));
     }
 
 
@@ -307,8 +308,9 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             }
 
             if (!foundVertex) {
-                System.out.println("NO VERTEX");
+                //System.out.println("NO VERTEX");
   				String name = vertexField.getText();
+                System.out.println("Attempting to add vertex");
                 doc.addVertex(name, e.getX(), e.getY()); // TODO: Change to match new implementation
   			}
         repaint();
