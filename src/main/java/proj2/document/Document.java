@@ -288,7 +288,7 @@ public class Document
             toReturn=toReturn+"\n";
         }
     }
-        toReturn=toReturn+"$";
+        toReturn=toReturn+"$\n";
         for(Vertex curVertex: content)
          {
             toReturn=toReturn+curVertex.toString();
