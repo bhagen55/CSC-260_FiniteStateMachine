@@ -172,21 +172,17 @@ public class Document
      */
     public void addEdge(String from, String to, String edgeWeight)
     {
-        if (!this.hasVertex(from)) {
-            this.addVertex(from);
-        }
-        if (!this.hasVertex(to)) {
-            this.addVertex(to);
-        }
+        if (this.hasVertex(from)&&this.hasVertex(to)) {
+        
+            int indexFrom = vertexIndices.indexOf(from);
+            int indexTo = vertexIndices.indexOf(to);
+            Vertex vFrom = content.get(indexFrom);
+            Vertex vTo = content.get(indexTo);
 
-        int indexFrom = vertexIndices.indexOf(from);
-        int indexTo = vertexIndices.indexOf(to);
-        Vertex vFrom = content.get(indexFrom);
-        Vertex vTo = content.get(indexTo);
-
-        if(!vFrom.hasEdge(to, edgeWeight)) {
-            vFrom.addEdge(vTo, edgeWeight);
-			notifyObservers();
+            if(!vFrom.hasEdge(to, edgeWeight)) {
+                vFrom.addEdge(vTo, edgeWeight);
+    			notifyObservers();
+                }
         }
     }
 

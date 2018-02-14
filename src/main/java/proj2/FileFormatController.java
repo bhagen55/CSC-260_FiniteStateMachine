@@ -30,8 +30,15 @@ public class FileFormatController
 		// Write into the text file
 		writer = new PrintWriter(file);
 
+		writer.println("@@ Top section is: VertexName|xPosition|yPosition");
+		writer.println("@@ Bottom section is: VertexName than its edges, each in parenthesis separated by a comma");
+		writer.println("@@ in each parenthesis it is ordered (Vertex this edge points to, this edge's weight)");
+		writer.println("@@ the $ in the middle separates the coordiante section from the edges section");
+
+
 
 		writer.println(d.toString());
+		writer.close();
 
 		writer.close();
 
@@ -61,6 +68,7 @@ public class FileFormatController
                 new BufferedReader(fileReader);
             boolean havePassedCoordinates=false;
             while((line = bufferedReader.readLine()) != null) {
+<<<<<<< HEAD
 	            if(line.compareTo("$") == 0)
 	            {
 	            	havePassedCoordinates=true;
@@ -90,6 +98,42 @@ public class FileFormatController
 	           		}
 
 	           	}
+=======
+            	if(line.charAt(0).compareTo('@')!=0){
+		            if(line.compareTo("$") == 0)
+		            {
+		            	havePassedCoordinates=true;
+		            }
+
+		           	if(!havePassedCoordinates)
+		           	{
+		           		String[] lineParts=line.split("\\|");
+						for (String part: lineParts) {
+							System.out.println(part);
+						}
+		           		d.addVertex(lineParts[0],Integer.parseInt(lineParts[1]),Integer.parseInt(lineParts[2]));
+
+		           	}
+		           	else{
+		           		String[] lineParts=line.split("\\(");
+		           		String vertex="";
+		           		for(String part: lineParts)
+		           		{
+		           			if(!part.contains(")"))
+		           			{
+		           				vertex=part;
+		           			}
+		           			else{
+		           				String[] edge=part.split(",");
+		           				String temp = edge[1];
+		           				edge[1]=temp.substring(0,edge[1].length()-2);
+		           				d.addEdge(vertex,edge[0],edge[1]);
+		           			}
+		           		}
+
+		           	}
+	           }
+>>>>>>> eac5a22cc1f663e1032f2a9124b6a969004be681
 	           }
 
 	            // Always close files.
