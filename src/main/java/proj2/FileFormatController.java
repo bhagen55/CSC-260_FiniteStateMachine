@@ -21,13 +21,19 @@ public class FileFormatController
 	public void saveFile(String fileName) throws FileNotFoundException{
 		// Create a file object to hold the path to the text file
 		String home = System.getProperty("user.home");
-		File file = new File(home+"/Downloads/" + fileName + ".txt"); 
+		File file = new File(home+"/Downloads/" + fileName + ".txt");
 		// Create file if it doesn't exist
 		file.getParentFile().mkdirs();
 
+
+
 		// Write into the text file
 		writer = new PrintWriter(file);
+
+
 		writer.println(d.toString());
+
+		writer.close();
 
 	}
 
