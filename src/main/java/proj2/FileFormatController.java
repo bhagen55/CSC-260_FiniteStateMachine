@@ -63,7 +63,7 @@ public class FileFormatController
 	           	}
 	           	else{
 	           		String[] lineParts=line.split("(");
-	           		String vertex;
+	           		String vertex="";
 	           		for(String part: lineParts)
 	           		{
 	           			if(!part.contains(")"))
