@@ -106,7 +106,7 @@ public class FileFormatController
 		           			else{
 		           				String[] edge=part.split(",");
 		           				String temp = edge[1];
-		           				edge[1]=temp.substring(0,edge[1].length()-2);
+		           				edge[1]=temp.substring(0,edge[1].length()-1);
 		           				d.addEdge(vertex,edge[0],edge[1]);
 		           			}
 		           		}
