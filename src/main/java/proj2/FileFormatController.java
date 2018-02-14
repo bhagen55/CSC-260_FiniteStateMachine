@@ -21,13 +21,25 @@ public class FileFormatController
 	public void saveFile(String fileName) throws FileNotFoundException{
 		// Create a file object to hold the path to the text file
 		String home = System.getProperty("user.home");
-		File file = new File(home+"/Downloads/" + fileName + ".txt"); 
+		File file = new File(home+"/Downloads/" + fileName + ".txt");
 		// Create file if it doesn't exist
 		file.getParentFile().mkdirs();
 
+
+
 		// Write into the text file
 		writer = new PrintWriter(file);
+
+		writer.println("@@ Top section is: VertexName|xPosition|yPosition");
+		writer.println("@@ Bottom section is: VertexName than its edges, each in parenthesis separated by a comma");
+		writer.println("@@ in each parenthesis it is ordered (Vertex this edge points to, this edge's weight)");
+		writer.println("@@ the $ in the middle separates the coordiante section from the edges section");
+
+
+
 		writer.println(d.toString());
+		writer.close();
+
 		writer.close();
 
 	}
@@ -56,35 +68,40 @@ public class FileFormatController
                 new BufferedReader(fileReader);
             boolean havePassedCoordinates=false;
             while((line = bufferedReader.readLine()) != null) {
-	            if(line.compareTo("$"))
-	            {
-	            	havePassedCoordinates=true;
-	            }
+            	if(line.charAt(0).compareTo('@')!=0){
+		            if(line.compareTo("$") == 0)
+		            {
+		            	havePassedCoordinates=true;
+		            }
 
-	           	if(!havePassedCoordinates)
-	           	{
-	           		String[] lineParts=line.split("|");
-	           		d.addVertex(lineParts[0],Integer.parseInt(lineParts[1]),Integer.parseInt(lineParts[2]));
+		           	if(!havePassedCoordinates)
+		           	{
+		           		String[] lineParts=line.split("\\|");
+						for (String part: lineParts) {
+							System.out.println(part);
+						}
+		           		d.addVertex(lineParts[0],Integer.parseInt(lineParts[1]),Integer.parseInt(lineParts[2]));
 
-	           	}
-	           	else{
-	           		String[] lineParts=line.split("(");
-	           		String vertex="";
-	           		for(String part: lineParts)
-	           		{
-	           			if(!part.contains(")"))
-	           			{
-	           				vertex=part;
-	           			}
-	           			else{
-	           				String[] edge=part.split(",");
-	           				String temp = edge[1];
-	           				edge[1]=temp.substring(0,edge[1].length()-2);
-	           				d.addEdge(vertex,edge[0],edge[1]);
-	           			}
-	           		}
+		           	}
+		           	else{
+		           		String[] lineParts=line.split("\\(");
+		           		String vertex="";
+		           		for(String part: lineParts)
+		           		{
+		           			if(!part.contains(")"))
+		           			{
+		           				vertex=part;
+		           			}
+		           			else{
+		           				String[] edge=part.split(",");
+		           				String temp = edge[1];
+		           				edge[1]=temp.substring(0,edge[1].length()-2);
+		           				d.addEdge(vertex,edge[0],edge[1]);
+		           			}
+		           		}
 
-	           	}
+		           	}
+	           }
 	           }
 
 	            // Always close files.
