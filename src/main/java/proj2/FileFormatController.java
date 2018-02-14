@@ -69,9 +69,6 @@ public class FileFormatController
 	           	if(!havePassedCoordinates)
 	           	{
 	           		String[] lineParts=line.split("\\|");
-					for (String part: lineParts) {
-						System.out.println(part);
-					}
 	           		d.addVertex(lineParts[0],Integer.parseInt(lineParts[1]),Integer.parseInt(lineParts[2]));
 
 	           	}
@@ -87,7 +84,7 @@ public class FileFormatController
 	           			else{
 	           				String[] edge=part.split(",");
 	           				String temp = edge[1];
-	           				edge[1]=temp.substring(0,edge[1].length()-2);
+	           				edge[1]=temp.substring(0,edge[1].length()-1);
 	           				d.addEdge(vertex,edge[0],edge[1]);
 	           			}
 	           		}
