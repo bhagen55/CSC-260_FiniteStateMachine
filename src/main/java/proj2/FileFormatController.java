@@ -18,7 +18,7 @@ public class FileFormatController
 		//writer.print(d.toString());
 	}
 
-	public void loadFile(){
+
 	
 
 
@@ -84,6 +84,7 @@ public class FileFormatController
             // ex.printStackTrace();
         }
 	}
-	}
+}
+	
 
 }
