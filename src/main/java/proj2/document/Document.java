@@ -138,8 +138,7 @@ public class Document
         else {
             int vertexIndex = vertexIndices.indexOf(vertexName);
             Vertex foundVertex = content.get(vertexIndex);
-            foundVertex.setX(xPos);
-            foundVertex.setY(yPos);
+            foundVertex.addCoordinates(xPos,yPos);
         }
     }
 

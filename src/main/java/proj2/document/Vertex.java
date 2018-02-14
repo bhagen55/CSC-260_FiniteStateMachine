@@ -4,15 +4,18 @@ import java.util.ArrayList;
 
 public class Vertex{
 
-	private String symbol;
-	private Boolean isAcceptState;
-	private Edge firstEdge;
-	private int numEdges=0;
-    private int xCoord;
-    private int yCoord;
-    private ArrayList<Edge> edges;
+	private String symbol; //name of this Vertex
+	private Boolean isAcceptState; //returns true if this is an accept state otherwise false
+	private int numEdges=0;  // number of edges in this vertex
+    private int xCoord; // xCoordinate but does not need to be initialized
+    private int yCoord; // yCoordinate but does not need to be initialized
+    private ArrayList<Edge> edges; // ArrayList containing Edges
 
 
+/**
+*Constructor for vertex that takes a string to be the name of the vertex
+*@param givenSymbol: String to be the name of the Vertex
+*/
 	public Vertex(String givenSymbol)
 	{
 		isAcceptState=false;
@@ -35,30 +38,41 @@ public class Vertex{
 		numEdges++;
     }
 
-
+    /**
+    * Adds or alters coordinates of this vertex 
+    *@param int x : x value of coordinate
+    *@param int y : y value of coordinate
+    */
     public void addCoordinates(int x, int y)
     {
         xCoord=x;
         yCoord=y;
     }
 
+    /**
+    *returns x coordinate
+    *@return x coordinate of this vertex
+    */
     public int getX()
     {
         return xCoord;
     }
 
+    /**
+    *returns y coordinate
+    *@return y coordinate of this vertex
+    */
     public int getY()
     {
          return yCoord;
     }
 
-	public void setX(int newX) {
-		xCoord = newX;
-	}
-
-	public void setY(int newY) {
-		yCoord = newY;
-	}
+    /**
+    *gets the edge to a given String with a given weight should it exist
+    *@param name of the Symbol that the edge should go to
+    *@param edgeweight weight ot edge your looking for
+    *@return Edge with the symbol to and Strign edgeWeight
+    */
 	private Edge findEdge(String to, String edgeWeight) {
 
 		for (Edge currEdge:edges) {
@@ -71,6 +85,11 @@ public class Vertex{
 		return null;
 	}
 
+    /**
+    *removes an edge with Symbol to and weight edgeweight
+    *@param to: the name of the 
+    *
+    */
     public void removeEdge(String to, String edgeWeight)
     {
 		Edge toRemove = findEdge(to, edgeWeight);
