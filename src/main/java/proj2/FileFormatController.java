@@ -19,7 +19,7 @@ public class FileFormatController
 	}
 
 
-	
+
 
 
 	public void loadFile(String FiniteStateMachine)
@@ -31,24 +31,24 @@ public class FileFormatController
 
         try {
             // FileReader reads text files in the default encoding.
-            FileReader fileReader = 
+            FileReader fileReader =
                 new FileReader(FiniteStateMachine);
 
             // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader = 
+            BufferedReader bufferedReader =
                 new BufferedReader(fileReader);
             boolean havePassedCoordinates=false;
             while((line = bufferedReader.readLine()) != null) {
             if(line.equals("$"))
             {
             	havePassedCoordinates=true;
-            }   
+            }
 
            	if(!havePassedCoordinates)
            	{
            		String[] lineParts=line.split("|");
            		d.addVertex(lineParts[0],lineParts[1],lineParts[2]);
-         
+
            	}
            	else{
            		String[] lineParts=line.split("(");
@@ -60,7 +60,7 @@ public class FileFormatController
            				v=part;
            			}
            			else{
-           				String[] edge=part.split(",");
+           				String[] edge = part.split(",");
            				edge[1]=edge[1].(0,edge[1].length()-2);
            				d.addEdge(vertex,edge[0],edge[1]);
            			}
@@ -69,22 +69,22 @@ public class FileFormatController
            	}
 
             // Always close files.
-            bufferedReader.close();         
+            bufferedReader.close();
         }
         catch(FileNotFoundException ex) {
             System.out.println(
-                "Unable to open file '" + 
-                FiniteStateMachine + "'");                
+                "Unable to open file '" +
+                FiniteStateMachine + "'");
         }
         catch(IOException ex) {
             System.out.println(
-                "Error reading file '" 
-                + FiniteStateMachine + "'");                  
-            // Or we could just do this: 
+                "Error reading file '"
+                + FiniteStateMachine + "'");
+            // Or we could just do this:
             // ex.printStackTrace();
         }
 	}
 }
-	
+
 
 }
