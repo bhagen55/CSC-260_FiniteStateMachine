@@ -12,8 +12,8 @@ public class Edge{
 
     /**
     *Creates an Edge to a given vertex with a given weight
-    *@param Vertex: vertex Edge goes to
-    *@param String: weight of this edge
+    *@param to: vertex Edge goes to
+    *@param edgeWeightGiven: weight of this edge
     */
 	public Edge(Vertex to,String edgeWeightGiven)
 	{

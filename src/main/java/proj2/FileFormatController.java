@@ -25,6 +25,8 @@ public class FileFormatController
 	* Saves directly into user's downloads folder
 	*
 	* @param fileName string filename for file, not including filetype or path
+	*
+	* @throws FileNotFoundException error that points to issues with file management
 	*/
 	public void saveFile(String fileName) throws FileNotFoundException{
 		// Create a file object to hold the path to the text file
@@ -58,6 +60,8 @@ public class FileFormatController
 	* Loads a fsm from a formatted text file
 	*
 	* @param fileName string filename for file to load, not including filetype or path
+	*
+	* @throws FileNotFoundException error that points to issues with file management
 	*/
 	public void loadFile(String fileName) throws FileNotFoundException
 	{

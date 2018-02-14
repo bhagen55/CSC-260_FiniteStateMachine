@@ -34,6 +34,8 @@ public class FiniteStateMachine {
 
 	/**
 	* Threaded function to draw guis related to this fsm
+	*
+	* @param args arguments to be passed to main, currently not implemented
 	*/
 	public static void main(String[] args) {
 

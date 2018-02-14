@@ -40,8 +40,8 @@ public class Vertex{
 
     /**
     * Adds or alters coordinates of this vertex
-    *@param int x : x value of coordinate
-    *@param int y : y value of coordinate
+    *@param x x value of coordinate
+    *@param y y value of coordinate
     */
     public void addCoordinates(int x, int y)
     {
@@ -69,8 +69,8 @@ public class Vertex{
 
     /**
     *gets the edge to a given String with a given weight should it exist
-    *@param name of the Symbol that the edge should go to
-    *@param edgeweight weight ot edge your looking for
+    *@param to of the Symbol that the edge should go to
+    *@param edgeWeight weight ot edge your looking for
     *@return Edge with the symbol to and Strign edgeWeight
     */
 	private Edge findEdge(String to, String edgeWeight) {
@@ -87,8 +87,8 @@ public class Vertex{
 
     /**
     *removes an edge with Symbol to and weight edgeweight
-    *@param to: the name of the vertex the edge to remove goes to
-    *@param edgeweight: weight of the edge to be removed
+    *@param to the name of the vertex the edge to remove goes to
+    *@param edgeWeight weight of the edge to be removed
     */
     public void removeEdge(String to, String edgeWeight)
     {
@@ -103,7 +103,7 @@ public class Vertex{
     /**
     *returns if a desired edge exists
     *@param to: the name of the vertex the edge to remove goes to
-    *@param edgeweight: weight of the edge to be removed
+    *@param edgeWeight: weight of the edge to be removed
     *@return true if a certain edge exists false otherwise
     */
    	public boolean hasEdge(String to, String edgeWeight)

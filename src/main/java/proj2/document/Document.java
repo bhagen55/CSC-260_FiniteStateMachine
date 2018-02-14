@@ -146,7 +146,7 @@ public class Document
     /**
     * Toggle accept state of a vertex
     *
-    * @param vertex a vertex
+    * @param vertexName a vertex
     */
     public void toggleAccept(String vertexName)
     {

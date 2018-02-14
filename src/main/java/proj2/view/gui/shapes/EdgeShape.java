@@ -34,7 +34,7 @@ public class EdgeShape extends Component{
 	/**
 	* EdgeShape constructor
 	*
-	* @param 0 origin VertexShape
+	* @param o origin VertexShape
 	* @param d destination VertexShape
 	* @param n name/transition name for edge
 	*/
