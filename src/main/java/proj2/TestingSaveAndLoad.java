@@ -26,12 +26,12 @@ public class TestingSaveAndLoad{
                  "Unable to open file '" +
                  "FiniteStateMachine" + "'");
          }
-         catch(IOException ex) {
-             System.out.println(
-                 "Error reading file '"
-                 + "FiniteStateMachine" + "'");
-
-         }
+         // catch(IOException ex) {
+         //     System.out.println(
+         //         "Error reading file '"
+         //         + "FiniteStateMachine" + "'");
+         //
+         // }
 	}
 
 	public static void main(String[] args) throws FileNotFoundException
