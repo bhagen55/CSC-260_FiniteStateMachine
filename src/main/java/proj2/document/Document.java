@@ -240,12 +240,24 @@ public class Document
         }
     }
 
-    public void addObserver(Observer o) {
+    /**
+     * Adds an observer to the list of observers stored in the document
+     *
+     * @param o observer of type Observer to be added
+     */
+    public void addObserver(Observer o)
+    {
         observers.add(o);
 		System.out.println("Observer Added");
     }
 
-    public void removeObserver(Observer o) {
+    /**
+     * Removes an observer from the list of observers stored in the document
+     *
+     * @param o observer of type Observer to be removed
+     */
+    public void removeObserver(Observer o)
+    {
         observers.remove(o);
     }
 
