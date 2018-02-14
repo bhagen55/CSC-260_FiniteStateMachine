@@ -23,11 +23,11 @@ public class TestingSaveAndLoad{
 		Document d;
 	    FileFormatController f;
 		d= new Document();
-		f= new FileFormatController(d);
+		//f= new FileFormatController(d);
 		d.addVertex("A");
 		d.addVertex("B");
 		d.addVertex("C");
 		d.addEdge("A","B","z");
-		f.saveFile();
+		//f.saveFile();
 	}
 }
