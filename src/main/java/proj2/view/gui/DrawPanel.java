@@ -271,12 +271,12 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         add(loadPath);
 
 		// Paints the vertices
-        for (VertexShape vertex: vertexShapes) {
-        	vertex.paintShape(g);
-        }
 
         for (EdgeShape edge: edgeShapes) {
           edge.paintShape(g);
+        }
+        for (VertexShape vertex: vertexShapes) {
+            vertex.paintShape(g);
         }
     }
 
@@ -323,7 +323,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 		if (e.getButton() == MouseEvent.BUTTON1) {
 			System.out.println("Releasing selected vertex");
 			// Release the currently selected vertex
-			fromVertex = null;
+			//fromVertex = null;
 
             // If a vertex was being dragged, send its new location to the document
             if (dragging) {
@@ -344,15 +344,17 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 					vertexName = edgeField.getText();
 
                     toVertex = vertex;
+                    doc.addEdge(fromVertex.getName(), toVertex.getName(), vertexName);
+
 	        	}
 			}
-            System.out.println("fromVertex name is " + fromVertex.getName());
-            System.out.println("toVertex name is " + toVertex.getName());
-            System.out.println("fromVertex pos "+"("+fromVertex.getX()+","+fromVertex.getY()+")");
-            System.out.println("toVertex pos "+"("+toVertex.getX()+","+toVertex.getY()+")");
+            // System.out.println("fromVertex name is " + fromVertex.getName());
+            // System.out.println("toVertex name is " + toVertex.getName());
+            // System.out.println("fromVertex pos "+"("+fromVertex.getX()+","+fromVertex.getY()+")");
+            // System.out.println("toVertex pos "+"("+toVertex.getX()+","+toVertex.getY()+")");
 
             // Attempting to add edge
-			doc.addEdge(fromVertex.getName(), toVertex.getName(), vertexName);
+
 		}
         repaint();
     }

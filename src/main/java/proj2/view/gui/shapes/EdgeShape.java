@@ -103,7 +103,7 @@ private int getInverse(int num) {
 			int selfLoopContY = origin.getY() + 100;
 		}
 
-		Font font = new Font(null, Font.PLAIN, 16);
+		Font font = new Font(null, Font.PLAIN, 12);
 		AffineTransform rotater = new AffineTransform();
 		System.out.println(getAngle());
 		rotater.rotate(Math.toRadians(getAngle()), 0, 0);
@@ -114,5 +114,7 @@ private int getInverse(int num) {
     	g2d.setColor(Color.BLACK);
 
 		g2d.draw(edge);
+
+		g2d.setFont(font);
 	}
 }
