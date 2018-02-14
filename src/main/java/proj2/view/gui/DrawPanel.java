@@ -5,11 +5,14 @@ import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.Rectangle;
 import java.awt.Point;
 import java.awt.Color;
@@ -28,7 +31,7 @@ import proj2.view.gui.Observer;
 * Adapted from this tutorial: https://docs.oracle.com/javase/tutorial/uiswing/painting/refining.html
 * Dragging: http://www.java2s.com/Code/Java/Event/MoveShapewithmouse.htm
 */
-public class DrawPanel extends JPanel implements Observer, MouseListener, MouseMotionListener {
+public class DrawPanel extends JPanel implements Observer, MouseListener, MouseMotionListener, ActionListener {
 
   	// Holds shadow classes of document vertices
   	private ArrayList<VertexShape> vertexShapes;
@@ -75,6 +78,12 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 	private JLabel vertexFieldName;
 	private JLabel edgeFieldName;
 
+    /*
+    * Save/Load Button
+    */
+    private JButton saveButton;
+    private JButton loadButton;
+
 
 	public DrawPanel(Document d) {
 
@@ -89,6 +98,25 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 		vertexFieldName = new JLabel("New Vertex Name");
 		edgeFieldName = new JLabel("New Edge Name");
 
+        // Add save/load buttons
+        saveButton = new JButton("Save");
+        loadButton = new JButton("Load");
+
+        // Call the FSM save when button pressed
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // TODO: Call save fsm here
+                System.out.println("Saving");
+            }
+        });
+
+        // Call the FSM load when button pressed
+        loadButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // TODO: Call load fsm here
+                System.out.println("Loading");
+            }
+        });
 
         vertexShapes = new ArrayList<VertexShape>();
 
@@ -195,14 +223,20 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     	super.paintComponent(g);
 
 		// Paints the text boxes and their labels
-		vertexField.setBounds(2,0, 120, 22);
-		edgeField.setBounds(152, 0, 120, 22);
+		vertexField.setBounds(2,1, 120, 22);
+		edgeField.setBounds(152, 1, 120, 22);
 		add(vertexField);
 		add(edgeField);
 		vertexFieldName.setBounds(2, 20, 120, 20);
 		edgeFieldName.setBounds(152, 20, 120, 20);
 		add(vertexFieldName);
 		add(edgeFieldName);
+
+        // Paints the save/load buttons
+        saveButton.setBounds(300, 1, 100, 20);
+        loadButton.setBounds(400, 1, 100, 20);
+        add(saveButton);
+        add(loadButton);
 
 		// Paints the vertices
         for (VertexShape vertex: vertexShapes) {
@@ -375,5 +409,9 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     * @param e mouse event passed by mouse listener
     */
     public void mouseExited(MouseEvent e) {
+    }
+
+    public void actionPerformed(ActionEvent e) {
+
     }
 }
