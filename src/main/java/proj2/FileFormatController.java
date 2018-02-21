@@ -40,10 +40,10 @@ public class FileFormatController
 		// Write into the text file
 		writer = new PrintWriter(file);
 
-		writer.println("@@ Top section is: VertexName|xPosition|yPosition");
-		writer.println("@@ Bottom section is: VertexName than its edges, each in parenthesis separated by a comma");
-		writer.println("@@ in each parenthesis it is ordered (Vertex this edge points to, this edge's weight)");
-		writer.println("@@ the $ in the middle separates the coordiante section from the edges section");
+		writer.println("@@ Top section is: StateName|xPosition|yPosition");
+		writer.println("@@ Bottom section is: StateName than its transitions, each in parenthesis separated by a comma");
+		writer.println("@@ in each parenthesis it is ordered (State this transition points to, this transition's weight)");
+		writer.println("@@ the $ in the middle separates the coordiante section from the transitions section");
 
 
 
@@ -95,23 +95,23 @@ public class FileFormatController
 						for (String part: lineParts) {
 							System.out.println(part);
 						}
-		           		d.addVertex(lineParts[0],Integer.parseInt(lineParts[1]),Integer.parseInt(lineParts[2]));
+		           		d.addState(lineParts[0],Integer.parseInt(lineParts[1]),Integer.parseInt(lineParts[2]));
 
 		           	}
 		           	else{
 		           		String[] lineParts=line.split("\\(");
-		           		String vertex="";
+		           		String state="";
 		           		for(String part: lineParts)
 		           		{
 		           			if(!part.contains(")"))
 		           			{
-		           				vertex=part;
+		           				state=part;
 		           			}
 		           			else{
-		           				String[] edge=part.split(",");
-		           				String temp = edge[1];
-		           				edge[1]=temp.substring(0,edge[1].length()-1);
-		           				d.addEdge(vertex,edge[0],edge[1]);
+		           				String[] transition=part.split(",");
+		           				String temp = transition[1];
+		           				transition[1]=temp.substring(0,transition[1].length()-1);
+		           				d.addTransition(state,transition[0],transition[1]);
 		           			}
 		           		}
 

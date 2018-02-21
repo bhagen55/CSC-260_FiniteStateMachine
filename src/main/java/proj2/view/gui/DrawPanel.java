@@ -30,20 +30,20 @@ import proj2.view.gui.Observer;
 import proj2.FileFormatController;
 
 /*
-* Extension of JPanel that handles drawing of states and vertex objects
+* Extension of JPanel that handles drawing of states and state objects
 * Adapted from this tutorial: https://docs.oracle.com/javase/tutorial/uiswing/painting/refining.html
 * Dragging: http://www.java2s.com/Code/Java/Event/MoveShapewithmouse.htm
 */
 public class DrawPanel extends JPanel implements Observer, MouseListener, MouseMotionListener, ActionListener {
 
   	// Holds shadow classes of document vertices
-  	private ArrayList<VertexShape> vertexShapes;
+  	private ArrayList<StateShape> stateShapes;
 
-	// Holds shadow classes of edges
-	private ArrayList<EdgeShape> edgeShapes;
+	// Holds shadow classes of transitions
+	private ArrayList<TransitionShape> transitionShapes;
 
-  	// Holds the current selected vertex while it is being dragged
-  	private VertexShape selVertex;
+  	// Holds the current selected state while it is being dragged
+  	private StateShape selState;
 
     // Holds the document that the view edits
     private Document doc;
@@ -51,13 +51,13 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     // Holds the File Format controller
     private FileFormatController ffc;
 
-    // Boolean value to know if edge is being created or set
-    private boolean edgeStarted;
+    // Boolean value to know if transition is being created or set
+    private boolean transitionStarted;
 
-    private VertexShape toVertex;
-    private boolean foundVertex;
+    private StateShape toState;
+    private boolean foundState;
 
-    // Keeping track of dragging vertexes
+    // Keeping track of dragging statees
     private boolean dragging;
 
     // Holds last mouse button pushed
@@ -66,13 +66,13 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 	/*
 	* Text Box
 	*/
-	private JTextField vertexField;
-	private JTextField edgeField;
-	private String vertexNameEntry;
-	private String edgeNameEntry;
+	private JTextField stateField;
+	private JTextField transitionField;
+	private String stateNameEntry;
+	private String transitionNameEntry;
 
-	private JLabel vertexFieldName;
-	private JLabel edgeFieldName;
+	private JLabel stateFieldName;
+	private JLabel transitionFieldName;
 
     /*
     * Save/Load Button and Path
@@ -95,10 +95,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		// Add text entry boxes and labels
-		vertexField = new JTextField("a");
-		edgeField = new JTextField("a");
-		vertexFieldName = new JLabel("New Vertex Name");
-		edgeFieldName = new JLabel("New Edge Name");
+		stateField = new JTextField("a");
+		transitionField = new JTextField("a");
+		stateFieldName = new JLabel("New State Name");
+		transitionFieldName = new JLabel("New Transition Name");
 
         // Add save/load buttons and paths
         saveButton = new JButton("Save");
@@ -107,9 +107,9 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         savePath = new JTextField("fsm");
         loadPath = new JTextField("fsm");
 
-        vertexShapes = new ArrayList<VertexShape>();
+        stateShapes = new ArrayList<StateShape>();
 
-		edgeShapes = new ArrayList<EdgeShape>();
+		transitionShapes = new ArrayList<TransitionShape>();
 
         doc = d;
 
@@ -157,41 +157,41 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     public void update()
     {
         // Clear out old shapes
-        vertexShapes = new ArrayList<VertexShape>();
-        edgeShapes = new ArrayList<EdgeShape>();
+        stateShapes = new ArrayList<StateShape>();
+        transitionShapes = new ArrayList<TransitionShape>();
 
         // Holds the current model that the view is based off
-        LinkedList<Vertex> model = doc.getModel();
+        LinkedList<State> model = doc.getModel();
 
-        // Add all the vertices from the model as vertexshapes
-        for (Vertex vertex: model) {
+        // Add all the vertices from the model as stateshapes
+        for (State state: model) {
 
-            // Check if vertex is a start vertex
+            // Check if state is a start state
             boolean isStart = false;
-            if (doc.getFirstVertex().getName().equals(vertex.getName())) {
+            if (doc.getFirstState().getName().equals(state.getName())) {
                 isStart = true;
             }
 
-            vertexShapes.add(new VertexShape(vertex.getX(),vertex.getY(), vertex.getName(), vertex.canAccept(), isStart));
+            stateShapes.add(new StateShape(state.getX(),state.getY(), state.getName(), state.canAccept(), isStart));
         }
 
-        // Go through all the vertexshapes and add their edges from the model
-        for (VertexShape vertex: vertexShapes) {
+        // Go through all the stateshapes and add their transitions from the model
+        for (StateShape state: stateShapes) {
 
-            // Get the vertex that corresponds with the current vertexshape
-            Vertex currVertex = model.get(vertexShapes.indexOf(vertex));
+            // Get the state that corresponds with the current stateshape
+            State currState = model.get(stateShapes.indexOf(state));
 
-            // Get the edges of the vertex
-            ArrayList<Edge> vertexEdges = currVertex.getEdges();
-            for (Edge edge: vertexEdges) {
+            // Get the transitions of the state
+            ArrayList<Transition> stateTransitions = currState.getTransitions();
+            for (Transition transition: stateTransitions) {
 
-                VertexShape endVertex = null;
-                for (VertexShape endShape: vertexShapes) {
-                    if (endShape.getName().equals(edge.getGoingTo())) {
-                        endVertex = endShape;
+                StateShape endState = null;
+                for (StateShape endShape: stateShapes) {
+                    if (endShape.getName().equals(transition.getGoingTo())) {
+                        endState = endShape;
                     }
                 }
-                edgeShapes.add(new EdgeShape(vertex, endVertex, edge.getWeight()));
+                transitionShapes.add(new TransitionShape(state, endState, transition.getWeight()));
             }
         }
         repaint();
@@ -199,13 +199,13 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
 
     /**
-    * Moves vertex to the given x and y coords
+    * Moves state to the given x and y coords
     *
-    * @param v the vertex to be moved
+    * @param v the state to be moved
     * @param x x coordinate to be moved to
     * @param y y coordinate to be moved to
     */
-    private void moveVertex(VertexShape v, int x, int y){
+    private void moveState(StateShape v, int x, int y){
 
         // Current square state, stored as final variables
         // to avoid repeat invocations of the same methods.
@@ -243,14 +243,14 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     	super.paintComponent(g);
 
 		// Paints the text boxes and their labels
-		vertexField.setBounds(2,1, 120, 22);
-		edgeField.setBounds(152, 1, 120, 22);
-		add(vertexField);
-		add(edgeField);
-		vertexFieldName.setBounds(2, 20, 120, 20);
-		edgeFieldName.setBounds(152, 20, 120, 20);
-		add(vertexFieldName);
-		add(edgeFieldName);
+		stateField.setBounds(2,1, 120, 22);
+		transitionField.setBounds(152, 1, 120, 22);
+		add(stateField);
+		add(transitionField);
+		stateFieldName.setBounds(2, 20, 120, 20);
+		transitionFieldName.setBounds(152, 20, 120, 20);
+		add(stateFieldName);
+		add(transitionFieldName);
 
         // Paints the save/load buttons and paths
         saveButton.setBounds(300, 1, 100, 20);
@@ -265,19 +265,19 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
 		// Paints the vertices
 
-        for (EdgeShape edge: edgeShapes) {
-          edge.paintShape(g);
+        for (TransitionShape transition: transitionShapes) {
+          transition.paintShape(g);
         }
-        for (VertexShape vertex: vertexShapes) {
-            vertex.paintShape(g);
+        for (StateShape state: stateShapes) {
+            state.paintShape(g);
         }
     }
 
-    private VertexShape search(MouseEvent e) {
-        for (VertexShape vertex: vertexShapes) {
-    		if (vertex.getEllipse().getBounds().contains(e.getPoint())) {
-    			// Save the vertex as the currently selected one.
-                 return vertex;
+    private StateShape search(MouseEvent e) {
+        for (StateShape state: stateShapes) {
+    		if (state.getEllipse().getBounds().contains(e.getPoint())) {
+    			// Save the state as the currently selected one.
+                 return state;
         	}
         }
         return null;
@@ -285,7 +285,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
 	/**
 	* Indicates the start of a drag.
-	* Saves the vertex that is being pressed to be modified by the dragging
+	* Saves the state that is being pressed to be modified by the dragging
 	* handler.
 	*
 	* @param e mouse event passed by mouse listener
@@ -295,44 +295,44 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Used later to see if it is a right click or left click
         buttonNumber = e.getButton();
 
-    	// Check if actually pressing on a vertex
-        VertexShape inBounds = search(e);
+    	// Check if actually pressing on a state
+        StateShape inBounds = search(e);
     	if (inBounds != null) {
-            selVertex = inBounds;
+            selState = inBounds;
         } else {
-            selVertex = null;
+            selState = null;
         }
     }
 
 	/**
 	* Indicates release of mouse.
-	* Clears out the selected vertex at the end of a drag.
+	* Clears out the selected state at the end of a drag.
 	*
 	* @param e mouse event passed by mouse listener
 	*/
     public void mouseReleased(MouseEvent e) {
 
-		// If left click, just release the selected vertex
+		// If left click, just release the selected state
 		if (e.getButton() == LEFT_CLICK) {
-            // If a vertex was being dragged, send its new location to the document
-            if (dragging && selVertex != null) {
-                doc.moveVertex(selVertex.getName(), selVertex.getX(), selVertex.getY());
+            // If a state was being dragged, send its new location to the document
+            if (dragging && selState != null) {
+                doc.moveState(selState.getName(), selState.getX(), selState.getY());
                 dragging = false;
             }
 		}
 
 
-		// If right click, create an edge to the vertex it was released on
+		// If right click, create an transition to the state it was released on
 		else if (e.getButton() == RIGHT_CLICK) {
 
-            VertexShape inBounds = search(e);
+            StateShape inBounds = search(e);
         	if (inBounds != null) {
-                String vertexName = edgeField.getText();
-                toVertex = inBounds;
+                String stateName = transitionField.getText();
+                toState = inBounds;
 
-                // Adds edge from selVertex to tovertex
-                if (selVertex != null) {
-                    doc.addEdge(selVertex.getName(), toVertex.getName(), vertexName);
+                // Adds transition from selState to tostate
+                if (selState != null) {
+                    doc.addTransition(selState.getName(), toState.getName(), stateName);
                 }
             }
 		}
@@ -342,8 +342,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
 	/**
 	* Indicates the mouse has been clicked a number of times
-	* Checks if the user is clicking on a vertex. If it isn't, creates a vertex
-	* If the user double clicks on a vertex the accept state is toggled.
+	* Checks if the user is clicking on a state. If it isn't, creates a state
+	* If the user double clicks on a state the accept state is toggled.
 	*
 	* @param e mouse event passed by mouse listener
 	*/
@@ -351,20 +351,20 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
 		// Only look for left clicks
 		if (e.getButton() == LEFT_CLICK) {
-			foundVertex = false;
+			foundState = false;
 
-			// check if the user is clicking on a vertex
-            VertexShape inBounds = search(e);
+			// check if the user is clicking on a state
+            StateShape inBounds = search(e);
             if (inBounds != null) {
                 if (e.getClickCount() == 2) {
                     doc.toggleAccept(inBounds.getName());
                 }
-                foundVertex = true;
+                foundState = true;
             }
 
-            if (foundVertex == false) {
-  				String vertexName = vertexField.getText();
-                doc.addVertex(vertexName, e.getX(), e.getY());
+            if (foundState == false) {
+  				String stateName = stateField.getText();
+                doc.addState(stateName, e.getX(), e.getY());
   			}
             repaint();
 		}
@@ -372,15 +372,15 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
 	/**
 	* Indicates the mouse has been dragged with the button pressed down.
-	* If a vertex was pressed on, this moves the vertex.
+	* If a state was pressed on, this moves the state.
 	*
 	* @param e mouse event passed by mouse listener
 	*/
     public void mouseDragged(MouseEvent e) {
 		// Only move with a left click
-		if (buttonNumber != RIGHT_CLICK && selVertex != null) {
+		if (buttonNumber != RIGHT_CLICK && selState != null) {
             dragging = true;
-            selVertex.moveShape(e.getX(), e.getY());
+            selState.moveShape(e.getX(), e.getY());
 		}
         repaint();
     }

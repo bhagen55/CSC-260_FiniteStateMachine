@@ -13,11 +13,11 @@ public class TestingSaveAndLoad{
 	    FileFormatController f;
 		d= new Document();
 		f= new FileFormatController(d);
-		d.addVertex("A",10,52);
+		d.addState("A",10,52);
 
-		d.addVertex("B",55,117);
-		d.addVertex("C",1,27);
-		d.addEdge("A","B","z");
+		d.addState("B",55,117);
+		d.addState("C",1,27);
+		d.addTransition("A","B","z");
 		f.saveFile("FiniteStateMachine");
 
 	}
@@ -40,10 +40,10 @@ public class TestingSaveAndLoad{
 	    FileFormatController f;
 		d= new Document();
 		f= new FileFormatController(d);
-		d.addVertex("A");
-		d.addVertex("B");
-		d.addVertex("C");
-		d.addEdge("A","B","z");
+		d.addState("A");
+		d.addState("B");
+		d.addState("C");
+		d.addTransition("A","B","z");
 		f.saveFile("FiniteStateMachine");
 
 	}

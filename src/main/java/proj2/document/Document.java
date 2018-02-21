@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import proj2.view.gui.Observer;
 
 /**
- * Class that holds a linked list of Vertex objects
+ * Class that holds a linked list of State objects
  */
 public class Document
 {
-    private LinkedList<Vertex> content;
-    private ArrayList<String> vertexIndices;
+    private LinkedList<State> content;
+    private ArrayList<String> stateIndices;
     private LinkedList<Observer> observers;
     private boolean haveAddedCoordinates=false;
 
     public Document()
     {
-        content = new LinkedList<Vertex>();
-        vertexIndices = new ArrayList<String>();
+        content = new LinkedList<State>();
+        stateIndices = new ArrayList<String>();
         observers = new LinkedList<Observer>();
     }
 
@@ -35,39 +35,39 @@ public class Document
      * Package private method that returns the linked list of vertices for the
      * view to display.
      *
-     * @return linked list of type Vertex which is the list of vertices in the FSM
+     * @return linked list of type State which is the list of vertices in the FSM
      */
-    public LinkedList<Vertex> getModel()
+    public LinkedList<State> getModel()
     {
         return content;
     }
 
     /**
-     * Returns the first vertex in the document which is also the start vertex of
+     * Returns the first state in the document which is also the start state of
      * FSM
      *
-     * @return first vertex in FSM
+     * @return first state in FSM
      */
-    public Vertex getFirstVertex()
+    public State getFirstState()
     {
         return content.get(0);
     }
 
     /**
-     * Removes vertex in the finite state machine.  If vertex is not in the FSM,
-     * prints out a message stating that the vertex does not exists
+     * Removes state in the finite state machine.  If state is not in the FSM,
+     * prints out a message stating that the state does not exists
      *
-     * @param toRemove name of vertex to be removed
+     * @param toRemove name of state to be removed
      */
-    public void removeVertex(String toRemove)
+    public void removeState(String toRemove)
     {
-        if (!this.hasVertex(toRemove)) {
-            System.out.println("Vertex specified to be removed does not exist");
+        if (!this.hasState(toRemove)) {
+            System.out.println("State specified to be removed does not exist");
         }
         else {
-            int vertexIndex = vertexIndices.indexOf(toRemove);
-            content.remove(vertexIndex);
-            vertexIndices.remove(toRemove);
+            int stateIndex = stateIndices.indexOf(toRemove);
+            content.remove(stateIndex);
+            stateIndices.remove(toRemove);
 			notifyObservers();
         }
     }
@@ -75,168 +75,168 @@ public class Document
 
 
     /**
-     * Adds a vertex to the finite state machine.  If the vertex already exists in
-     * the machine, does nothing.  If the vertex does not exist, it is
-     * added to the machine, with no edges connected to it.
+     * Adds a state to the finite state machine.  If the state already exists in
+     * the machine, does nothing.  If the state does not exist, it is
+     * added to the machine, with no transitions connected to it.
      *
-     * @param vertex the vertex to add
+     * @param state the state to add
      */
-    public void addVertex(String vertex)
+    public void addState(String state)
     {
-        if (!this.hasVertex(vertex)) {
-            Vertex toAdd = new Vertex(vertex);
+        if (!this.hasState(state)) {
+            State toAdd = new State(state);
             content.add(toAdd);
-            vertexIndices.add(vertex);
+            stateIndices.add(state);
 			notifyObservers();
         }
     }
 
     /**
-     * Adds a vertex to the finite state machine.  If the vertex already exists in
-     * the machine, does nothing.  If the vertex does not exist, it is
-     * added to the machine, with no edges connected to it.
+     * Adds a state to the finite state machine.  If the state already exists in
+     * the machine, does nothing.  If the state does not exist, it is
+     * added to the machine, with no transitions connected to it.
      *
-     * @param vertex the vertex to add
-     * @param xpos x coordinate of the vertex being added
-     * @param ypos y coordinate of the vertex being added
+     * @param state the state to add
+     * @param xpos x coordinate of the state being added
+     * @param ypos y coordinate of the state being added
      */
-    public void addVertex(String vertex, int xpos, int ypos)
+    public void addState(String state, int xpos, int ypos)
     {
         haveAddedCoordinates=true;
-        if (!this.hasVertex(vertex)) {
-                        System.out.println("Adding vertex");
-            Vertex toAdd = new Vertex(vertex);
+        if (!this.hasState(state)) {
+                        System.out.println("Adding state");
+            State toAdd = new State(state);
             toAdd.addCoordinates(xpos, ypos);
             content.add(toAdd);
-            vertexIndices.add(vertex);
+            stateIndices.add(state);
 			notifyObservers();
         }
     }
 
 
     /**
-     * Tells whether or not a vertex is in the machine.
+     * Tells whether or not a state is in the machine.
      *
-     * @param vertexName a vertex
-     * @return true iff 'vertex' is a vertex in the machine.
+     * @param stateName a state
+     * @return true iff 'state' is a state in the machine.
      */
-    public boolean hasVertex(String vertexName)
+    public boolean hasState(String stateName)
     {
-        return vertexIndices.contains(vertexName);
+        return stateIndices.contains(stateName);
     }
 
     /**
-    * Move vertex to given coordinates
+    * Move state to given coordinates
     *
-    * @param vertexName a vertex to me moved
+    * @param stateName a state to me moved
     * @param xPos x coordinate to move to
     * @param yPos y coordinate to move to
     */
-    public void moveVertex(String vertexName, int xPos, int yPos) {
-        if (!this.hasVertex(vertexName)) {
-            System.out.println("Vertex specified to move does not exist");
+    public void moveState(String stateName, int xPos, int yPos) {
+        if (!this.hasState(stateName)) {
+            System.out.println("State specified to move does not exist");
         }
         else {
-            int vertexIndex = vertexIndices.indexOf(vertexName);
-            Vertex foundVertex = content.get(vertexIndex);
-            foundVertex.addCoordinates(xPos,yPos);
+            int stateIndex = stateIndices.indexOf(stateName);
+            State foundState = content.get(stateIndex);
+            foundState.addCoordinates(xPos,yPos);
         }
     }
 
     /**
-    * Toggle accept state of a vertex
+    * Toggle accept state of a state
     *
-    * @param vertexName a vertex
+    * @param stateName a state
     */
-    public void toggleAccept(String vertexName)
+    public void toggleAccept(String stateName)
     {
-        if (!this.hasVertex(vertexName)) {
-            System.out.println("Vertex specified to toggle state does not exist");
+        if (!this.hasState(stateName)) {
+            System.out.println("State specified to toggle state does not exist");
         }
         else {
-            int vertexIndex = vertexIndices.indexOf(vertexName);
-            content.get(vertexIndex).toggleAccept();
+            int stateIndex = stateIndices.indexOf(stateName);
+            content.get(stateIndex).toggleAccept();
             notifyObservers();
         }
     }
 
 
     /**
-     * Adds a directed edge between two vertices.  If there is already an edge
+     * Adds a directed transition between two vertices.  If there is already an transition
      * between the given vertices, does nothing.  If either (or both)
      * of the given vertices does not exist, it is added to the
-     * graph before the edge is created between them.
+     * graph before the transition is created between them.
      *
-     * @param from the source vertex for the added edge
-     * @param to the destination vertex for the added edge
-     * @param edgeWeight weight of edge being added
+     * @param from the source state for the added transition
+     * @param to the destination state for the added transition
+     * @param transitionWeight weight of transition being added
      */
-    public void addEdge(String from, String to, String edgeWeight)
+    public void addTransition(String from, String to, String transitionWeight)
     {
-        if (this.hasVertex(from)&&this.hasVertex(to)) {
+        if (this.hasState(from)&&this.hasState(to)) {
 
-            int indexFrom = vertexIndices.indexOf(from);
-            int indexTo = vertexIndices.indexOf(to);
-            Vertex vFrom = content.get(indexFrom);
-            Vertex vTo = content.get(indexTo);
+            int indexFrom = stateIndices.indexOf(from);
+            int indexTo = stateIndices.indexOf(to);
+            State vFrom = content.get(indexFrom);
+            State vTo = content.get(indexTo);
 
-            if(!vFrom.hasEdge(to, edgeWeight)) {
-                vFrom.addEdge(vTo, edgeWeight);
+            if(!vFrom.hasTransition(to, transitionWeight)) {
+                vFrom.addTransition(vTo, transitionWeight);
     			notifyObservers();
                 }
         }
     }
 
     /**
-     * Removes an edge between two vertices.  If either of the vertices does not
+     * Removes an transition between two vertices.  If either of the vertices does not
      * exist, does nothing.
      *
-     * @param from the source vertex for the removed edge
-     * @param to the destination vertex for the removed edge
-     * @param edgeWeight weight of edge being removed
+     * @param from the source state for the removed transition
+     * @param to the destination state for the removed transition
+     * @param transitionWeight weight of transition being removed
      */
-    public void removeEdge(String from, String to, String edgeWeight)
+    public void removeTransition(String from, String to, String transitionWeight)
     {
-        if (this.hasEdge(from, to, edgeWeight)) {
-            int index = vertexIndices.indexOf(from);
-            Vertex v = content.get(index);
-            v.removeEdge(to, edgeWeight);
+        if (this.hasTransition(from, to, transitionWeight)) {
+            int index = stateIndices.indexOf(from);
+            State v = content.get(index);
+            v.removeTransition(to, transitionWeight);
 			notifyObservers();
         }
     }
 
     /**
-     * Checks if edge between two vertices exists or not. Returns false if either
+     * Checks if transition between two vertices exists or not. Returns false if either
      * of the vertices entered are not in the FSM.
      *
-     * @param from the source vertex for the desired edge
-     * @param to the destination vertex for the desired edge
-     * @param edgeWeight weight of desired
+     * @param from the source state for the desired transition
+     * @param to the destination state for the desired transition
+     * @param transitionWeight weight of desired
      *
-     * @return true if the referenced edge between vertices exists, false otherwise
+     * @return true if the referenced transition between vertices exists, false otherwise
      */
-    public boolean hasEdge(String from, String to, String edgeWeight)
+    public boolean hasTransition(String from, String to, String transitionWeight)
     {
-        if (this.hasVertex(from) && this.hasVertex(to)) {
-            int index = vertexIndices.indexOf(from);
-            Vertex v = content.get(index);
-            return v.hasEdge(to, edgeWeight);
+        if (this.hasState(from) && this.hasState(to)) {
+            int index = stateIndices.indexOf(from);
+            State v = content.get(index);
+            return v.hasTransition(to, transitionWeight);
         }
         return false;
     }
 
     /**
-     * Returns the number of edges connected to the specified vertex.
+     * Returns the number of transitions connected to the specified state.
      *
-     * @param vertex name of specified vertex that number of edges from is desired
+     * @param state name of specified state that number of transitions from is desired
      *
-     * @return number of edges from specified vertex
+     * @return number of transitions from specified state
      */
-    public int numEdges(String vertex)
+    public int numTransitions(String state)
     {
-        int index = vertexIndices.indexOf(vertex);
-        Vertex v = content.get(index);
-        return v.numEdges();
+        int index = stateIndices.indexOf(state);
+        State v = content.get(index);
+        return v.numTransitions();
     }
 
     /**
@@ -280,17 +280,17 @@ public class Document
         String toReturn= "";
         if(haveAddedCoordinates){
 
-        for(Vertex curVertex: content)
+        for(State curState: content)
         {
-            toReturn=toReturn+curVertex.getName()+"|"+curVertex.getX()+"|"+curVertex.getY();
+            toReturn=toReturn+curState.getName()+"|"+curState.getX()+"|"+curState.getY();
 
             toReturn=toReturn+"\n";
         }
     }
         toReturn=toReturn+"$\n";
-        for(Vertex curVertex: content)
+        for(State curState: content)
          {
-            toReturn=toReturn+curVertex.toString();
+            toReturn=toReturn+curState.toString();
             toReturn=toReturn+"\n";
         }
         return toReturn;
