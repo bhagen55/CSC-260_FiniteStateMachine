@@ -27,7 +27,7 @@ import java.io.*;
 import proj2.document.*;
 import proj2.view.gui.shapes.*;
 import proj2.view.gui.Observer;
-import proj2.FileFormatController;
+import proj2.filehandler.concretefilehandler.TextSave;
 
 /*
 * Extension of JPanel that handles drawing of states and state objects
@@ -49,7 +49,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     private Document doc;
 
     // Holds the File Format controller
-    private FileFormatController ffc;
+    private TextSave ts;
 
     // Boolean value to know if transition is being created or set
     private boolean transitionStarted;
@@ -87,7 +87,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     private static final int LEFT_CLICK = 1;
 
 
-	public DrawPanel(Document d, FileFormatController filecontroller) {
+	public DrawPanel(Document d, TextSave textsaver) {
 
     	System.out.println("Setting up");
 
@@ -113,7 +113,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
         doc = d;
 
-        ffc = filecontroller;
+        ts = textsaver;
 
         // Add mouse listener to the panel to deal with mouse events
         this.addMouseListener(this);
@@ -124,7 +124,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             public void actionPerformed(ActionEvent e) {
                 // TODO: Call save fsm here
                 try {
-                    ffc.saveFile(savePath.getText());
+                    ts.saveFile(savePath.getText());
                 }
                 catch (FileNotFoundException err) {
                     System.out.println("File save error");
@@ -139,7 +139,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
                 // TODO: Call load fsm here
                 // Get the save path from savePath
                 try {
-                    ffc.loadFile(savePath.getText());
+                    ts.loadFile(savePath.getText());
                 }
                 catch (FileNotFoundException err) {
                     System.out.println("File load error");

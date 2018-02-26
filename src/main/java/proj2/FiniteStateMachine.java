@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import proj2.document.Document;
 import proj2.view.gui.DrawPanel;
-import proj2.FileFormatController;
+import proj2.filehandler.concretefilehandler.TextSave;
 
 /**
 * Encompassing class to hold our implementation of a finite state machine
@@ -43,10 +43,10 @@ public class FiniteStateMachine {
 		Document doc = new Document();
 
 		// Creates the File Format Controller
-		FileFormatController ffc = new FileFormatController(doc);
+		TextSave ts = new TextSave(doc);
 
 		// Create the view panel and pass it the document
-		DrawPanel panel = new DrawPanel(doc, ffc);
+		DrawPanel panel = new DrawPanel(doc, ts);
 
 		// Add the view panel as an observer to the document
 		doc.addObserver(panel);

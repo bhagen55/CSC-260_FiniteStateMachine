@@ -1,18 +1,19 @@
 package proj2;
 
 import proj2.document.Document;
+import proj2.filehandler.concretefilehandler.TextSave;
 import java.io.*;
 
 public class TestingSaveAndLoad{
 	//Static Document d;
-	//Static FileFormatController f;
+	//Static TextSave f;
 	public TestingSaveAndLoad()
 	{
 		try{
 		Document d;
-	    FileFormatController f;
+	    TextSave f;
 		d= new Document();
-		f= new FileFormatController(d);
+		f= new TextSave(d);
 		d.addState("A",10,52);
 
 		d.addState("B",55,117);
@@ -37,9 +38,9 @@ public class TestingSaveAndLoad{
 	public static void main(String[] args) throws FileNotFoundException
 	{
 		Document d;
-	    FileFormatController f;
+	    TextSave f;
 		d= new Document();
-		f= new FileFormatController(d);
+		f= new TextSave(d);
 		d.addState("A");
 		d.addState("B");
 		d.addState("C");
