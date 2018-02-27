@@ -215,6 +215,16 @@ public class StateShape extends Component{
     	return ellipse;
     }
 
+	/**
+	* Pass through a contains command to the shape
+	*
+	* @return whether or not the click is contained
+	* within the shape
+	*/
+	public boolean contains(double x, double y) {
+		return ellipse.contains(x, y);
+	}
+
     /*
     * Does the actual painting of this object on a JPanel
     *
