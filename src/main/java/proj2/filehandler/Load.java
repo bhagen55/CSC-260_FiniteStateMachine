@@ -1,1 +1,1 @@
-package proj2.fileHandler;
+package proj2.filehandler;
