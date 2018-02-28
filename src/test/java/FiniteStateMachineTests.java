@@ -14,7 +14,7 @@ import org.junit.runners.JUnit4;
 
 import proj2.document.*;
 import proj2.*;
-import test.java.testfiles.*;
+import test.java.testfiles.TestingSaveAndLoad;
 
 @RunWith(JUnit4.class)
 public class FiniteStateMachineTests
