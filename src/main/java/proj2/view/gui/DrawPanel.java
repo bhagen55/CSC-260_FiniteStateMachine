@@ -275,13 +275,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
     private StateShape search(MouseEvent e) {
         for (StateShape state: stateShapes) {
-    		// if (state.getEllipse().getBounds().contains(e.getPoint())) {
-    		// 	// Save the state as the currently selected one.
-            //      return state;
-        	// }
-            if (state.contains(e.getPoint())) {
-                return state;
-            }
+    		if (state.getEllipse().getBounds().contains(e.getPoint())) {
+    			// Save the state as the currently selected one.
+                 return state;
+        	}
         }
         return null;
     }
