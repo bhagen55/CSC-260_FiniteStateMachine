@@ -37,7 +37,7 @@ import proj2.view.gui.menus.saveMenu;
 * Adapted from this tutorial: https://docs.oracle.com/javase/tutorial/uiswing/painting/refining.html
 * Dragging: http://www.java2s.com/Code/Java/Event/MoveShapewithmouse.htm
 */
-public class DrawPanel extends JPanel implements Observer, MouseListener, MouseMotionListener, ActionListener {
+public class DrawPanel extends JPanel implements Observer, MouseListener, MouseMotionListener, ActionListener, Printable {
 
   	// Holds shadow classes of document vertices
   	private ArrayList<StateShape> stateShapes;

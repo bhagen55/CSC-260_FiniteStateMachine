@@ -1,5 +1,11 @@
 package proj2.filehandler.concretefilehandler;
 
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.*;
+
+import proj2.view.gui.Printable;
+
 /**
 * Takes in a printable object and a filepath and saves an
 * image of the printable to the filepath in png format
