@@ -1,5 +1,7 @@
 package proj2.document;
 
+import java.util.ArrayList;
+
 /**
 * Represents the transition of a finite state machine.
 */
@@ -53,7 +55,7 @@ public class Transition{
 
      public ArrayList<String> getArrayListOfTransitionContents()
      {
-        ArrayList<String> toReturn = new ArrayList<String>;
+        ArrayList<String> toReturn = new ArrayList<String>();
         toReturn.add(goingTo.getName());
         toReturn.add(transitionWeight);
         return toReturn;
