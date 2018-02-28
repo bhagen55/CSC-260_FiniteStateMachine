@@ -26,8 +26,8 @@ public class SaveMenu {
 
         JLabel title = new JLabel("Select a save format then click save");
 
-        Save[] savers = {new ImageSave(gui)};
-        JComboBox<Save> cb = new JComboBox<Save>(savers);
+        Saver[] savers = {new ImageSave(gui)};
+        JComboBox<Saver> cb = new JComboBox<Saver>(savers);
 
         // String[] choices = {"FSM","Image", "LaTeX","","Text"};
         // JComboBox<String> cb = new JComboBox<String>(choices);
@@ -38,7 +38,7 @@ public class SaveMenu {
         // Call the needed save class when the button is pressed
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Save selected = (Save)cb.getSelectedItem();
+                Saver selected = (Saver)cb.getSelectedItem();
                 selected.save();
             }
         });
