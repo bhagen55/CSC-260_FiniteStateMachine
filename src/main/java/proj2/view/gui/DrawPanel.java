@@ -30,6 +30,7 @@ import proj2.document.*;
 import proj2.view.gui.shapes.*;
 import proj2.view.gui.Observer;
 import proj2.filehandler.concretefilehandler.TextSave;
+import proj2.view.gui.menus.saveMenu;
 
 /*
 * Extension of JPanel that handles drawing of states and state objects
@@ -124,29 +125,28 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Call the FSM save when button pressed
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO: Call save fsm here
-                try {
-                    ts.saveFile(savePath.getText());
-                }
-                catch (FileNotFoundException err) {
-                    System.out.println("File save error");
-                }
-                System.out.println("Saving");
+                // try {
+                //     ts.saveFile(savePath.getText());
+                // }
+                // catch (FileNotFoundException err) {
+                //     System.out.println("File save error");
+                // }
+                // System.out.println("Saving");
+                saveMenu sm = new saveMenu();
             }
         });
 
         // Call the FSM load when button pressed
         loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO: Call load fsm here
-                // Get the save path from savePath
-                try {
-                    ts.loadFile(savePath.getText());
-                }
-                catch (FileNotFoundException err) {
-                    System.out.println("File load error");
-                }
-                System.out.println("Loading");
+                // // Get the save path from savePath
+                // try {
+                //     ts.loadFile(savePath.getText());
+                // }
+                // catch (FileNotFoundException err) {
+                //     System.out.println("File load error");
+                // }
+                // System.out.println("Loading");
             }
         });
 
