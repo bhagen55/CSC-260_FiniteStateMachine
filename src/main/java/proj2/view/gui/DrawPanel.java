@@ -130,14 +130,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Call the FSM save when button pressed
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // try {
-                //     ts.saveFile(savePath.getText());
-                // }
-                // catch (FileNotFoundException err) {
-                //     System.out.println("File save error");
-                // }
-                // System.out.println("Saving");
-                SaveMenu sm = new SaveMenu(gui);
+                SaveMenu sm = new SaveMenu(gui, doc);
             }
         });
 

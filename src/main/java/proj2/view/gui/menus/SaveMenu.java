@@ -13,10 +13,19 @@ import java.awt.event.ActionEvent;
 import proj2.filehandler.*;
 import proj2.filehandler.concretefilehandler.*;
 import proj2.view.gui.Printable;
+import proj2.view.gui.DrawPanel;
+import proj2.document.Document;
 
+/**
+* Menu with options to save an fsm as different formats
+*/
 public class SaveMenu {
 
-    public SaveMenu(Printable gui) {
+    /**
+    * Constructs a menu using a printable object as the print source
+    * for image savers and the document for text savers
+    */
+    public SaveMenu(DrawPanel gui, Document doc) {
         JFrame f = new JFrame();
         f.setSize(300,200);
         f.setLayout(new GridLayout(1, 1));
@@ -26,12 +35,8 @@ public class SaveMenu {
 
         JLabel title = new JLabel("Select a save format then click save");
 
-        Saver[] savers = {new ImageSave(gui)};
+        Saver[] savers = {new FSMSave(), new ImageSave(gui), new LaTeXSave(), new TextSave(doc)};
         JComboBox<Saver> cb = new JComboBox<Saver>(savers);
-
-        // String[] choices = {"FSM","Image", "LaTeX","","Text"};
-        // JComboBox<String> cb = new JComboBox<String>(choices);
-
 
         JButton saveButton = new JButton("Save");
 
