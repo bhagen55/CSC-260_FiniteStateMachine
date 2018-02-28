@@ -30,7 +30,7 @@ import proj2.document.*;
 import proj2.view.gui.shapes.*;
 import proj2.view.gui.Observer;
 import proj2.filehandler.concretefilehandler.TextSave;
-import proj2.view.gui.menus.saveMenu;
+import proj2.view.gui.menus.SaveMenu;
 
 /*
 * Extension of JPanel that handles drawing of states and state objects
@@ -132,7 +132,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
                 //     System.out.println("File save error");
                 // }
                 // System.out.println("Saving");
-                saveMenu sm = new saveMenu();
+                SaveMenu sm = new SaveMenu();
             }
         });
 

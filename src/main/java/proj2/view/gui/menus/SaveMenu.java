@@ -4,6 +4,11 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SaveMenu {
 
@@ -25,7 +30,7 @@ public class SaveMenu {
         // Call the needed save class when the button is pressed
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
+
             }
         });
 
