@@ -1,6 +1,7 @@
 package proj2.filehandler.concretefilehandler;
 
 import proj2.document.Document;
+import proj2.filehandler.Saver;
 /*
 import java.io.PrintWriter;
 import java.io.File;
@@ -12,12 +13,16 @@ import java.io.*;
 /**
 * Saves and loads finite state machines from proprietary human readable file format
 */
-public class TextSave
+public class TextSave implements Saver
 {
 	Document d;
 	PrintWriter writer;
 	public TextSave(Document given){
 		d=given;
+	}
+
+	public void save() {
+		
 	}
 
 	/**
