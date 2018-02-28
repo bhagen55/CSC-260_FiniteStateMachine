@@ -17,7 +17,7 @@ import proj2.view.gui.shapes.StateShape;
 /**
 * Represents shape of an transition for the gui
 */
-public class TransitionShape extends Component{
+public class TransitionShape extends Component implements Shape {
 
 	private String name;
 
