@@ -399,8 +399,25 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     public BufferedImage getPrintable() {
         BufferedImage bufimg = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D g = bufimg.createGraphics();
-        this.print(g);
+        paintWithoutButtons(g);
         return bufimg;
     }
 
+    /**
+    * Paints only states and transitions
+    *
+    * @param g graphics object to use
+    */
+    private void paintWithoutButtons(Graphics g) {
+
+        // Paints the panel
+        super.paintComponent(g);
+
+        for (TransitionShape transition: transitionShapes) {
+            transition.paintShape(g);
+        }
+        for (StateShape state: stateShapes) {
+            state.paintShape(g);
+        }
+    }
 }
