@@ -6,6 +6,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.image.BufferedImage;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
@@ -18,6 +19,7 @@ import java.awt.Point;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -392,5 +394,15 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
     public void actionPerformed(ActionEvent e) {}
+
+    /**
+    * Get a printable representation of the jpanel
+    */
+    public BufferedImage getPrintable() {
+        BufferedImage bufimg = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = bufimg.createGraphics();
+        this.print(g);
+        return bufimg;
+    }
 
 }
