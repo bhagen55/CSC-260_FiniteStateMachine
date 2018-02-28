@@ -51,4 +51,12 @@ public class Transition{
         return goingTo.getName();
      }
 
+     public ArrayList<String> getArrayListOfTransitionContents()
+     {
+        ArrayList<String> toReturn = new ArrayList<String>;
+        toReturn.add(goingTo.getName());
+        toReturn.add(transitionWeight);
+        return toReturn;
+     }
+
 }
