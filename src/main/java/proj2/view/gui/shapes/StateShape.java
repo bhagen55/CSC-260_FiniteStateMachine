@@ -13,7 +13,7 @@ import java.awt.Component;
 /**
 * Represents shape of a state for the gui
 */
-public class StateShape extends Component{
+public class StateShape extends Component implements Shape {
 
 	// Unique string name that will be shown in the middle of the shape
 	private String name;
