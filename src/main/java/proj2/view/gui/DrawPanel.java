@@ -39,6 +39,9 @@ import proj2.view.gui.menus.SaveMenu;
 */
 public class DrawPanel extends JPanel implements Observer, MouseListener, MouseMotionListener, ActionListener, Printable {
 
+    // Holds pointer to itself
+    private DrawPanel gui;
+
   	// Holds shadow classes of document vertices
   	private ArrayList<StateShape> stateShapes;
 
@@ -118,6 +121,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
         ts = textsaver;
 
+        gui = this;
+
         // Add mouse listener to the panel to deal with mouse events
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
@@ -132,7 +137,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
                 //     System.out.println("File save error");
                 // }
                 // System.out.println("Saving");
-                SaveMenu sm = new SaveMenu();
+                SaveMenu sm = new SaveMenu(gui);
             }
         });
 

@@ -10,9 +10,13 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import proj2.filehandler.*;
+import proj2.filehandler.concretefilehandler.*;
+import proj2.view.gui.Printable;
+
 public class SaveMenu {
 
-    public SaveMenu() {
+    public SaveMenu(Printable gui) {
         JFrame f = new JFrame();
         f.setSize(300,200);
         f.setLayout(new GridLayout(1, 1));
@@ -22,15 +26,20 @@ public class SaveMenu {
 
         JLabel title = new JLabel("Select a save format then click save");
 
-        String[] choices = {"FSM","Image", "LaTeX","","Text"};
-        JComboBox<String> cb = new JComboBox<String>(choices);
+        Save[] savers = {new ImageSave(gui)};
+        JComboBox<Save> cb = new JComboBox<Save>(savers);
+
+        // String[] choices = {"FSM","Image", "LaTeX","","Text"};
+        // JComboBox<String> cb = new JComboBox<String>(choices);
+
 
         JButton saveButton = new JButton("Save");
 
         // Call the needed save class when the button is pressed
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                Save selected = (Save)cb.getSelectedItem();
+                selected.save();
             }
         });
 

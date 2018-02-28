@@ -5,16 +5,17 @@ import javax.imageio.ImageIO;
 import java.io.*;
 
 import proj2.view.gui.Printable;
+import proj2.filehandler.Save;
 
 /**
 * Takes in a printable object and a filepath and saves an
 * image of the printable to the filepath in png format
 */
-public class ImageSave
+public class ImageSave implements Save
 {
     BufferedImage bufimg;
 
-    public ImageSave(Printable gui, String filepath) {
+    public ImageSave(Printable gui) {
         bufimg = gui.getPrintable();
     }
 
