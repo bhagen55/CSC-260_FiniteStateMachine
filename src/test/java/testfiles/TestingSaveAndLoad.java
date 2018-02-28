@@ -1,4 +1,4 @@
-package proj2;
+package test.java.testfiles;
 
 import proj2.document.Document;
 import proj2.filehandler.concretefilehandler.TextSave;

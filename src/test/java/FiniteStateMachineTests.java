@@ -1,6 +1,4 @@
-package proj2;
-
-
+package test.java;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -16,6 +14,7 @@ import org.junit.runners.JUnit4;
 
 import proj2.document.*;
 import proj2.*;
+import test.java.testfiles.*;
 
 @RunWith(JUnit4.class)
 public class FiniteStateMachineTests
