@@ -385,8 +385,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         repaint();
     }
 
-    /**
-    * Necessary implemented methods.
+    /*
+    * Necessary implemented methods
     */
     public void mouseMoved(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}
@@ -395,6 +395,9 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
     /**
     * Get a printable representation of the jpanel
+    * but only with states and transitions
+    *
+    * @return bufferedimage representation of jpanel without buttons
     */
     public BufferedImage getPrintable() {
         BufferedImage bufimg = new BufferedImage(this.getWidth(), this.getHeight(), BufferedImage.TYPE_INT_RGB);
