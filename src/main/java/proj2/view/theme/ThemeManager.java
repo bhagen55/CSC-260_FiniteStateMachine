@@ -1,6 +1,15 @@
 package proj2.view.theme;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
+import java.awt.GridLayout;
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import proj2.view.theme.Theme;
 import proj2.view.gui.DrawPanel;
@@ -26,8 +35,8 @@ public class ThemeManager
 		themes.add(defTheme);
 		currTheme = defTheme;
 
-		themes.add(constructBlueTheme);
-		themes.add(constructGreenTheme);
+		themes.add(constructBlueTheme());
+		themes.add(constructGreenTheme());
 	}
 
 	public Theme getTheme() {
@@ -50,9 +59,9 @@ public class ThemeManager
 	}
 
 	private Theme constructGreenTheme() {
-		Theme greenTheme = new Theme("green theme", Color.GREEN, Color.White,
-									Color.GREEN, Color.GREEN, Color.Black,
-									Color.GREEN, Color.GREEN, Color.White);
+		Theme greenTheme = new Theme("green theme", Color.GREEN, Color.WHITE,
+									Color.GREEN, Color.GREEN, Color.BLACK,
+									Color.GREEN, Color.GREEN, Color.WHITE);
 		return greenTheme;
 	}
 
@@ -80,48 +89,48 @@ public class ThemeManager
 
 		JLabel stateOutlineColor = new JLabel("State Outline Color:");
 		JButton stateOutlineColorButton = new JButton("Change");
-		stateOutlineColorButton.setBackgroundColor(currTheme.getStateOutlineColor);
+		stateOutlineColorButton.setBackground(currTheme.getStateOutlineColor());
 		stateOutlineColorButton.setOpaque(true);
 
 		JLabel stateFillColor = new JLabel("State Fill Color:");
 		JButton stateFillColorButton = new JButton("Change");
-		stateFillColorButton.setBackgroundColor(currTheme.getStateFillColor);
+		stateFillColorButton.setBackground(currTheme.getStateFillColor());
 		stateFillColorButton.setOpaque(true);
 
 		JLabel stateTextColor = new JLabel("State Text Color:");
 		JButton stateTextColorButton = new JButton("Change");
-		stateTextColorButton.setBackgroundColor(currTheme.getStateTextColor);
+		stateTextColorButton.setBackground(currTheme.getStateTextColor());
 		stateTextColorButton.setOpaque(true);
 
 		JLabel stateAcceptColor = new JLabel("State Accept Color:");
 		JButton stateAcceptColorButton = new JButton("Change");
-		stateAcceptColorButton.setBackgroundColor(currTheme.getStateAcceptColor);
+		stateAcceptColorButton.setBackground(currTheme.getStateAcceptColor());
 		stateAcceptColorButton.setOpaque(true);
 
 		JLabel stateStartColor = new JLabel("State Start Color:");
 		JButton stateStartColorButton = new JButton("Change");
-		stateStartColorButton.setBackgroundColor(currTheme.getStateStartColor);
+		stateStartColorButton.setBackground(currTheme.getStateStartColor());
 		stateStartColorButton.setOpaque(true);
 
 		JLabel transLineColor = new JLabel("Transition Line Color:");
 		JButton transLineColorButton = new JButton("Change");
-		transLineColorButton.setBackgroundColor(currTheme.getTransLineColor);
+		transLineColorButton.setBackground(currTheme.getTransLineColor());
 		transLineColorButton.setOpaque(true);
 
 		JLabel transTextColor = new JLabel("Transition Text Color:");
 		JButton transTextColorButton = new JButton("Change");
-		transTextColorButton.setBackgroundColor(currTheme.getTransTextColor);
+		transTextColorButton.setBackground(currTheme.getTransTextColor());
 		transTextColorButton.setOpaque(true);
 
 		JLabel backgroundColor = new JLabel("Background Color:");
 		JButton backgroundColorButton = new JButton("Change");
-		backgroundColorButton.setBackgroundColor(currTheme.getBackgroundColor);
+		backgroundColorButton.setBackground(currTheme.getBackgroundColor());
 		backgroundColorButton.setOpaque(true);
 
 		JButton saveButton = new JButton("Save Theme");
 
 		JLabel themeTitle = new JLabel("Themes:");
-		JComboBox<Theme> cb = new JComboBox<Theme>(themes);
+		JComboBox<Theme> cb = new JComboBox<Theme>((Theme[])themes.toArray());
 
 		JButton applyButton = new JButton("Apply");
 

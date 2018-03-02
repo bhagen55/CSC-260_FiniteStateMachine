@@ -22,7 +22,7 @@ public class Theme
 
 	private Color backgroundColor;
 
-	public Theme(String name, Color stateOutlineColor, color stateFillColor,
+	public Theme(String name, Color stateOutlineColor, Color stateFillColor,
 				Color stateTextColor, Color stateAcceptColor,
 				Color stateStartColor, Color transLineColor,
 				Color transTextColor, Color backgroundColor)
