@@ -48,10 +48,19 @@ public class Transition{
 	*
     * @return String name of the state this transition goes to
     */
-     public String getGoingTo()
+     public String getGoingToName()
      {
         return goingTo.getName();
      }
+
+	 /**
+ 	* Gets state this transition is going to
+ 	*
+     * @return State this transition goes to
+     */
+	 public State getGoingTo() {
+		 return goingTo;
+	 }
 
      public ArrayList<String> getArrayListOfTransitionContents()
      {

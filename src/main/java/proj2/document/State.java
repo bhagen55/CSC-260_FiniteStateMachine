@@ -67,6 +67,29 @@ public class State{
          return yCoord;
     }
 
+	public State goTo(String transitionWeight) {
+
+		if (hasTransition(transitionWeight)) {
+			for (Transition curr : transitions) {
+				String currWeight = curr.getWeight();
+				if (currWeight.equals(transitionWeight)) {
+					Transition goal = getTransition(transitionWeight);
+					return goal.getGoingTo();
+				}
+			}
+		}
+		return null;
+	}
+
+	public Transition getTransition(String weight) {
+		for (Transition curr : transitions) {
+			if (curr.getWeight().equals(weight)) {
+				return curr;
+			}
+		}
+		return null;
+	}
+
     /**
     *gets the transition to a given String with a given weight should it exist
     *@param to of the Symbol that the transition should go to
@@ -103,7 +126,7 @@ public class State{
     /**
     *returns if a desired transition exists
     *@param to: the name of the state the transition to remove goes to
-    *@param transitionWeight: weight of the transition to be removed
+    *@param transitionWeight: weight of the transition to be examined
     *@return true if a certain transition exists false otherwise
     */
    	public boolean hasTransition(String to, String transitionWeight)
@@ -114,6 +137,19 @@ public class State{
 			return false;
 		}
    	}
+
+	/**
+    *returns if a desired transition exists
+    *@param transitionWeight: weight of the transition to be examined
+    *@return true if a certain transition exists false otherwise
+    */
+	public boolean hasTransition(String transitionWeight) {
+		if (getTransition(transitionWeight) != null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 
     /**

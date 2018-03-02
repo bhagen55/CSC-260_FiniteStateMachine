@@ -24,6 +24,9 @@ public class StateShape extends Component implements Shape {
 	// Boolean to store if the state is a start state
 	private boolean isStart;
 
+	// Boolean to store if the state is the current state in simulation
+	private boolean isCurrent;
+
 	// Position information (Refers to the center of the ellipse)
 	private int xPos;
 	private int yPos;
@@ -197,6 +200,14 @@ public class StateShape extends Component implements Shape {
     	isAccepting = !isAccepting;
     }
 
+	/**
+	* Toggles whether this state is the current in simulation
+	* If toggled, the shape needs to be re-drawn (in simulation)
+	*/
+	public void toggleCurrent() {
+		isCurrent = !isCurrent;
+	}
+
     /**
     * Get whether or not the state object is an accepting state
     *
@@ -205,6 +216,15 @@ public class StateShape extends Component implements Shape {
     public boolean isAcceptState() {
     	return isAccepting;
     }
+
+	/**
+	* Get whether or not the state object is the start state
+	*
+	* @return whether or not the state is the start state
+	*/
+	public boolean isStart() {
+		return isStart;
+	}
 
     /**
     * Get an Ellipse2D representation of the state
@@ -225,6 +245,10 @@ public class StateShape extends Component implements Shape {
 		return ellipse.contains(x, y);
 	}
 
+	public void paintColor(Color c) {
+
+	}
+
     /*
     * Does the actual painting of this object on a JPanel
     *
@@ -242,8 +266,9 @@ public class StateShape extends Component implements Shape {
 
 		if(isStart) {
 			g2d.setColor(Color.RED);
-		}
-		else {
+		} else if (isCurrent) {
+
+		} else {
 			g2d.setColor(Color.BLACK);
 		}
 

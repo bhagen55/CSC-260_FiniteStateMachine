@@ -197,6 +197,25 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         repaint();
     }
 
+    private LinkedList convertArrayListToLinkedList(ArrayList aL) {
+        LinkedList toReturn = new LinkedList();
+        int size = aL.size();
+        for (int i=0;i<size;i++) {
+            toReturn.add(aL.get(i));
+        }
+        return toReturn;
+    }
+
+    public LinkedList<StateShape> getStates() {
+        LinkedList<StateShape> toReturn = (LinkedList<StateShape>)convertArrayListToLinkedList(stateShapes);
+        return toReturn;
+    }
+
+    public LinkedList<TransitionShape> getTransitions() {
+        LinkedList<TransitionShape> toReturn = (LinkedList<TransitionShape>)convertArrayListToLinkedList(transitionShapes);
+        return toReturn;
+    }
+
 
     /**
     * Moves state to the given x and y coords
