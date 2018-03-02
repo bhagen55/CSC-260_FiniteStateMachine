@@ -31,6 +31,7 @@ import proj2.view.gui.shapes.*;
 import proj2.view.gui.Observer;
 import proj2.filehandler.concretefilehandler.TextSave;
 import proj2.view.gui.menus.SaveMenu;
+import proj2.view.theme.*;
 
 /*
 * Extension of JPanel that handles drawing of states and state objects
@@ -89,6 +90,13 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     private JTextField savePath;
     private JTextField loadPath;
 
+	/*
+	* Theme manager
+	*/
+	private ThemeManager themeManager;
+	private Theme currTheme;
+	private JButton themeButton;
+
     private static final int RIGHT_CLICK = 3;
     private static final int LEFT_CLICK = 1;
 
@@ -112,6 +120,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
         savePath = new JTextField("fsm");
         loadPath = new JTextField("fsm");
+
+		// Add theme manager stuff
+		themeButton = new JButton("Open Theme Chooser");
+		themeManager = new ThemeManager(gui);
+		currTheme = themeManager.getTheme();
 
         stateShapes = new ArrayList<StateShape>();
 
@@ -147,6 +160,12 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
                 // System.out.println("Loading");
             }
         });
+
+		themeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				themeManager.showMenu();
+			}
+		});
 
     }
 
@@ -262,6 +281,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         loadPath.setBounds(400, 21, 100, 20);
         add(savePath);
         add(loadPath);
+
+		// Paints theme manager button
+		themeButton.setBounds(500, 1, 200, 20);
+		add(themeButton);
 
 		// Paints the vertices
 

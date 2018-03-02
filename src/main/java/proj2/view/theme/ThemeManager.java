@@ -10,6 +10,7 @@ import java.awt.GridLayout;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 import proj2.view.theme.Theme;
 import proj2.view.gui.DrawPanel;
@@ -28,10 +29,12 @@ public class ThemeManager
 	private DrawPanel gui;
 
 	public ThemeManager(DrawPanel gui) {
-
 		this.gui = gui;
 
+		themes = new ArrayList<Theme>();
+
 		Theme defTheme = constructDefaultTheme();
+		System.out.println(defTheme.toString());
 		themes.add(defTheme);
 		currTheme = defTheme;
 
@@ -45,10 +48,10 @@ public class ThemeManager
 
 
 	private Theme constructDefaultTheme() {
-		Theme defTheme = new Theme("default theme", Color.BLACK, Color.WHITE,
+		Theme defaultTheme = new Theme("default theme", Color.BLACK, Color.WHITE,
 									Color.BLACK, Color.BLACK, Color.RED,
 									Color.BLACK, Color.BLACK, Color.WHITE);
-		return defTheme;
+		return defaultTheme;
 	}
 
 	private Theme constructBlueTheme() {
@@ -130,7 +133,8 @@ public class ThemeManager
 		JButton saveButton = new JButton("Save Theme");
 
 		JLabel themeTitle = new JLabel("Themes:");
-		JComboBox<Theme> cb = new JComboBox<Theme>((Theme[])themes.toArray());
+		List<Theme> themes = new ArrayList<Theme>();
+		JComboBox<Theme> cb = new JComboBox<Theme>(themes.toArray(new Theme[themes.size()]));
 
 		JButton applyButton = new JButton("Apply");
 
@@ -141,5 +145,30 @@ public class ThemeManager
 				gui.update();
 			}
 		});
+
+		p.add(stateOutlineColor);
+		p.add(stateOutlineColorButton);
+		p.add(stateFillColor);
+		p.add(stateFillColorButton);
+		p.add(stateTextColor);
+		p.add(stateTextColorButton);
+		p.add(stateAcceptColor);
+		p.add(stateAcceptColorButton);
+		p.add(stateStartColor);
+		p.add(stateStartColorButton);
+		p.add(transLineColor);
+		p.add(transLineColorButton);
+		p.add(transTextColor);
+		p.add(transTextColorButton);
+		p.add(backgroundColor);
+		p.add(backgroundColorButton);
+		p.add(saveButton);
+		p.add(themeTitle);
+		p.add(cb);
+		p.add(applyButton);
+
+		f.add(p);
+
+		f.setVisible(true);
 	}
 }
