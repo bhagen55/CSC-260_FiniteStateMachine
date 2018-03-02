@@ -35,4 +35,12 @@ public class ImageSave implements Saver
             System.out.println("Saving as Image failed.");
         }
     }
+
+    /**
+    * Simply returns the name of the class
+    * Allows for a readable name to be shown in a menu
+    */
+    public String toString() {
+        return "ImageSave";
+    }
 }
