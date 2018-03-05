@@ -105,6 +105,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
     	System.out.println("Setting up");
 
+		gui = this;
+
         // Set border of the panel
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -133,8 +135,6 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         doc = d;
 
         ts = textsaver;
-
-        gui = this;
 
         // Add mouse listener to the panel to deal with mouse events
         this.addMouseListener(this);

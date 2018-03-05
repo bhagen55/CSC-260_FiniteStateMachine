@@ -31,7 +31,7 @@ public class SaveMenu {
         f.setLayout(new GridLayout(1, 1));
 
         JPanel p=new JPanel();
-        p.setLayout(new GridLayout(3, 1, 2, 2));
+        p.setLayout(new GridLayout(1, 3, 2, 2));
 
         JLabel title = new JLabel("Select a save format then click save");
 
