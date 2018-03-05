@@ -260,6 +260,27 @@ public class Document
     }
 
     /**
+    *returns x coordinate
+    *@return x coordinate of this state
+    */
+    public int getX(String StateName)
+    {
+        int stateIndex = stateIndices.indexOf(StateName);
+        return content.get(stateIndex).getX();
+    }
+
+    /**
+    *returns y coordinate
+    *@return y coordinate of this state
+    */
+    public int getY(String StateName)
+    {
+          int stateIndex = stateIndices.indexOf(StateName);
+        return content.get(stateIndex).getY();
+    }
+
+
+    /**
      * Removes an observer from the list of observers stored in the document
      *
      * @param o observer of type Observer to be removed
@@ -267,6 +288,23 @@ public class Document
     public void removeObserver(Observer o)
     {
         observers.remove(o);
+    }
+
+
+    public ArrayList<String> getStates(){
+        ArrayList<String> copy= new ArrayList<String>();
+        for(int x=0;x<stateIndices.size();x++)
+        {
+
+        copy.add(stateIndices.get(x));
+        }
+        return copy;
+    }
+
+    public ArrayList<String> getTransitionsForState(String StateName)
+    {
+        int stateIndex = stateIndices.indexOf(StateName);
+        return content.get(stateIndex).getTransitionStrings();
     }
 
     /**
@@ -296,4 +334,5 @@ public class Document
         return toReturn;
 
     }
+
 }

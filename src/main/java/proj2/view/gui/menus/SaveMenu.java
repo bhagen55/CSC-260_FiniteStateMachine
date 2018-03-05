@@ -35,7 +35,7 @@ public class SaveMenu {
 
         JLabel title = new JLabel("Select a save format then click save");
 
-        Saver[] savers = {new FSMSave(), new ImageSave(gui), new LaTeXSave(), new TextSave(doc)};
+        Saver[] savers = {new FSMSave(doc), new ImageSave(gui), new LaTeXSave(), new TextSave(doc)};
         JComboBox<Saver> cb = new JComboBox<Saver>(savers);
 
         JButton saveButton = new JButton("Save");

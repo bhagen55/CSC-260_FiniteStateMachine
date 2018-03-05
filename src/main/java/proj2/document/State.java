@@ -195,6 +195,21 @@ public class State{
         return transitions;
     }
 
+    /**
+    * @return the transitions in this state
+    */
+    public ArrayList<String> getTransitionStrings()
+    {
+        ArrayList<String> copy =new ArrayList<String>();
+        for (Transition curr : transitions) 
+        {
+
+        copy.add(curr.getStringOfTransitionContents());
+        }
+        return copy;
+    
+    }
+
 	/**
 	* Creates a string representation of the state
 	*

@@ -62,11 +62,12 @@ public class Transition{
 		 return goingTo;
 	 }
 
-     public ArrayList<String> getArrayListOfTransitionContents()
+    /**
+    *@Return a String containing the Transition name and weight separated by an Ω
+    */
+     public String getStringOfTransitionContents()
      {
-        ArrayList<String> toReturn = new ArrayList<String>();
-        toReturn.add(goingTo.getName());
-        toReturn.add(transitionWeight);
+        String toReturn =goingTo.getName()+"Ω"+transitionWeight;
         return toReturn;
      }
 
