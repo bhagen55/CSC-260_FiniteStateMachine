@@ -17,15 +17,9 @@ public class FSMSave implements Saver
 
     public void save(){
         String fileName= "FSMSave";
-        try{
+        
 
-       saveFile();
-   }
-   catch(FileNotFoundException ex) {
-             System.out.println(
-                 "Unable to open file '" +
-                 fileName + "'");
-         }
+      // saveFile();
          
     }
 

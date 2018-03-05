@@ -23,7 +23,7 @@ public class TextSave implements Saver
 	}
 
 	public void save() {
-		saveFile("TextSave");
+		//saveFile("TextSave");
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class TextSave implements Saver
 
 		// Write into the text file
 		writer = new PrintWriter(file);
-		try{
+		
 		writer.println("@@ Top section is: StateName|xPosition|yPosition");
 		writer.println("@@ Bottom section is: StateName than its transitions, each in parenthesis separated by a comma");
 		writer.println("@@ in each parenthesis it is ordered (State this transition points to, this transition's weight)");
@@ -84,19 +84,7 @@ public class TextSave implements Saver
 		writer.close();
 
 
-	}
-
-         catch(FileNotFoundException ex) {
-             System.out.println(
-                 "Unable to open file '" +
-                 fileName + "'");
-         }
-         catch(IOException ex) {
-             System.out.println(
-                 "Error reading file '"
-                 + fileName + "'");
-
-         }
+	
 }
 
 
