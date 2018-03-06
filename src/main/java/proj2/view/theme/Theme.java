@@ -87,6 +87,10 @@ public class Theme
 	* Setters
 	*/
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public void setStateOutlineColor(Color color) {
 		stateOutlineColor = color;
 	}
@@ -117,5 +121,13 @@ public class Theme
 
 	public void setBackgroundColor(Color color) {
 		backgroundColor = color;
+	}
+
+	public Theme clone() {
+		Theme copy = new Theme(name, stateOutlineColor, stateFillColor,
+					stateTextColor, stateAcceptColor,
+					stateStartColor, transLineColor,
+					transTextColor, backgroundColor);
+		return copy;
 	}
 }

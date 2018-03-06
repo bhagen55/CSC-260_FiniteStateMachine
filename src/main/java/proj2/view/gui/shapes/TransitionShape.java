@@ -31,6 +31,9 @@ public class TransitionShape extends Component implements Shape {
 	private static final int LOOP_OFFSET = 90;
 	private static final int ROTATE_CORRECTION = 90;
 
+	Color lineColor;
+	Color textColor;
+
 	/**
 	* TransitionShape constructor
 	*
@@ -38,7 +41,8 @@ public class TransitionShape extends Component implements Shape {
 	* @param d destination StateShape
 	* @param n name/transition name for transition
 	*/
-	public TransitionShape(StateShape o, StateShape d, String n) {
+	public TransitionShape(StateShape o, StateShape d, String n,
+							Color lineColor, Color textColor) {
 
 		this.name = n;
     	this.origin = o;
@@ -50,6 +54,9 @@ public class TransitionShape extends Component implements Shape {
 		int destY = destination.getY();
 		int contX = getCont(orgX, destX);
 		int contY = getCont(orgY, destY);
+
+		this.lineColor = lineColor;
+		this.textColor = textColor;
 
 		transition = new QuadCurve2D.Double(orgX,orgY,contX,contY,destX,destY);
 	}
@@ -136,8 +143,9 @@ public class TransitionShape extends Component implements Shape {
 			rotater.rotate(Math.toRadians(getAngle()), 0, 0);
 			Font rotatedFont = font.deriveFont(rotater);
 			g2d.setFont(rotatedFont);
+			g2d.setColor(textColor);
 			g2d.drawString(name + pointer,contX,contY);
-			g2d.setColor(Color.BLACK);
+			g2d.setColor(lineColor);
 			g2d.draw(transition);
 
 		// this is a self loop

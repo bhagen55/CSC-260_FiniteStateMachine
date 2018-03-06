@@ -44,6 +44,11 @@ public class StateShape extends Component implements Shape {
 	private static final int DOUBLE_MULT = 2;
 	private static final int DEFAULT_FONT_SIZE = 12;
 
+	Color outlineColor;
+	Color fillColor;
+	Color textColor;
+	Color acceptColor;
+	Color startColor;
 
 	/**
 	* Constructs a StateShape object
@@ -54,7 +59,9 @@ public class StateShape extends Component implements Shape {
 	* @param isAccepting whether or not this is an accept state
 	* @param isStart whether or not this is a start state
 	*/
-	public StateShape(int xPos, int yPos, String name, boolean isAccepting, boolean isStart) {
+	public StateShape(int xPos, int yPos, String name, boolean isAccepting, boolean isStart,
+						Color outlineColor, Color fillColor, Color textColor,
+						Color acceptColor, Color startColor) {
 
 		this.name = name;
 
@@ -68,6 +75,12 @@ public class StateShape extends Component implements Shape {
 		this.isAccepting = isAccepting;
 
 		this.isStart = isStart;
+
+		this.outlineColor = outlineColor;
+		this.fillColor = fillColor;
+		this.textColor = textColor;
+		this.acceptColor = acceptColor;
+		this.startColor = startColor;
 
 		// Construct the ellipse to represent this shape
 		ellipse = makeEllipse(xPos, yPos, radius);
@@ -261,21 +274,22 @@ public class StateShape extends Component implements Shape {
 		g2d.setFont(font);
 
 
-		g2d.setColor(Color.WHITE);
+		g2d.setColor(fillColor);
 		g2d.fill(ellipse);
 
 		if(isStart) {
-			g2d.setColor(Color.RED);
+			g2d.setColor(startColor);
 		} else if (isCurrent) {
 
 		} else {
-			g2d.setColor(Color.BLACK);
+			g2d.setColor(outlineColor);
 		}
 
 		g2d.draw(ellipse);
 		g2d.drawString(name,xPos,yPos);
 
 		if(isAccepting) {
+			g2d.setColor(acceptColor);
 			g2d.draw(acceptEllipse);
 		}
 	}
