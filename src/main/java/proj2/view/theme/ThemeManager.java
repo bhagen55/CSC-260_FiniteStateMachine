@@ -1,6 +1,7 @@
 package proj2.view.theme;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -36,8 +37,6 @@ public class ThemeManager
 
 	JFrame buttonFrame;
 	JPanel buttonPanel;
-
-	JFrame ccFrame;
 
 	JLabel title;
 
@@ -97,17 +96,13 @@ public class ThemeManager
 		* Gui Setup
 		*/
 		buttonFrame = new JFrame();
-		buttonFrame.setSize(500,500);
-		buttonFrame.setLayout(new GridLayout(1, 1));
-		buttonFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		buttonFrame.setSize(1000,500);
+		buttonFrame.setLayout(new GridLayout(1, 2));
+		buttonFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(11, 1, 2, 2));
 
-		ccFrame = new JFrame();
-		ccFrame.setSize(500,500);
-		ccFrame.setLayout(new GridLayout(1, 1));
-		ccFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		title = new JLabel("Theme Colors:");
 
@@ -212,13 +207,14 @@ public class ThemeManager
 		applyButton = new JButton("Apply");
 		applyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Theme selected = (Theme)cb.getSelectedItem();
-				currTheme = selected;
+				// Theme selected = (Theme)cb.getSelectedItem();
+				// currTheme = selected;
 				gui.update();
 			}
 		});
 
 		cc = new JColorChooser(Color.BLACK);
+		cc.setPreferredSize(new Dimension(100, 500));
 
 		updateMenus();
 
@@ -246,7 +242,7 @@ public class ThemeManager
 
 		buttonFrame.add(buttonPanel);
 
-		ccFrame.add(cc);
+		buttonFrame.add(cc);
 
 	}
 
@@ -290,7 +286,6 @@ public class ThemeManager
 
 	public void showMenu() {
 		buttonFrame.setVisible(true);
-		ccFrame.setVisible(true);
 	}
 
 	private void updateMenus() {
