@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.swing.JColorChooser;
 import java.awt.GridLayout;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
@@ -28,6 +30,54 @@ public class ThemeManager
 
 	private DrawPanel gui;
 
+	/*
+	* Gui Setup
+	*/
+
+	JFrame buttonFrame;
+	JPanel buttonPanel;
+
+	JFrame ccFrame;
+
+	JLabel title;
+
+	JLabel stateOutlineColor;
+	JButton stateOutlineColorButton;
+
+	JLabel stateFillColor;
+	JButton stateFillColorButton;
+
+	JLabel stateTextColor;
+	JButton stateTextColorButton;
+
+	JLabel stateAcceptColor;
+	JButton stateAcceptColorButton;
+
+	JLabel stateStartColor;
+	JButton stateStartColorButton;
+
+	JLabel transLineColor;
+	JButton transLineColorButton;
+
+	JLabel transTextColor;
+	JButton transTextColorButton;
+
+	JLabel backgroundColor;
+	JButton backgroundColorButton;
+
+	JTextField themeName;
+
+	JButton saveButton;
+
+	JLabel themeTitle;
+
+	JComboBox<Theme> cb;
+
+	JButton applyButton;
+
+	JColorChooser cc;
+
+
 	public ThemeManager(DrawPanel gui) {
 		this.gui = gui;
 
@@ -36,10 +86,168 @@ public class ThemeManager
 		Theme defTheme = constructDefaultTheme();
 		System.out.println(defTheme.toString());
 		themes.add(defTheme);
-		currTheme = defTheme;
+		currTheme = (Theme)defTheme.clone();
 
 		themes.add(constructBlueTheme());
 		themes.add(constructGreenTheme());
+
+		System.out.println(themes.toString());
+
+		/*
+		* Gui Setup
+		*/
+		buttonFrame = new JFrame();
+		buttonFrame.setSize(500,500);
+		buttonFrame.setLayout(new GridLayout(1, 1));
+		buttonFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(11, 1, 2, 2));
+
+		ccFrame = new JFrame();
+		ccFrame.setSize(500,500);
+		ccFrame.setLayout(new GridLayout(1, 1));
+		ccFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		title = new JLabel("Theme Colors:");
+
+		/*
+		* Color Change Buttons
+		* with their labels and color choosers
+		*/
+		stateOutlineColor = new JLabel("State Outline Color:");
+		stateOutlineColorButton = new JButton("Change");
+		stateOutlineColorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currTheme.setStateOutlineColor(cc.getColor());
+				updateMenus();
+			}
+		});
+
+		stateFillColor = new JLabel("State Fill Color:");
+		stateFillColorButton = new JButton("Change");
+		stateFillColorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currTheme.setStateFillColor(cc.getColor());
+				updateMenus();
+			}
+		});
+
+		stateTextColor = new JLabel("State Text Color:");
+		stateTextColorButton = new JButton("Change");
+		stateTextColorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currTheme.setStateTextColor(cc.getColor());
+				updateMenus();
+			}
+		});
+
+		stateAcceptColor = new JLabel("State Accept Color:");
+		stateAcceptColorButton = new JButton("Change");
+		stateAcceptColorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currTheme.setStateAcceptColor(cc.getColor());
+				updateMenus();
+			}
+		});
+
+
+		stateStartColor = new JLabel("State Start Color:");
+		stateStartColorButton = new JButton("Change");
+		stateStartColorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currTheme.setStateStartColor(cc.getColor());
+				updateMenus();
+			}
+		});
+
+		transLineColor = new JLabel("Transition Line Color:");
+		transLineColorButton = new JButton("Change");
+		transLineColorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currTheme.setTransLineColor(cc.getColor());
+				updateMenus();
+			}
+		});
+
+		transTextColor = new JLabel("Transition Text Color:");
+		transTextColorButton = new JButton("Change");
+		transTextColorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currTheme.setTransTextColor(cc.getColor());
+				updateMenus();
+			}
+		});
+
+		backgroundColor = new JLabel("Background Color:");
+		backgroundColorButton = new JButton("Change");
+		backgroundColorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currTheme.setBackgroundColor(cc.getColor());
+				updateMenus();
+			}
+		});
+
+		themeName = new JTextField("Theme Name");
+		saveButton = new JButton("Save Theme");
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Theme custTheme = currTheme.clone();
+				custTheme.setName(themeName.getText());
+				themes.add(custTheme);
+				cb.addItem(custTheme);
+				updateMenus();
+			}
+		});
+
+		themeTitle = new JLabel("Themes:");
+		cb = new JComboBox<Theme>(themes.toArray(new Theme[themes.size()]));
+		cb.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				currTheme = (Theme)cb.getSelectedItem();
+				updateMenus();
+			}
+		});
+
+		applyButton = new JButton("Apply");
+		applyButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Theme selected = (Theme)cb.getSelectedItem();
+				currTheme = selected;
+				gui.update();
+			}
+		});
+
+		cc = new JColorChooser(Color.BLACK);
+
+		updateMenus();
+
+		buttonPanel.add(stateOutlineColor);
+		buttonPanel.add(stateOutlineColorButton);
+		buttonPanel.add(stateFillColor);
+		buttonPanel.add(stateFillColorButton);
+		buttonPanel.add(stateTextColor);
+		buttonPanel.add(stateTextColorButton);
+		buttonPanel.add(stateAcceptColor);
+		buttonPanel.add(stateAcceptColorButton);
+		buttonPanel.add(stateStartColor);
+		buttonPanel.add(stateStartColorButton);
+		buttonPanel.add(transLineColor);
+		buttonPanel.add(transLineColorButton);
+		buttonPanel.add(transTextColor);
+		buttonPanel.add(transTextColorButton);
+		buttonPanel.add(backgroundColor);
+		buttonPanel.add(backgroundColorButton);
+		buttonPanel.add(themeTitle);
+		buttonPanel.add(cb);
+		buttonPanel.add(themeName);
+		buttonPanel.add(saveButton);
+		buttonPanel.add(applyButton);
+
+		buttonFrame.add(buttonPanel);
+
+		ccFrame.add(cc);
+
 	}
 
 	public Theme getTheme() {
@@ -81,94 +289,33 @@ public class ThemeManager
 	}
 
 	public void showMenu() {
-		JFrame f = new JFrame();
-		f.setSize(500,500);
-		f.setLayout(new GridLayout(1, 1));
+		buttonFrame.setVisible(true);
+		ccFrame.setVisible(true);
+	}
 
-		JPanel p=new JPanel();
-		p.setLayout(new GridLayout(2, 1, 2, 2));
-
-		JLabel title = new JLabel("Theme Colors:");
-
-		JLabel stateOutlineColor = new JLabel("State Outline Color:");
-		JButton stateOutlineColorButton = new JButton("Change");
+	private void updateMenus() {
 		stateOutlineColorButton.setBackground(currTheme.getStateOutlineColor());
 		stateOutlineColorButton.setOpaque(true);
 
-		JLabel stateFillColor = new JLabel("State Fill Color:");
-		JButton stateFillColorButton = new JButton("Change");
 		stateFillColorButton.setBackground(currTheme.getStateFillColor());
 		stateFillColorButton.setOpaque(true);
 
-		JLabel stateTextColor = new JLabel("State Text Color:");
-		JButton stateTextColorButton = new JButton("Change");
 		stateTextColorButton.setBackground(currTheme.getStateTextColor());
 		stateTextColorButton.setOpaque(true);
 
-		JLabel stateAcceptColor = new JLabel("State Accept Color:");
-		JButton stateAcceptColorButton = new JButton("Change");
 		stateAcceptColorButton.setBackground(currTheme.getStateAcceptColor());
 		stateAcceptColorButton.setOpaque(true);
 
-		JLabel stateStartColor = new JLabel("State Start Color:");
-		JButton stateStartColorButton = new JButton("Change");
 		stateStartColorButton.setBackground(currTheme.getStateStartColor());
 		stateStartColorButton.setOpaque(true);
 
-		JLabel transLineColor = new JLabel("Transition Line Color:");
-		JButton transLineColorButton = new JButton("Change");
 		transLineColorButton.setBackground(currTheme.getTransLineColor());
 		transLineColorButton.setOpaque(true);
 
-		JLabel transTextColor = new JLabel("Transition Text Color:");
-		JButton transTextColorButton = new JButton("Change");
 		transTextColorButton.setBackground(currTheme.getTransTextColor());
 		transTextColorButton.setOpaque(true);
 
-		JLabel backgroundColor = new JLabel("Background Color:");
-		JButton backgroundColorButton = new JButton("Change");
 		backgroundColorButton.setBackground(currTheme.getBackgroundColor());
 		backgroundColorButton.setOpaque(true);
-
-		JButton saveButton = new JButton("Save Theme");
-
-		JLabel themeTitle = new JLabel("Themes:");
-		List<Theme> themes = new ArrayList<Theme>();
-		JComboBox<Theme> cb = new JComboBox<Theme>(themes.toArray(new Theme[themes.size()]));
-
-		JButton applyButton = new JButton("Apply");
-
-		applyButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Theme selected = (Theme)cb.getSelectedItem();
-				currTheme = selected;
-				gui.update();
-			}
-		});
-
-		p.add(stateOutlineColor);
-		p.add(stateOutlineColorButton);
-		p.add(stateFillColor);
-		p.add(stateFillColorButton);
-		p.add(stateTextColor);
-		p.add(stateTextColorButton);
-		p.add(stateAcceptColor);
-		p.add(stateAcceptColorButton);
-		p.add(stateStartColor);
-		p.add(stateStartColorButton);
-		p.add(transLineColor);
-		p.add(transLineColorButton);
-		p.add(transTextColor);
-		p.add(transTextColorButton);
-		p.add(backgroundColor);
-		p.add(backgroundColorButton);
-		p.add(saveButton);
-		p.add(themeTitle);
-		p.add(cb);
-		p.add(applyButton);
-
-		f.add(p);
-
-		f.setVisible(true);
 	}
 }

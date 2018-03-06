@@ -124,6 +124,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
     	System.out.println("Setting up");
 
+		gui = this;
+
         // Set border of the panel
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -158,8 +160,6 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         doc = d;
 
         ts = textsaver;
-
-        gui = this;
 
         // Add mouse listener to the panel to deal with mouse events
         this.addMouseListener(this);
@@ -218,6 +218,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Holds the current model that the view is based off
         LinkedList<State> model = doc.getModel();
 
+		currTheme = themeManager.getTheme();
+
         // Add all the vertices from the model as stateshapes
         for (State state: model) {
 
@@ -227,7 +229,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
                 isStart = true;
             }
 
-            stateShapes.add(new StateShape(state.getX(),state.getY(), state.getName(), state.canAccept(), isStart));
+            stateShapes.add(new StateShape(state.getX(),state.getY(), state.getName(), state.canAccept(), isStart,
+							currTheme.getStateOutlineColor(), currTheme.getStateFillColor(),
+							currTheme.getStateTextColor(), currTheme.getStateAcceptColor(),
+							currTheme.getStateStartColor()));
         }
 
         // Go through all the stateshapes and add their transitions from the model
@@ -246,7 +251,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
                         endState = endShape;
                     }
                 }
-                transitionShapes.add(new TransitionShape(state, endState, transition.getWeight()));
+                transitionShapes.add(new TransitionShape(state, endState, transition.getWeight(),
+									currTheme.getTransLineColor(), currTheme.getTransTextColor()));
             }
         }
         repaint();

@@ -31,11 +31,11 @@ public class SaveMenu {
         f.setLayout(new GridLayout(1, 1));
 
         JPanel p=new JPanel();
-        p.setLayout(new GridLayout(3, 1, 2, 2));
+        p.setLayout(new GridLayout(1, 3, 2, 2));
 
         JLabel title = new JLabel("Select a save format then click save");
 
-        Saver[] savers = {new FSMSave(), new ImageSave(gui), new LaTeXSave(), new TextSave(doc)};
+        Saver[] savers = {new FSMSave(doc), new ImageSave(gui), new LaTeXSave(), new TextSave(doc)};
         JComboBox<Saver> cb = new JComboBox<Saver>(savers);
 
         JButton saveButton = new JButton("Save");

@@ -2,6 +2,7 @@ package proj2.filehandler.concretefilehandler;
 
 import proj2.document.Document;
 import proj2.filehandler.Saver;
+import java.util.ArrayList;
 /*
 import java.io.PrintWriter;
 import java.io.File;
@@ -22,7 +23,7 @@ public class TextSave implements Saver
 	}
 
 	public void save() {
-
+		//saveFile("TextSave");
 	}
 
 	/**
@@ -52,22 +53,44 @@ public class TextSave implements Saver
 
 		// Write into the text file
 		writer = new PrintWriter(file);
-
+		
 		writer.println("@@ Top section is: StateName|xPosition|yPosition");
 		writer.println("@@ Bottom section is: StateName than its transitions, each in parenthesis separated by a comma");
 		writer.println("@@ in each parenthesis it is ordered (State this transition points to, this transition's weight)");
 		writer.println("@@ the $ in the middle separates the coordiante section from the transitions section");
 
+		ArrayList<String> states = d.getStates();
+		for(String state: states){
+			writer.println(state+"|"+d.getX(state)+"|"+d.getY(state));
+		}
+		writer.println("$");
 
-
-		writer.println(d.toString());
+		for(String state:states){
+			String curLine=state;
+			int x=0;
+			ArrayList<String> curTransitions=d.getTransitionsForState(state);
+			for(String transition:curTransitions)
+			{
+				String[] stateAndWeight=transition.split("Ω");
+				curLine+="("+stateAndWeight[0]+","+stateAndWeight[1]+")";
+				if(x<curTransitions.size()-2)
+				{
+					curLine+=",";
+				}
+			}
+			writer.println(curLine);
+		}
+		
 		writer.close();
 
 
+	
+}
+
+
+	public void load()
+	{
 	}
-
-
-
 
 	/**
 	* Loads a fsm from a formatted text file
