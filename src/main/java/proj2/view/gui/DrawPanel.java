@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.io.*;
 
 import proj2.document.*;
+import proj2.simulator.*;
 import proj2.view.gui.shapes.*;
 import proj2.view.gui.Observer;
 import proj2.filehandler.concretefilehandler.TextSave;
@@ -81,6 +82,15 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 	private JLabel stateFieldName;
 	private JLabel transitionFieldName;
 
+    private String batchSimulatorEntry;
+    private JTextField batchSimulatorField;
+    private JLabel batchSimulatorFieldName;
+
+    /*
+    * Simulators
+    */
+    private JButton batchSimulatorButton;
+
     /*
     * Save/Load Button and Path
     */
@@ -100,8 +110,17 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     private static final int RIGHT_CLICK = 3;
     private static final int LEFT_CLICK = 1;
 
+    private boolean simulationRunning = false;
+    private boolean resettingScreen = false;
+    private LinkedList example = new LinkedList();
+
 
 	public DrawPanel(Document d, TextSave textsaver) {
+
+        example.add("a");
+        example.add("b");
+        example.add("c");
+        example.add("d");
 
     	System.out.println("Setting up");
 
@@ -113,6 +132,12 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 		transitionField = new JTextField("a");
 		stateFieldName = new JLabel("New State Name");
 		transitionFieldName = new JLabel("New Transition Name");
+
+        batchSimulatorField = new JTextField("");
+        batchSimulatorFieldName = new JLabel("New Simulator Sequence");
+
+        // Add simulator buttons
+        batchSimulatorButton = new JButton("Batch Simulator");
 
         // Add save/load buttons and paths
         saveButton = new JButton("Save");
@@ -139,6 +164,13 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Add mouse listener to the panel to deal with mouse events
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+
+        // Call the Batch Simulator creation when button pressed
+        batchSimulatorButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                BatchSimulator bs = new BatchSimulator(getThis(), doc, example);
+            }
+        });
 
         // Call the FSM save when button pressed
         saveButton.addActionListener(new ActionListener() {
@@ -167,6 +199,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 			}
 		});
 
+    }
+
+    private DrawPanel getThis() {
+        return this;
     }
 
     /**
@@ -206,7 +242,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
                 StateShape endState = null;
                 for (StateShape endShape: stateShapes) {
-                    if (endShape.getName().equals(transition.getGoingTo())) {
+                    if (endShape.getName().equals(transition.getGoingToName())) {
                         endState = endShape;
                     }
                 }
@@ -277,6 +313,15 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     */
     public void paintComponent(Graphics g) {
 
+        if (resettingScreen == true) {
+            super.paintComponent(g);
+            this.removeAll();
+            resettingScreen = false;
+        } else if (simulationRunning == true) {
+            BatchSimulator bs = new BatchSimulator(getThis(), doc, example);
+            bs.simulate();
+        } else {
+
 		// Paints the panel
     	super.paintComponent(g);
 
@@ -289,6 +334,15 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 		transitionFieldName.setBounds(152, 20, 120, 20);
 		add(stateFieldName);
 		add(transitionFieldName);
+
+        batchSimulatorField.setBounds(700,740,100,20);
+        add(batchSimulatorField);
+        batchSimulatorFieldName.setBounds(700,760,100,20);
+        add(batchSimulatorFieldName);
+
+        // Paints the simulator buttons
+        batchSimulatorButton.setBounds(700,780,100,20);
+        add(batchSimulatorButton);
 
         // Paints the save/load buttons and paths
         saveButton.setBounds(300, 1, 100, 20);
@@ -313,6 +367,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         for (StateShape state: stateShapes) {
             state.paintShape(g);
         }
+
+    }
     }
 
     private StateShape search(MouseEvent e) {
@@ -354,6 +410,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 	*/
     public void mouseReleased(MouseEvent e) {
 
+
 		// If left click, just release the selected state
 		if (e.getButton() == LEFT_CLICK) {
             // If a state was being dragged, send its new location to the document
@@ -371,6 +428,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         	if (inBounds != null) {
                 String stateName = transitionField.getText();
                 toState = inBounds;
+                System.out.println(inBounds.getName());
 
                 // Adds transition from selState to tostate
                 if (selState != null) {

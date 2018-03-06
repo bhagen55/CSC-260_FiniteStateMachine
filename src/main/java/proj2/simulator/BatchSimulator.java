@@ -26,6 +26,12 @@ import proj2.view.gui.DrawPanel;
 import proj2.view.gui.shapes.*;
 import proj2.document.*;
 
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.KeyStroke;
+
+
 public class BatchSimulator extends JPanel implements Simulator, KeyListener{
 
     private DrawPanel dp;
@@ -46,6 +52,15 @@ public class BatchSimulator extends JPanel implements Simulator, KeyListener{
     private LinkedList<TransitionShape> transitions;
     private LinkedList<State> stateItems;
 
+    private char charExample = 'e';
+    private boolean buttonPressed;
+    private int currentStep;
+    private static final int RIGHT_ARROW_KEY_CODE = 39;
+    private static final int LEFT_ARROW_KEY_CODE = 37;
+
+    private JFrame f2;
+
+
     public BatchSimulator(DrawPanel dpanel, Document doc, LinkedList<String> input) {
 
         dp = dpanel;
@@ -54,36 +69,74 @@ public class BatchSimulator extends JPanel implements Simulator, KeyListener{
         stateItems = d.getModel();
         states = dp.getStates();
         transitions = dp.getTransitions();
+        buttonPressed = false;
+        currentStep = 0;
+
+
 
         //super("Hello");
         System.out.println("I'm alive!");
-
-        jtf = new JTextField(20);
-        words = new LinkedList();
-
-        JFrame f = new JFrame("Batch Simulation");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.add(dp);
-        f.setSize(800,800);
-        f.setVisible(true);
+        System.out.println("transitions size " + transitions.size());
+        System.out.println("states size " + states.size());
 
         this.addKeyListener(this);
 
-        jta = new JTextArea();
-
-        update();
+        // add(new ArrowPress(RIGHT_ARROW_KEY_CODE, 0));
+        // add(new ArrowPress(LEFT_ARROW_KEY_CODE, 0));
+        simulate();
 
     }
 
     public void simulate() {
 
-        drawEverything();
+        repaint();
+        System.out.println("Should be painted but isn't probably");
 
-        currentShape = getStartShape();
-        int inputSize = toParse.size();
-        for (int step=0; step < inputSize; step++) {
-            repaint();
-            stepForward(step);
+        // InputMap im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
+        // ActionMap am = getActionMap();
+        //
+        // im.put(KeyStroke.getKeyStroke(RIGHT_ARROW_KEY_CODE, 0, false), "stepForward");
+        // im.put(KeyStroke.getKeyStroke(LEFT_ARROW_KEY_CODE, 0, true), "stepBack");
+        //
+        // am.put("stepForward", new AbstractAction() {
+        //         @Override
+        //         public void actionPerformed(ActionEvent e) {
+        //             stepForward(currentStep);
+        //             repaint();
+        //         }
+        //     });
+        //
+        // am.put("stepBack", new AbstractAction() {
+        //         @Override
+        //         public void actionPerformed(ActionEvent e) {
+        //             stepForward(currentStep);
+        //             repaint();
+        //         }
+        //     });
+        //
+        currentStep++;
+        if (currentStep == 1) {
+            currentShape = getStartShape();
+        }
+        stepForward(currentStep);
+        repaint();
+
+    }
+
+
+    private void stepForward(int step) {
+
+        currentShape.toggleCurrent();
+
+        String shapeSymbol = currentShape.getName();
+        String transitionSymbol = toParse.get(step);
+        State currentShapeItem = getNextStateItem(shapeSymbol, transitionSymbol);
+        if (currentShapeItem == null) {
+            notNextException();
+        } else {
+            System.out.println("STEPFORWARD ELSE " + shapeSymbol);
+            currentShape = getShape(currentShapeItem.getName());
+            currentShape.toggleCurrent();
         }
 
     }
@@ -117,23 +170,7 @@ public class BatchSimulator extends JPanel implements Simulator, KeyListener{
         }
         return null;
     }
-    
 
-    private void stepForward(int step) {
-
-        currentShape.toggleCurrent();
-
-        String shapeSymbol = currentShape.getName();
-        String transitionSymbol = toParse.get(step);
-        State currentShapeItem = getNextStateItem(shapeSymbol, transitionSymbol);
-        if (currentShapeItem == null) {
-            notNextException();
-        } else {
-            currentShape = getShape(currentShapeItem.getName());
-            currentShape.toggleCurrent();
-        }
-
-    }
 
     private void notNextException() {
 
@@ -165,22 +202,76 @@ public class BatchSimulator extends JPanel implements Simulator, KeyListener{
     }
 
 
-
+    public void addNotify() {
+        super.addNotify();
+        requestFocus();
+    }
 
 
     public void paintComponent(Graphics g) {
+
+        System.out.println("painting is broken");
+        super.paintComponent(g);
+
+        // g.clearRect(0, 0, getWidth(), getHeight());
+        // g.drawString("curr key is " + charExample, 250, 250);
+        // g.drawString("transitions length" + transitions.size(), 300, 300);
+        // g.drawString("states length" + states.size(), 300, 350);
 
         for (TransitionShape transition: transitions) {
             transition.paintShape(g);
         }
         for (StateShape state: states) {
             state.paintShape(g);
-            }
         }
+    }
+
+    private BatchSimulator getThis() {
+        return this;
+    }
 
 
     public void keyPressed(KeyEvent e) {}
     public void keyReleased(KeyEvent e) {}
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+
+        System.out.println("TYPED");
+
+        buttonPressed = true;
+
+        if (e.getKeyCode() == RIGHT_ARROW_KEY_CODE) {
+            stepForward(currentStep);
+        } else if (e.getKeyCode() == LEFT_ARROW_KEY_CODE) {
+
+        }
+
+        repaint();
+        buttonPressed = false;
+
+    }
 
 }
+
+// public class ArrowPress extends JPanel {
+//
+//     public ArrowPress(int keyCode, int modifier) {
+//
+//         InputMap im = getInputmap(WHEN_IN_FOCUSED_WINDOW);
+//         ActionMap am = getActionMap();
+//
+//         im.put(KeyStroke.getKeyStroke(keyCode, modifier, false), "keyPressed");
+//         im.put(KeyStroke.getKeyStroke(keyCode, modifier, true), "keyReleased");
+//
+//         am.put("keyPressed", new AbstractAction() {
+//                 @Override
+//                 public void actionPerformed(ActionEvent e) {
+//                     if (keyCode == RIGHT_ARROW_KEY_CODE) {
+//                         stepForward(currentStep);
+//                     } else if (keyCode == LEFT_ARROW_KEY_CODE) {
+//
+//                     }
+//                 }
+//             });
+//
+//     }
+// }

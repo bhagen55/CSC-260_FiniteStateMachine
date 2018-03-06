@@ -173,7 +173,7 @@ public class Document
      */
     public void addTransition(String from, String to, String transitionWeight)
     {
-        if (this.hasState(from)&&this.hasState(to)) {
+        if (this.hasState(from) && this.hasState(to)) {
 
             int indexFrom = stateIndices.indexOf(from);
             int indexTo = stateIndices.indexOf(to);
