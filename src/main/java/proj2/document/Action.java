@@ -1,4 +1,4 @@
-package proj2.simulator;
+package proj2.document;
 
 public interface Action {
 

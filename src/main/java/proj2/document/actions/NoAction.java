@@ -1,6 +1,6 @@
 package proj2.document.actions;
 
-import proj2.simulator.Action;
+import proj2.document.Action;
 
 public class NoAction implements Action
 {

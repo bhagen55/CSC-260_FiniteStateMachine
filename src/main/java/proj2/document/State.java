@@ -2,6 +2,8 @@ package proj2.document;
 
 import java.util.ArrayList;
 
+import proj2.document.Action;
+
 public class State{
 
 	private String symbol; //name of this state
@@ -10,7 +12,7 @@ public class State{
     private int xCoord; // xCoordinate but does not need to be initialized
     private int yCoord; // yCoordinate but does not need to be initialized
     private ArrayList<Transition> transitions; // ArrayList containing transitions
-    private SoundAction action; // Action performed by the state when the FSM is simulated
+    private Action action; // Action performed by the state when the FSM is simulated
 
 
 	/**
