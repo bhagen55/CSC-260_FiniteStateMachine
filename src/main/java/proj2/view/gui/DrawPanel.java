@@ -169,11 +169,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Call the Batch Simulator creation when button pressed
         batchSimulatorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
                 BatchSimulator bs = new BatchSimulator(getThis(), doc, getSteps());
-=======
-                BatchSimulator bs = new BatchSimulator(gui, doc, example);
->>>>>>> fcd68ce5f6b9ddca481e96b7c24a96774a7f72a2
             }
         });
 
@@ -197,6 +193,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 			}
 		});
 
+    }
+
+    private DrawPanel getThis() {
+        return this;
     }
 
     /**
@@ -336,15 +336,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             super.paintComponent(g);
             this.removeAll();
             resettingScreen = false;
-<<<<<<< HEAD
+
         // } else if (simulationRunning == true) {
-        //     BatchSimulator bs = new BatchSimulator(getThis(), doc, example);
+        //     BatchSimulator bs = new BatchSimulator(gui, doc, example);
         //     bs.simulate();
-=======
-        } else if (simulationRunning == true) {
-            BatchSimulator bs = new BatchSimulator(gui, doc, example);
-            bs.simulate();
->>>>>>> fcd68ce5f6b9ddca481e96b7c24a96774a7f72a2
         } else {
 
 		// Paints the panel

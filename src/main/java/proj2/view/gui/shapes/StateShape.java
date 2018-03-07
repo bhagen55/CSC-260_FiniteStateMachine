@@ -44,6 +44,8 @@ public class StateShape extends Component implements Shape {
 	private static final int DOUBLE_MULT = 2;
 	private static final int DEFAULT_FONT_SIZE = 12;
 
+	private static final Color simulatorCurrentColor = Color.BLACK;
+
 	Color outlineColor;
 	Color fillColor;
 	Color textColor;
@@ -280,7 +282,7 @@ public class StateShape extends Component implements Shape {
 		if(isStart) {
 			g2d.setColor(startColor);
 		} else if (isCurrent) {
-
+			g2d.setColor(simulatorCurrentColor);
 		} else {
 			g2d.setColor(outlineColor);
 		}
