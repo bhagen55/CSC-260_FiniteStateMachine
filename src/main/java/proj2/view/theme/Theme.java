@@ -15,6 +15,7 @@ public class Theme
 	private Color stateTextColor;
 	private Color stateAcceptColor;
 	private Color stateStartColor;
+	private Color stateHighlightColor;
 
 	private Color transLineColor;
 	private Color transTextColor;
@@ -26,7 +27,8 @@ public class Theme
 	*/
 	public Theme(String name, Color stateOutlineColor, Color stateFillColor,
 				Color stateTextColor, Color stateAcceptColor,
-				Color stateStartColor, Color transLineColor,
+				Color stateStartColor, Color stateHighlightColor,
+				Color transLineColor,
 				Color transTextColor, Color backgroundColor)
 	{
 		this.name = name;
@@ -36,6 +38,7 @@ public class Theme
 		this.stateTextColor = stateTextColor;
 		this.stateAcceptColor = stateAcceptColor;
 		this.stateStartColor = stateStartColor;
+		this.stateHighlightColor = stateHighlightColor;
 
 		this.transLineColor = transLineColor;
 		this.transTextColor = transTextColor;
@@ -100,6 +103,15 @@ public class Theme
 	*/
 	public Color getStateStartColor() {
 		return stateStartColor;
+	}
+
+	/**
+	* Gets color of highlighted state
+	*
+	* @return color of highlighted state
+	*/
+	public Color getStateHighlightColor() {
+		return stateHighlightColor;
 	}
 
 	/**
@@ -188,6 +200,15 @@ public class Theme
 	}
 
 	/**
+	* Sets color of highligted state
+	*
+	* @param color desired color of highlighted state
+	*/
+	public void setStateHighlightColor(Color color) {
+		stateHighlightColor = color;
+	}
+
+	/**
 	* Sets color of transition line
 	*
 	* @param color desired color of transition line
@@ -222,7 +243,7 @@ public class Theme
 	public Theme clone() {
 		Theme copy = new Theme(name, stateOutlineColor, stateFillColor,
 					stateTextColor, stateAcceptColor,
-					stateStartColor, transLineColor,
+					stateStartColor, stateHighlightColor, transLineColor,
 					transTextColor, backgroundColor);
 		return copy;
 	}
