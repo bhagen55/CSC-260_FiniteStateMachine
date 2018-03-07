@@ -329,6 +329,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         } else {
 
 		// Paints the panel
+		setBackground(currTheme.getBackgroundColor());
     	super.paintComponent(g);
 
 		// Paints the text boxes and their labels
