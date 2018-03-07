@@ -10,7 +10,7 @@ public class SoundAction implements Action
     /**
      * Default SoundAction constructor
      */
-    public SoundAction()
+    public SoundAction() 
     {
 
     }
