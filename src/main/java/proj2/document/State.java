@@ -15,6 +15,7 @@ public class State{
 
 	/**
 	* Constructor for state that takes a string to be the name of the state
+    *
 	* @param givenSymbol: String to be the name of the state
 	*/
 	public State(String givenSymbol)
@@ -24,7 +25,7 @@ public class State{
 		transitions = new ArrayList<Transition>();
 	}
 
-	 /*
+	/**
      * Adds a directed transition between two vertices.  If there is already an transition
      * between the given vertices, does nothing.  If either (or both)
      * of the given vertices does not exist, it is added to the
@@ -40,40 +41,54 @@ public class State{
     }
 
     /**
-    * Adds or alters coordinates of this state
-    *@param x x value of coordinate
-    *@param y y value of coordinate
-    */
+     * Adds or alters coordinates of this state
+     *
+     * @param x x value of coordinate
+     * @param y y value of coordinate
+     */
     public void addCoordinates(int x, int y)
     {
-        xCoord=x;
-        yCoord=y;
+        xCoord = x;
+        yCoord = y;
     }
 
     /**
-    *returns x coordinate
-    *@return x coordinate of this state
-    */
+     * Returns x coordinate
+     *
+     * @return x coordinate of this state
+     */
     public int getX()
     {
         return xCoord;
     }
 
     /**
-    *returns y coordinate
-    *@return y coordinate of this state
-    */
+     * Returns y coordinate
+     *
+     * @return y coordinate of this state
+     */
     public int getY()
     {
          return yCoord;
     }
 
-	public State goTo(String transitionWeight) {
-
-		if (hasTransition(transitionWeight)) {
-			for (Transition curr : transitions) {
+    /**
+     * Returns the state at the other end of the transition with the specified
+     * weight
+     *
+     * @param transitionWeight string weight that the method will follow to the next state
+     *
+     * @return State object at the end of the specified transition
+     */
+	public State goTo(String transitionWeight)
+    {
+		if (hasTransition(transitionWeight))
+        {
+			for (Transition curr : transitions)
+            {
 				String currWeight = curr.getWeight();
-				if (currWeight.equals(transitionWeight)) {
+				if (currWeight.equals(transitionWeight))
+                {
 					Transition goal = getTransition(transitionWeight);
 					return goal.getGoingTo();
 				}
@@ -82,9 +97,19 @@ public class State{
 		return null;
 	}
 
-	public Transition getTransition(String weight) {
-		for (Transition curr : transitions) {
-			if (curr.getWeight().equals(weight)) {
+    /**
+     * Returns first Transition object with a given transition getWeight
+     *
+     * @param weight String weight of the desired transition
+     *
+     * @return First Transition object that corresponds to the given weight
+     */
+	public Transition getTransition(String weight)
+    {
+		for (Transition curr : transitions)
+        {
+			if (curr.getWeight().equals(weight))
+            {
 				return curr;
 			}
 		}
@@ -92,16 +117,21 @@ public class State{
 	}
 
     /**
-    *gets the transition to a given String with a given weight should it exist
-    *@param to of the Symbol that the transition should go to
-    *@param transitionWeight weight ot transition your looking for
-    *@return Transition with the symbol to and Strign transitionWeight
-    */
-	private Transition findTransition(String to, String transitionWeight) {
+     * Gets the transition to a given String with a given weight should it exist
+     *
+     * @param to of the Symbol that the transition should go to
+     *
+     * @param transitionWeight weight ot transition your looking for
+     * @return Transition with the symbol to and Strign transitionWeight
+     */
+	private Transition findTransition(String to, String transitionWeight)
+    {
 
-		for (Transition currTransition:transitions) {
+		for (Transition currTransition:transitions)
+        {
 			if (currTransition.getWeight().equals(transitionWeight) &&
-				currTransition.getGoingTo().equals(to)) {
+				currTransition.getGoingTo().equals(to))
+            {
 					return currTransition;
 			}
 		}
@@ -110,14 +140,16 @@ public class State{
 	}
 
     /**
-    *removes an transition with Symbol to and weight transitionweight
-    *@param to the name of the state the transition to remove goes to
-    *@param transitionWeight weight of the transition to be removed
-    */
+     * Removes an transition with Symbol to and weight transitionweight
+     *
+     * @param to the name of the state the transition to remove goes to
+     * @param transitionWeight weight of the transition to be removed
+     */
     public void removeTransition(String to, String transitionWeight)
     {
 		Transition toRemove = findTransition(to, transitionWeight);
-    	if (toRemove != null) {
+    	if (toRemove != null)
+        {
 			transitions.remove(toRemove);
 			numTransitions--;
 		}
@@ -125,10 +157,12 @@ public class State{
 
 
     /**
-    *returns if a desired transition exists
-    *@param to: the name of the state the transition to remove goes to
-    *@param transitionWeight: weight of the transition to be examined
-    *@return true if a certain transition exists false otherwise
+     * Returns if a desired transition exists
+     *
+     * @param to: the name of the state the transition to remove goes to
+     *
+     * @param transitionWeight: weight of the transition to be examined
+     * @return true if a certain transition exists false otherwise
     */
    	public boolean hasTransition(String to, String transitionWeight)
    	{
@@ -140,10 +174,11 @@ public class State{
    	}
 
 	/**
-    *returns if a desired transition exists
-    *@param transitionWeight: weight of the transition to be examined
-    *@return true if a certain transition exists false otherwise
-    */
+     * Returns if a desired transition exists
+     *
+     * @param transitionWeight: weight of the transition to be examined
+     * @return true if a certain transition exists false otherwise
+     */
 	public boolean hasTransition(String transitionWeight) {
 		if (getTransition(transitionWeight) != null) {
 			return true;
@@ -154,51 +189,53 @@ public class State{
 
 
     /**
-    *returns the number of transitions
-    *@return the number of transitions in this state
-    */
+     * Returns the number of transitions
+     * @return the number of transitions in this state
+     */
     public int numTransitions()
     {
         return numTransitions;
     }
 
     /**
-    *@return true if this is an accept state false otherwise
-    */
+     * Returns whether or not the state is an accept state
+     *
+     * @return true if this is an accept state false otherwise
+     */
     public boolean canAccept()
     {
     	return isAcceptState;
     }
 
     /**
-    *if state is an accept state makes
-    *it not an accept state and if it is not an accept state
-    *the state becomes an accept state
-    */
+     * Toggles whether or not the current state is an accept state
+     */
 	public void toggleAccept()
 	{
 		isAcceptState = !isAcceptState;
 	}
 
     /**
-    *@return the name of this state
-    */
+     * Returns string name of the state
+     *
+     * @return the name of this state
+     */
     public String getName()
     {
     	return symbol;
     }
 
     /**
-    * @return the transitions in this state
-    */
+     * @return the transitions in this state
+     */
     public ArrayList<Transition> getTransitions()
     {
         return transitions;
     }
 
     /**
-    * @return the transitions in this state
-    */
+     * @return the transitions in this state
+     */
     public ArrayList<String> getTransitionStrings()
     {
         ArrayList<String> copy =new ArrayList<String>();
