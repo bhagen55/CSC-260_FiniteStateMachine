@@ -22,11 +22,11 @@ public class ImageSave implements Saver
     /**
     * Saves a printable gui as a png in the user's download folder
     */
-    public void save() {
+    public void save(String fileName) {
         try {
             // Create a file object to hold the path to the text file
             String home = System.getProperty("user.home");
-		    File file = new File(home+"/Downloads/" + "guiImage" + ".png");
+		    File file = new File(home+"/Downloads/" + fileName + ".png");
             // Create file if it doesn't exist
 		    file.getParentFile().mkdirs();
             ImageIO.write(bufimg, "png", file);

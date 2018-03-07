@@ -1,7 +1,7 @@
 package proj2.filehandler.concretefilehandler;
 
 import proj2.document.Document;
-import proj2.filehandler.Saver;
+import proj2.filehandler.*;
 import java.util.ArrayList;
 /*
 import java.io.PrintWriter;
@@ -14,16 +14,12 @@ import java.io.*;
 /**
 * Saves and loads finite state machines from proprietary human readable file format
 */
-public class TextSave implements Saver
+public class TextSave implements Saver, Loader
 {
 	Document d;
 	PrintWriter writer;
 	public TextSave(Document given){
 		d=given;
-	}
-
-	public void save() {
-		//saveFile("TextSave");
 	}
 
 	/**
@@ -39,10 +35,9 @@ public class TextSave implements Saver
 	* Saves directly into user's downloads folder
 	*
 	* @param fileName string filename for file, not including filetype or path
-	*
-	* @throws FileNotFoundException error that points to issues with file management
 	*/
-	public void saveFile(String fileName) throws FileNotFoundException{
+	public void save(String fileName) {
+		try {
 		// Create a file object to hold the path to the text file
 		String home = System.getProperty("user.home");
 		File file = new File(home+"/Downloads/" + fileName + ".txt");
@@ -53,7 +48,7 @@ public class TextSave implements Saver
 
 		// Write into the text file
 		writer = new PrintWriter(file);
-		
+
 		writer.println("@@ Top section is: StateName|xPosition|yPosition");
 		writer.println("@@ Bottom section is: StateName than its transitions, each in parenthesis separated by a comma");
 		writer.println("@@ in each parenthesis it is ordered (State this transition points to, this transition's weight)");
@@ -80,27 +75,26 @@ public class TextSave implements Saver
 			}
 			writer.println(curLine);
 		}
-		
+
 		writer.close();
+	}
+	catch(FileNotFoundException ex) {
+		System.out.println(
+			"Unable to open file");
+	}
 
-
-	
 }
 
-
-	public void load()
-	{
-	}
 
 	/**
 	* Loads a fsm from a formatted text file
 	*
 	* @param fileName string filename for file to load, not including filetype or path
 	*
-	* @throws FileNotFoundException error that points to issues with file management
 	*/
-	public void loadFile(String fileName) throws FileNotFoundException
+	public void load(String fileName)
 	{
+		try {
 		// Create a file object to hold the path to the text file
 		String home = System.getProperty("user.home");
 		File file = new File(home+"/Downloads/" + fileName + ".txt");
@@ -110,7 +104,7 @@ public class TextSave implements Saver
         // This will reference one line at a time
         String line = null;
 
-        try {
+
             // FileReader reads text files in the default encoding.
             FileReader fileReader = new FileReader(file);
 

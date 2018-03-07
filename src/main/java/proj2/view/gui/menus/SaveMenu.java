@@ -27,16 +27,19 @@ public class SaveMenu {
     */
     public SaveMenu(DrawPanel gui, Document doc) {
         JFrame f = new JFrame();
-        f.setSize(300,200);
+        f.setSize(400,200);
         f.setLayout(new GridLayout(1, 1));
+        f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
-        JPanel p=new JPanel();
-        p.setLayout(new GridLayout(1, 3, 2, 2));
+        JPanel p = new JPanel();
+        p.setLayout(new GridLayout(2, 1, 2, 2));
 
-        JLabel title = new JLabel("Select a save format then click save");
+        JLabel title = new JLabel("Select a save format:");
 
         Saver[] savers = {new FSMSave(doc), new ImageSave(gui), new LaTeXSave(), new TextSave(doc)};
         JComboBox<Saver> cb = new JComboBox<Saver>(savers);
+
+        JTextField name = new JTextField("filename");
 
         JButton saveButton = new JButton("Save");
 
@@ -44,12 +47,13 @@ public class SaveMenu {
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Saver selected = (Saver)cb.getSelectedItem();
-                selected.save();
+                selected.save(name.getText());
             }
         });
 
         p.add(title);
         p.add(cb);
+        p.add(name);
         p.add(saveButton);
 
         f.add(p);
