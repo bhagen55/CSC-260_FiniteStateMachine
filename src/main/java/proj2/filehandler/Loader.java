@@ -7,6 +7,7 @@ import proj2.filehandler.Saver;
 */
 public interface Loader{
 
-	public void load();
+	public void load(String filename);
 
+	public String toString();
 }
