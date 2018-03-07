@@ -31,7 +31,7 @@ import proj2.simulator.*;
 import proj2.view.gui.shapes.*;
 import proj2.view.gui.Observer;
 import proj2.filehandler.concretefilehandler.TextSave;
-import proj2.view.gui.menus.SaveMenu;
+import proj2.view.gui.menus.*;
 import proj2.view.theme.*;
 
 /*
@@ -150,7 +150,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
 		// Add theme manager stuff
 		themeButton = new JButton("Open Theme Chooser");
-		themeManager = new ThemeManager(gui);
+		themeManager = new ThemeManager();
+		themeManager.addObserver(gui);
 		currTheme = themeManager.getTheme();
 
         stateShapes = new ArrayList<StateShape>();
@@ -168,7 +169,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Call the Batch Simulator creation when button pressed
         batchSimulatorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
                 BatchSimulator bs = new BatchSimulator(getThis(), doc, getSteps());
+=======
+                BatchSimulator bs = new BatchSimulator(gui, doc, example);
+>>>>>>> fcd68ce5f6b9ddca481e96b7c24a96774a7f72a2
             }
         });
 
@@ -182,14 +187,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Call the FSM load when button pressed
         loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // // Get the save path from savePath
-                // try {
-                //     ts.loadFile(savePath.getText());
-                // }
-                // catch (FileNotFoundException err) {
-                //     System.out.println("File load error");
-                // }
-                // System.out.println("Loading");
+                LoadMenu lm = new LoadMenu(doc);
             }
         });
 
@@ -199,10 +197,6 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 			}
 		});
 
-    }
-
-    private DrawPanel getThis() {
-        return this;
     }
 
     /**
@@ -342,12 +336,19 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             super.paintComponent(g);
             this.removeAll();
             resettingScreen = false;
+<<<<<<< HEAD
         // } else if (simulationRunning == true) {
         //     BatchSimulator bs = new BatchSimulator(getThis(), doc, example);
         //     bs.simulate();
+=======
+        } else if (simulationRunning == true) {
+            BatchSimulator bs = new BatchSimulator(gui, doc, example);
+            bs.simulate();
+>>>>>>> fcd68ce5f6b9ddca481e96b7c24a96774a7f72a2
         } else {
 
 		// Paints the panel
+		setBackground(currTheme.getBackgroundColor());
     	super.paintComponent(g);
 
 		// Paints the text boxes and their labels

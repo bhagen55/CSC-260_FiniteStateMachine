@@ -5,7 +5,7 @@ package proj2.filehandler;
 */
 public interface Saver{
 
-	public void save();
+	public void save(String filename);
 
 	public String toString();
 }

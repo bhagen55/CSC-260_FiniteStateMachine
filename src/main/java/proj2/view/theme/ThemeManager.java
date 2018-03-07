@@ -1,7 +1,9 @@
 package proj2.view.theme;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -16,6 +18,7 @@ import java.util.List;
 
 import proj2.view.theme.Theme;
 import proj2.view.gui.DrawPanel;
+import proj2.view.gui.Observer;
 
 /**
 * Provides a GUI management of themes for a finite state machine
@@ -28,7 +31,11 @@ public class ThemeManager
 
 	private Theme currTheme;
 
+	private Theme modTheme;
+
 	private DrawPanel gui;
+
+	private LinkedList<Observer> observers;
 
 	/*
 	* Gui Setup
@@ -36,8 +43,6 @@ public class ThemeManager
 
 	JFrame buttonFrame;
 	JPanel buttonPanel;
-
-	JFrame ccFrame;
 
 	JLabel title;
 
@@ -77,49 +82,48 @@ public class ThemeManager
 
 	JColorChooser cc;
 
-
-	public ThemeManager(DrawPanel gui) {
-		this.gui = gui;
-
+	/**
+	* Constructs a theme manager
+	*/
+	public ThemeManager() {
 		themes = new ArrayList<Theme>();
 
+		observers = new LinkedList<Observer>();
+
+		// construct default theme and set as current
 		Theme defTheme = constructDefaultTheme();
 		System.out.println(defTheme.toString());
 		themes.add(defTheme);
 		currTheme = (Theme)defTheme.clone();
+		modTheme = currTheme.clone();
 
+		// construct other default themes
 		themes.add(constructBlueTheme());
 		themes.add(constructGreenTheme());
-
-		System.out.println(themes.toString());
 
 		/*
 		* Gui Setup
 		*/
 		buttonFrame = new JFrame();
-		buttonFrame.setSize(500,500);
-		buttonFrame.setLayout(new GridLayout(1, 1));
-		buttonFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		buttonFrame.setSize(1000,500);
+		buttonFrame.setLayout(new GridLayout(1, 2));
+		buttonFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(11, 1, 2, 2));
 
-		ccFrame = new JFrame();
-		ccFrame.setSize(500,500);
-		ccFrame.setLayout(new GridLayout(1, 1));
-		ccFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		title = new JLabel("Theme Colors:");
 
 		/*
 		* Color Change Buttons
-		* with their labels and color choosers
+		* with their labels, color choosers, and action listeners
 		*/
 		stateOutlineColor = new JLabel("State Outline Color:");
 		stateOutlineColorButton = new JButton("Change");
 		stateOutlineColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setStateOutlineColor(cc.getColor());
+				modTheme.setStateOutlineColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -128,7 +132,7 @@ public class ThemeManager
 		stateFillColorButton = new JButton("Change");
 		stateFillColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setStateFillColor(cc.getColor());
+				modTheme.setStateFillColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -137,7 +141,7 @@ public class ThemeManager
 		stateTextColorButton = new JButton("Change");
 		stateTextColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setStateTextColor(cc.getColor());
+				modTheme.setStateTextColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -146,7 +150,7 @@ public class ThemeManager
 		stateAcceptColorButton = new JButton("Change");
 		stateAcceptColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setStateAcceptColor(cc.getColor());
+				modTheme.setStateAcceptColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -156,7 +160,7 @@ public class ThemeManager
 		stateStartColorButton = new JButton("Change");
 		stateStartColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setStateStartColor(cc.getColor());
+				modTheme.setStateStartColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -165,7 +169,7 @@ public class ThemeManager
 		transLineColorButton = new JButton("Change");
 		transLineColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setTransLineColor(cc.getColor());
+				modTheme.setTransLineColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -174,7 +178,7 @@ public class ThemeManager
 		transTextColorButton = new JButton("Change");
 		transTextColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setTransTextColor(cc.getColor());
+				modTheme.setTransTextColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -183,7 +187,7 @@ public class ThemeManager
 		backgroundColorButton = new JButton("Change");
 		backgroundColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setBackgroundColor(cc.getColor());
+				modTheme.setBackgroundColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -192,7 +196,7 @@ public class ThemeManager
 		saveButton = new JButton("Save Theme");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Theme custTheme = currTheme.clone();
+				Theme custTheme = modTheme.clone();
 				custTheme.setName(themeName.getText());
 				themes.add(custTheme);
 				cb.addItem(custTheme);
@@ -204,7 +208,7 @@ public class ThemeManager
 		cb = new JComboBox<Theme>(themes.toArray(new Theme[themes.size()]));
 		cb.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme = (Theme)cb.getSelectedItem();
+				modTheme = (Theme)cb.getSelectedItem();
 				updateMenus();
 			}
 		});
@@ -212,16 +216,19 @@ public class ThemeManager
 		applyButton = new JButton("Apply");
 		applyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Theme selected = (Theme)cb.getSelectedItem();
-				currTheme = selected;
-				gui.update();
+				currTheme = modTheme.clone();
+				notifyObservers();
 			}
 		});
 
+		// Combo box that holds saved themes to be selected and applied
 		cc = new JColorChooser(Color.BLACK);
+		cc.setPreferredSize(new Dimension(100, 500));
 
+		// Update menus so they show the right color
 		updateMenus();
 
+		// Add everything to the panel
 		buttonPanel.add(stateOutlineColor);
 		buttonPanel.add(stateOutlineColorButton);
 		buttonPanel.add(stateFillColor);
@@ -246,15 +253,24 @@ public class ThemeManager
 
 		buttonFrame.add(buttonPanel);
 
-		ccFrame.add(cc);
+		buttonFrame.add(cc);
 
 	}
 
+	/**
+	* Returns a clone of the current theme
+	*
+	* @return the current theme
+	*/
 	public Theme getTheme() {
-		return currTheme;
+		return currTheme.clone();
 	}
 
-
+	/**
+	* Constructs the default theme
+	*
+	* @return the default theme
+	*/
 	private Theme constructDefaultTheme() {
 		Theme defaultTheme = new Theme("default theme", Color.BLACK, Color.WHITE,
 									Color.BLACK, Color.BLACK, Color.RED,
@@ -262,6 +278,11 @@ public class ThemeManager
 		return defaultTheme;
 	}
 
+	/**
+	* Constructs the blue theme
+	*
+	* @return the blue theme
+	*/
 	private Theme constructBlueTheme() {
 		Theme blueTheme = new Theme("blue theme", Color.BLUE, Color.WHITE,
 									Color.BLUE, Color.BLUE, Color.BLACK,
@@ -269,6 +290,11 @@ public class ThemeManager
 		return blueTheme;
 	}
 
+	/**
+	* Constructs the green theme
+	*
+	* @return the green theme
+	*/
 	private Theme constructGreenTheme() {
 		Theme greenTheme = new Theme("green theme", Color.GREEN, Color.WHITE,
 									Color.GREEN, Color.GREEN, Color.BLACK,
@@ -276,6 +302,21 @@ public class ThemeManager
 		return greenTheme;
 	}
 
+	/**
+	* Constructs a custom theme
+	*
+	* @param name desired name of theme
+	* @param stateOutlineColor desired state outline color
+	* @param stateFillColor desired state fill color
+	* @param stateTextColor desired state text color
+	* @param stateAcceptColor desired accept state color
+	* @param stateStartColor desired start state color
+	* @param transLineColor desired transition line color
+	* @param transTextColor desired transition text color
+	* @param backgroundColor desired background color
+	*
+	* @return the custom theme
+	*/
 	private Theme constructCustomTheme(String name, Color stateOutlineColor,
 									Color stateFillColor, Color stateTextColor,
 									Color stateAcceptColor, Color stateStartColor,
@@ -288,34 +329,69 @@ public class ThemeManager
 		return custTheme;
 	}
 
+	/**
+	* Makes the theme manager visible
+	*/
 	public void showMenu() {
 		buttonFrame.setVisible(true);
-		ccFrame.setVisible(true);
 	}
 
+	/**
+	* Updates all the menu buttons with the color from the current theme
+	*/
 	private void updateMenus() {
-		stateOutlineColorButton.setBackground(currTheme.getStateOutlineColor());
+		stateOutlineColorButton.setBackground(modTheme.getStateOutlineColor());
 		stateOutlineColorButton.setOpaque(true);
 
-		stateFillColorButton.setBackground(currTheme.getStateFillColor());
+		stateFillColorButton.setBackground(modTheme.getStateFillColor());
 		stateFillColorButton.setOpaque(true);
 
-		stateTextColorButton.setBackground(currTheme.getStateTextColor());
+		stateTextColorButton.setBackground(modTheme.getStateTextColor());
 		stateTextColorButton.setOpaque(true);
 
-		stateAcceptColorButton.setBackground(currTheme.getStateAcceptColor());
+		stateAcceptColorButton.setBackground(modTheme.getStateAcceptColor());
 		stateAcceptColorButton.setOpaque(true);
 
-		stateStartColorButton.setBackground(currTheme.getStateStartColor());
+		stateStartColorButton.setBackground(modTheme.getStateStartColor());
 		stateStartColorButton.setOpaque(true);
 
-		transLineColorButton.setBackground(currTheme.getTransLineColor());
+		transLineColorButton.setBackground(modTheme.getTransLineColor());
 		transLineColorButton.setOpaque(true);
 
-		transTextColorButton.setBackground(currTheme.getTransTextColor());
+		transTextColorButton.setBackground(modTheme.getTransTextColor());
 		transTextColorButton.setOpaque(true);
 
-		backgroundColorButton.setBackground(currTheme.getBackgroundColor());
+		backgroundColorButton.setBackground(modTheme.getBackgroundColor());
 		backgroundColorButton.setOpaque(true);
+	}
+
+	/**
+	 * Notify method to tell views/observers to update
+	 */
+	public void notifyObservers() {
+		for (Observer o : observers) {
+			o.update();
+		}
+	}
+
+	/**
+	 * Adds an observer to the list of observers stored in the document
+	 *
+	 * @param o observer of type Observer to be added
+	 */
+	public void addObserver(Observer o)
+	{
+		observers.add(o);
+		System.out.println("Observer Added");
+	}
+
+	/**
+	 * Removes an observer from the list of observers stored in the document
+	 *
+	 * @param o observer of type Observer to be removed
+	 */
+	public void removeObserver(Observer o)
+	{
+		observers.remove(o);
 	}
 }

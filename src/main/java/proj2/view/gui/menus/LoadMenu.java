@@ -17,15 +17,11 @@ import proj2.view.gui.DrawPanel;
 import proj2.document.Document;
 
 /**
-* Menu with options to save an fsm as different formats
+* Menu with options to load an fsm as different formats
 */
-public class SaveMenu {
-
-    /**
-    * Constructs a menu using a printable object as the print source
-    * for image savers and the document for text savers
-    */
-    public SaveMenu(DrawPanel gui, Document doc) {
+public class LoadMenu
+{
+    public LoadMenu(Document doc) {
         JFrame f = new JFrame();
         f.setSize(400,200);
         f.setLayout(new GridLayout(1, 1));
@@ -34,27 +30,27 @@ public class SaveMenu {
         JPanel p = new JPanel();
         p.setLayout(new GridLayout(2, 1, 2, 2));
 
-        JLabel title = new JLabel("Select a save format:");
+        JLabel title = new JLabel("Select a load format:");
 
-        Saver[] savers = {new FSMSave(doc), new ImageSave(gui), new LaTeXSave(), new TextSave(doc)};
-        JComboBox<Saver> cb = new JComboBox<Saver>(savers);
+        Loader[] loaders = {new FSMSave(doc), new TextSave(doc)};
+        JComboBox<Loader> cb = new JComboBox<Loader>(loaders);
 
         JTextField name = new JTextField("filename");
 
-        JButton saveButton = new JButton("Save");
+        JButton loadButton = new JButton("Load");
 
-        // Call the needed save class when the button is pressed
-        saveButton.addActionListener(new ActionListener() {
+        // Call the needed load class when the button is pressed
+        loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Saver selected = (Saver)cb.getSelectedItem();
-                selected.save(name.getText());
+                Loader selected = (Loader)cb.getSelectedItem();
+                selected.load(name.getText());
             }
         });
 
         p.add(title);
         p.add(cb);
         p.add(name);
-        p.add(saveButton);
+        p.add(loadButton);
 
         f.add(p);
 

@@ -9,7 +9,7 @@ public class TestingSaveAndLoad{
 	//Static TextSave f;
 	public TestingSaveAndLoad()
 	{
-		try{
+		// try{
 		Document d;
 	    TextSave f;
 		d= new Document();
@@ -21,12 +21,12 @@ public class TestingSaveAndLoad{
 		d.addTransition("A","B","z");
 		f.saveFile("FiniteStateMachine");
 
-	}
-		 catch(FileNotFoundException ex) {
-             System.out.println(
-                 "Unable to open file '" +
-                 "FiniteStateMachine" + "'");
-         }
+	// }
+		 // catch(FileNotFoundException ex) {
+         //     System.out.println(
+         //         "Unable to open file '" +
+         //         "FiniteStateMachine" + "'");
+         // }
          // catch(IOException ex) {
          //     System.out.println(
          //         "Error reading file '"

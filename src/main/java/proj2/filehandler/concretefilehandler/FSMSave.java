@@ -1,13 +1,13 @@
 package proj2.filehandler.concretefilehandler;
 
-import proj2.filehandler.Saver;
+import proj2.filehandler.*;
 import java.io.*;
 import proj2.document.Document;
 import java.util.ArrayList;
 
 
 
-public class FSMSave implements Saver
+public class FSMSave implements Saver, Loader
 {
     Document d;
     PrintWriter writer;
@@ -15,25 +15,14 @@ public class FSMSave implements Saver
         d=given;
     }
 
-    public void save(){
-        String fileName= "FSMSave";
-        
 
-      // saveFile();
-         
-    }
-
-
-   public void saveFile() throws FileNotFoundException{
-    String fileName="FSMSave";
-        String home = System.getProperty("user.home");
-        File file = new File(home+"/Downloads/" + fileName + ".FSM");
-
-
-        file.getParentFile().mkdirs();
-
-
+    public void save(String fileName){
         try{
+             String home = System.getProperty("user.home");
+             File file = new File(home+"/Downloads/" + fileName + ".FSM");
+
+
+             file.getParentFile().mkdirs();
         // Write into the text file
         writer = new PrintWriter(file);
         ArrayList<String> states = d.getStates();
@@ -52,30 +41,25 @@ public class FSMSave implements Saver
             }
             writer.println(curLine);
         }
-        
+
         writer.close();
     }
-
-         catch(FileNotFoundException ex) {
-             System.out.println(
-                 "Unable to open file '" +
-                 fileName + "'");
-         }
-         }
+    catch(FileNotFoundException ex) {
+             System.out.println("Unable to save file");
+    }
+}
 
 
-    public void loadFile() throws FileNotFoundException{
-        String fileName="FSMSave";
-        // Create a file object to hold the path to the text file
-        String home = System.getProperty("user.home");
-        File file = new File(home+"/Downloads/" + fileName + ".txt");
-        // Create file if it doesn't exist
-        file.getParentFile().mkdirs();
-
-        // This will reference one line at a time
-        String line = null;
-
+    public void load(String fileName){
         try {
+            // Create a file object to hold the path to the text file
+            String home = System.getProperty("user.home");
+            File file = new File(home+"/Downloads/" + fileName + ".txt");
+            // Create file if it doesn't exist
+            file.getParentFile().mkdirs();
+
+            // This will reference one line at a time
+            String line = null;
             // FileReader reads text files in the default encoding.
             FileReader fileReader = new FileReader(file);
 
@@ -125,17 +109,13 @@ public class FSMSave implements Saver
         }
          catch(FileNotFoundException ex) {
              System.out.println(
-                 "Unable to open file '" +
-                 fileName + "'");
+                 "Unable to open file");
          }
          catch(IOException ex) {
-             System.out.println(
-                 "Error reading file '"
-                 + fileName + "'");
-
+             System.out.println("Error reading file");
          }
     }
-    
+
 
     /**
     * Simply returns the name of the class

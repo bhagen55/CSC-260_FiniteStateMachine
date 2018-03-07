@@ -8,7 +8,7 @@ public class LaTeXSave implements Saver
 
     }
 
-    public void save() {
+    public void save(String fileName) {
 
     }
 
