@@ -3,7 +3,9 @@ package proj2.document;
 import java.util.ArrayList;
 import java.awt.Toolkit;
 
-public Class SoundAction implements Action
+import proj2.simulator.Action;
+
+public class SoundAction implements Action
 {
     /**
      * Default SoundAction constructor
@@ -18,6 +20,6 @@ public Class SoundAction implements Action
      */
     public void execute()
     {
-        Toolkit.getDefaultToolkit().beep()
+        Toolkit.getDefaultToolkit().beep();
     }
 }
