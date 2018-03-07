@@ -10,6 +10,7 @@ public class State{
     private int xCoord; // xCoordinate but does not need to be initialized
     private int yCoord; // yCoordinate but does not need to be initialized
     private ArrayList<Transition> transitions; // ArrayList containing transitions
+    private Action action; // Action performed by the state when the FSM is simulated
 
 
 	/**
@@ -18,8 +19,8 @@ public class State{
 	*/
 	public State(String givenSymbol)
 	{
-		isAcceptState=false;
-		symbol=givenSymbol;
+		isAcceptState = false;
+		symbol = givenSymbol;
 		transitions = new ArrayList<Transition>();
 	}
 
@@ -201,13 +202,20 @@ public class State{
     public ArrayList<String> getTransitionStrings()
     {
         ArrayList<String> copy =new ArrayList<String>();
-        for (Transition curr : transitions) 
+        for (Transition curr : transitions)
         {
-
-        copy.add(curr.getStringOfTransitionContents());
+            copy.add(curr.getStringOfTransitionContents());
         }
         return copy;
-    
+
+    }
+
+    /**
+     *
+     */
+    public void setAction()
+    {
+
     }
 
 	/**
