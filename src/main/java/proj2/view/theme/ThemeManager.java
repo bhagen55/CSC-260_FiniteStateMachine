@@ -37,6 +37,9 @@ public class ThemeManager
 
 	private LinkedList<Observer> observers;
 
+	private LinkedList<JLabel> colorLabels;
+	private LinkedList<JButton> colorButtons;
+
 	/*
 	* Gui Setup
 	*/
@@ -60,6 +63,9 @@ public class ThemeManager
 
 	JLabel stateStartColor;
 	JButton stateStartColorButton;
+
+	JLabel stateHighlightColor;
+	JButton stateHighlightColorButton;
 
 	JLabel transLineColor;
 	JButton transLineColorButton;
@@ -90,6 +96,9 @@ public class ThemeManager
 
 		observers = new LinkedList<Observer>();
 
+		colorLabels = new LinkedList<JLabel>();
+		colorButtons = new LinkedList<JButton>();
+
 		// construct default theme and set as current
 		Theme defTheme = constructDefaultTheme();
 		System.out.println(defTheme.toString());
@@ -110,7 +119,7 @@ public class ThemeManager
 		buttonFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(11, 1, 2, 2));
+		buttonPanel.setLayout(new GridLayout(12, 1, 2, 2));
 
 
 		title = new JLabel("Theme Colors:");
@@ -127,6 +136,8 @@ public class ThemeManager
 				updateMenus();
 			}
 		});
+		colorLabels.add(stateOutlineColor);
+		colorButtons.add(stateOutlineColorButton);
 
 		stateFillColor = new JLabel("State Fill Color:");
 		stateFillColorButton = new JButton("Change");
@@ -136,6 +147,8 @@ public class ThemeManager
 				updateMenus();
 			}
 		});
+		colorLabels.add(stateFillColor);
+		colorButtons.add(stateFillColorButton);
 
 		stateTextColor = new JLabel("State Text Color:");
 		stateTextColorButton = new JButton("Change");
@@ -145,6 +158,8 @@ public class ThemeManager
 				updateMenus();
 			}
 		});
+		colorLabels.add(stateTextColor);
+		colorButtons.add(stateTextColorButton);
 
 		stateAcceptColor = new JLabel("State Accept Color:");
 		stateAcceptColorButton = new JButton("Change");
@@ -154,6 +169,8 @@ public class ThemeManager
 				updateMenus();
 			}
 		});
+		colorLabels.add(stateAcceptColor);
+		colorButtons.add(stateAcceptColorButton);
 
 
 		stateStartColor = new JLabel("State Start Color:");
@@ -164,6 +181,19 @@ public class ThemeManager
 				updateMenus();
 			}
 		});
+		colorLabels.add(stateStartColor);
+		colorButtons.add(stateStartColorButton);
+
+		stateHighlightColor= new JLabel("State Highlight Color:");
+		stateHighlightColorButton = new JButton("Change");
+		stateHighlightColorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				modTheme.setStateHighlightColor(cc.getColor());
+				updateMenus();
+			}
+		});
+		colorLabels.add(stateHighlightColor);
+		colorButtons.add(stateHighlightColorButton);
 
 		transLineColor = new JLabel("Transition Line Color:");
 		transLineColorButton = new JButton("Change");
@@ -173,6 +203,9 @@ public class ThemeManager
 				updateMenus();
 			}
 		});
+		colorLabels.add(transLineColor);
+		colorButtons.add(transLineColorButton);
+
 
 		transTextColor = new JLabel("Transition Text Color:");
 		transTextColorButton = new JButton("Change");
@@ -182,6 +215,8 @@ public class ThemeManager
 				updateMenus();
 			}
 		});
+		colorLabels.add(transTextColor);
+		colorButtons.add(transTextColorButton);
 
 		backgroundColor = new JLabel("Background Color:");
 		backgroundColorButton = new JButton("Change");
@@ -191,6 +226,8 @@ public class ThemeManager
 				updateMenus();
 			}
 		});
+		colorLabels.add(backgroundColor);
+		colorButtons.add(backgroundColorButton);
 
 		themeName = new JTextField("Theme Name");
 		saveButton = new JButton("Save Theme");
@@ -229,22 +266,29 @@ public class ThemeManager
 		updateMenus();
 
 		// Add everything to the panel
-		buttonPanel.add(stateOutlineColor);
-		buttonPanel.add(stateOutlineColorButton);
-		buttonPanel.add(stateFillColor);
-		buttonPanel.add(stateFillColorButton);
-		buttonPanel.add(stateTextColor);
-		buttonPanel.add(stateTextColorButton);
-		buttonPanel.add(stateAcceptColor);
-		buttonPanel.add(stateAcceptColorButton);
-		buttonPanel.add(stateStartColor);
-		buttonPanel.add(stateStartColorButton);
-		buttonPanel.add(transLineColor);
-		buttonPanel.add(transLineColorButton);
-		buttonPanel.add(transTextColor);
-		buttonPanel.add(transTextColorButton);
-		buttonPanel.add(backgroundColor);
-		buttonPanel.add(backgroundColorButton);
+		int i = 0;
+		while (i < colorLabels.size()) {
+			buttonPanel.add(colorLabels.get(i));
+			buttonPanel.add(colorButtons.get(i));
+			i++;
+		}
+
+		// buttonPanel.add(stateOutlineColor);
+		// buttonPanel.add(stateOutlineColorButton);
+		// buttonPanel.add(stateFillColor);
+		// buttonPanel.add(stateFillColorButton);
+		// buttonPanel.add(stateTextColor);
+		// buttonPanel.add(stateTextColorButton);
+		// buttonPanel.add(stateAcceptColor);
+		// buttonPanel.add(stateAcceptColorButton);
+		// buttonPanel.add(stateStartColor);
+		// buttonPanel.add(stateStartColorButton);
+		// buttonPanel.add(transLineColor);
+		// buttonPanel.add(transLineColorButton);
+		// buttonPanel.add(transTextColor);
+		// buttonPanel.add(transTextColorButton);
+		// buttonPanel.add(backgroundColor);
+		// buttonPanel.add(backgroundColorButton);
 		buttonPanel.add(themeTitle);
 		buttonPanel.add(cb);
 		buttonPanel.add(themeName);
@@ -273,7 +317,7 @@ public class ThemeManager
 	*/
 	private Theme constructDefaultTheme() {
 		Theme defaultTheme = new Theme("default theme", Color.BLACK, Color.WHITE,
-									Color.BLACK, Color.BLACK, Color.RED,
+									Color.BLACK, Color.BLACK, Color.RED, Color.YELLOW,
 									Color.BLACK, Color.BLACK, Color.WHITE);
 		return defaultTheme;
 	}
@@ -285,7 +329,7 @@ public class ThemeManager
 	*/
 	private Theme constructBlueTheme() {
 		Theme blueTheme = new Theme("blue theme", Color.BLUE, Color.WHITE,
-									Color.BLUE, Color.BLUE, Color.BLACK,
+									Color.BLUE, Color.BLUE, Color.BLACK, Color.YELLOW,
 									Color.BLUE, Color.BLUE, Color.WHITE);
 		return blueTheme;
 	}
@@ -297,7 +341,7 @@ public class ThemeManager
 	*/
 	private Theme constructGreenTheme() {
 		Theme greenTheme = new Theme("green theme", Color.GREEN, Color.WHITE,
-									Color.GREEN, Color.GREEN, Color.BLACK,
+									Color.GREEN, Color.GREEN, Color.BLACK, Color.YELLOW,
 									Color.GREEN, Color.GREEN, Color.WHITE);
 		return greenTheme;
 	}
@@ -320,11 +364,12 @@ public class ThemeManager
 	private Theme constructCustomTheme(String name, Color stateOutlineColor,
 									Color stateFillColor, Color stateTextColor,
 									Color stateAcceptColor, Color stateStartColor,
+									Color stateHighlightColor,
 									Color transLineColor, Color transTextColor,
 									Color backgroundColor) {
 		Theme custTheme = new Theme(name, stateOutlineColor, stateFillColor,
 									stateTextColor, stateAcceptColor,
-									stateStartColor, transLineColor,
+									stateStartColor, stateHighlightColor, transLineColor,
 									transTextColor, backgroundColor);
 		return custTheme;
 	}
@@ -354,6 +399,9 @@ public class ThemeManager
 
 		stateStartColorButton.setBackground(modTheme.getStateStartColor());
 		stateStartColorButton.setOpaque(true);
+
+		stateHighlightColorButton.setBackground(modTheme.getStateHighlightColor());
+		stateHighlightColorButton.setOpaque(true);
 
 		transLineColorButton.setBackground(modTheme.getTransLineColor());
 		transLineColorButton.setOpaque(true);
