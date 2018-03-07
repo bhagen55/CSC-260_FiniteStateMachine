@@ -150,7 +150,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
 		// Add theme manager stuff
 		themeButton = new JButton("Open Theme Chooser");
-		themeManager = new ThemeManager(gui);
+		themeManager = new ThemeManager();
+		themeManager.addObserver(gui);
 		currTheme = themeManager.getTheme();
 
         stateShapes = new ArrayList<StateShape>();

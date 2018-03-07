@@ -3,6 +3,7 @@ package proj2.view.theme;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import proj2.view.theme.Theme;
 import proj2.view.gui.DrawPanel;
+import proj2.view.gui.Observer;
 
 /**
 * Provides a GUI management of themes for a finite state machine
@@ -29,7 +31,11 @@ public class ThemeManager
 
 	private Theme currTheme;
 
+	private Theme modTheme;
+
 	private DrawPanel gui;
+
+	private LinkedList<Observer> observers;
 
 	/*
 	* Gui Setup
@@ -76,16 +82,19 @@ public class ThemeManager
 
 	JColorChooser cc;
 
-
-	public ThemeManager(DrawPanel gui) {
-		this.gui = gui;
-
+	/**
+	* Constructs a theme manager
+	*/
+	public ThemeManager() {
 		themes = new ArrayList<Theme>();
+
+		observers = new LinkedList<Observer>();
 
 		Theme defTheme = constructDefaultTheme();
 		System.out.println(defTheme.toString());
 		themes.add(defTheme);
 		currTheme = (Theme)defTheme.clone();
+		modTheme = currTheme.clone();
 
 		themes.add(constructBlueTheme());
 		themes.add(constructGreenTheme());
@@ -114,7 +123,7 @@ public class ThemeManager
 		stateOutlineColorButton = new JButton("Change");
 		stateOutlineColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setStateOutlineColor(cc.getColor());
+				modTheme.setStateOutlineColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -123,7 +132,7 @@ public class ThemeManager
 		stateFillColorButton = new JButton("Change");
 		stateFillColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setStateFillColor(cc.getColor());
+				modTheme.setStateFillColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -132,7 +141,7 @@ public class ThemeManager
 		stateTextColorButton = new JButton("Change");
 		stateTextColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setStateTextColor(cc.getColor());
+				modTheme.setStateTextColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -141,7 +150,7 @@ public class ThemeManager
 		stateAcceptColorButton = new JButton("Change");
 		stateAcceptColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setStateAcceptColor(cc.getColor());
+				modTheme.setStateAcceptColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -151,7 +160,7 @@ public class ThemeManager
 		stateStartColorButton = new JButton("Change");
 		stateStartColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setStateStartColor(cc.getColor());
+				modTheme.setStateStartColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -160,7 +169,7 @@ public class ThemeManager
 		transLineColorButton = new JButton("Change");
 		transLineColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setTransLineColor(cc.getColor());
+				modTheme.setTransLineColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -169,7 +178,7 @@ public class ThemeManager
 		transTextColorButton = new JButton("Change");
 		transTextColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setTransTextColor(cc.getColor());
+				modTheme.setTransTextColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -178,7 +187,7 @@ public class ThemeManager
 		backgroundColorButton = new JButton("Change");
 		backgroundColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme.setBackgroundColor(cc.getColor());
+				modTheme.setBackgroundColor(cc.getColor());
 				updateMenus();
 			}
 		});
@@ -187,7 +196,7 @@ public class ThemeManager
 		saveButton = new JButton("Save Theme");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Theme custTheme = currTheme.clone();
+				Theme custTheme = modTheme.clone();
 				custTheme.setName(themeName.getText());
 				themes.add(custTheme);
 				cb.addItem(custTheme);
@@ -199,7 +208,7 @@ public class ThemeManager
 		cb = new JComboBox<Theme>(themes.toArray(new Theme[themes.size()]));
 		cb.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				currTheme = (Theme)cb.getSelectedItem();
+				modTheme = (Theme)cb.getSelectedItem();
 				updateMenus();
 			}
 		});
@@ -207,9 +216,8 @@ public class ThemeManager
 		applyButton = new JButton("Apply");
 		applyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Theme selected = (Theme)cb.getSelectedItem();
-				// currTheme = selected;
-				gui.update();
+				currTheme = modTheme.clone();
+				notifyObservers();
 			}
 		});
 
@@ -247,7 +255,7 @@ public class ThemeManager
 	}
 
 	public Theme getTheme() {
-		return currTheme;
+		return currTheme.clone();
 	}
 
 
@@ -289,28 +297,58 @@ public class ThemeManager
 	}
 
 	private void updateMenus() {
-		stateOutlineColorButton.setBackground(currTheme.getStateOutlineColor());
+		stateOutlineColorButton.setBackground(modTheme.getStateOutlineColor());
 		stateOutlineColorButton.setOpaque(true);
 
-		stateFillColorButton.setBackground(currTheme.getStateFillColor());
+		stateFillColorButton.setBackground(modTheme.getStateFillColor());
 		stateFillColorButton.setOpaque(true);
 
-		stateTextColorButton.setBackground(currTheme.getStateTextColor());
+		stateTextColorButton.setBackground(modTheme.getStateTextColor());
 		stateTextColorButton.setOpaque(true);
 
-		stateAcceptColorButton.setBackground(currTheme.getStateAcceptColor());
+		stateAcceptColorButton.setBackground(modTheme.getStateAcceptColor());
 		stateAcceptColorButton.setOpaque(true);
 
-		stateStartColorButton.setBackground(currTheme.getStateStartColor());
+		stateStartColorButton.setBackground(modTheme.getStateStartColor());
 		stateStartColorButton.setOpaque(true);
 
-		transLineColorButton.setBackground(currTheme.getTransLineColor());
+		transLineColorButton.setBackground(modTheme.getTransLineColor());
 		transLineColorButton.setOpaque(true);
 
-		transTextColorButton.setBackground(currTheme.getTransTextColor());
+		transTextColorButton.setBackground(modTheme.getTransTextColor());
 		transTextColorButton.setOpaque(true);
 
-		backgroundColorButton.setBackground(currTheme.getBackgroundColor());
+		backgroundColorButton.setBackground(modTheme.getBackgroundColor());
 		backgroundColorButton.setOpaque(true);
+	}
+
+	/**
+	 * Notify method to tell views/observers to update
+	 */
+	public void notifyObservers() {
+		for (Observer o : observers) {
+			o.update();
+		}
+	}
+
+	/**
+	 * Adds an observer to the list of observers stored in the document
+	 *
+	 * @param o observer of type Observer to be added
+	 */
+	public void addObserver(Observer o)
+	{
+		observers.add(o);
+		System.out.println("Observer Added");
+	}
+
+	/**
+	 * Removes an observer from the list of observers stored in the document
+	 *
+	 * @param o observer of type Observer to be removed
+	 */
+	public void removeObserver(Observer o)
+	{
+		observers.remove(o);
 	}
 }
