@@ -1,4 +1,4 @@
-package proj2.document;
+package proj2.document.actions;
 
 import proj2.simulator.Action;
 
@@ -11,6 +11,6 @@ public class NoAction implements Action
 
     public void execute()
     {
-        
+
     }
 }

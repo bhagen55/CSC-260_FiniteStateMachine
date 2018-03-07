@@ -1,4 +1,4 @@
-package proj2.document;
+package proj2.document.actions;
 
 import java.awt.Toolkit;
 
