@@ -10,7 +10,7 @@ public class State{
     private int xCoord; // xCoordinate but does not need to be initialized
     private int yCoord; // yCoordinate but does not need to be initialized
     private ArrayList<Transition> transitions; // ArrayList containing transitions
-    private Action action; // Action performed by the state when the FSM is simulated
+    private SoundAction action; // Action performed by the state when the FSM is simulated
 
 
 	/**
