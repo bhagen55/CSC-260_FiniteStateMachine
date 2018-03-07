@@ -90,16 +90,16 @@ public class ThemeManager
 
 		observers = new LinkedList<Observer>();
 
+		// construct default theme and set as current
 		Theme defTheme = constructDefaultTheme();
 		System.out.println(defTheme.toString());
 		themes.add(defTheme);
 		currTheme = (Theme)defTheme.clone();
 		modTheme = currTheme.clone();
 
+		// construct other default themes
 		themes.add(constructBlueTheme());
 		themes.add(constructGreenTheme());
-
-		System.out.println(themes.toString());
 
 		/*
 		* Gui Setup
@@ -117,7 +117,7 @@ public class ThemeManager
 
 		/*
 		* Color Change Buttons
-		* with their labels and color choosers
+		* with their labels, color choosers, and action listeners
 		*/
 		stateOutlineColor = new JLabel("State Outline Color:");
 		stateOutlineColorButton = new JButton("Change");
@@ -221,11 +221,14 @@ public class ThemeManager
 			}
 		});
 
+		// Combo box that holds saved themes to be selected and applied
 		cc = new JColorChooser(Color.BLACK);
 		cc.setPreferredSize(new Dimension(100, 500));
 
+		// Update menus so they show the right color
 		updateMenus();
 
+		// Add everything to the panel
 		buttonPanel.add(stateOutlineColor);
 		buttonPanel.add(stateOutlineColorButton);
 		buttonPanel.add(stateFillColor);
@@ -254,11 +257,20 @@ public class ThemeManager
 
 	}
 
+	/**
+	* Returns a clone of the current theme
+	*
+	* @return the current theme
+	*/
 	public Theme getTheme() {
 		return currTheme.clone();
 	}
 
-
+	/**
+	* Constructs the default theme
+	*
+	* @return the default theme
+	*/
 	private Theme constructDefaultTheme() {
 		Theme defaultTheme = new Theme("default theme", Color.BLACK, Color.WHITE,
 									Color.BLACK, Color.BLACK, Color.RED,
@@ -266,6 +278,11 @@ public class ThemeManager
 		return defaultTheme;
 	}
 
+	/**
+	* Constructs the blue theme
+	*
+	* @return the blue theme
+	*/
 	private Theme constructBlueTheme() {
 		Theme blueTheme = new Theme("blue theme", Color.BLUE, Color.WHITE,
 									Color.BLUE, Color.BLUE, Color.BLACK,
@@ -273,6 +290,11 @@ public class ThemeManager
 		return blueTheme;
 	}
 
+	/**
+	* Constructs the green theme
+	*
+	* @return the green theme
+	*/
 	private Theme constructGreenTheme() {
 		Theme greenTheme = new Theme("green theme", Color.GREEN, Color.WHITE,
 									Color.GREEN, Color.GREEN, Color.BLACK,
@@ -280,6 +302,21 @@ public class ThemeManager
 		return greenTheme;
 	}
 
+	/**
+	* Constructs a custom theme
+	*
+	* @param name desired name of theme
+	* @param stateOutlineColor desired state outline color
+	* @param stateFillColor desired state fill color
+	* @param stateTextColor desired state text color
+	* @param stateAcceptColor desired accept state color
+	* @param stateStartColor desired start state color
+	* @param transLineColor desired transition line color
+	* @param transTextColor desired transition text color
+	* @param backgroundColor desired background color
+	*
+	* @return the custom theme
+	*/
 	private Theme constructCustomTheme(String name, Color stateOutlineColor,
 									Color stateFillColor, Color stateTextColor,
 									Color stateAcceptColor, Color stateStartColor,
@@ -292,10 +329,16 @@ public class ThemeManager
 		return custTheme;
 	}
 
+	/**
+	* Makes the theme manager visible
+	*/
 	public void showMenu() {
 		buttonFrame.setVisible(true);
 	}
 
+	/**
+	* Updates all the menu buttons with the color from the current theme
+	*/
 	private void updateMenus() {
 		stateOutlineColorButton.setBackground(modTheme.getStateOutlineColor());
 		stateOutlineColorButton.setOpaque(true);
