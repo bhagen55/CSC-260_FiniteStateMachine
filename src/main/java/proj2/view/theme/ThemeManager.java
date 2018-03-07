@@ -101,7 +101,6 @@ public class ThemeManager
 
 		// construct default theme and set as current
 		Theme defTheme = constructDefaultTheme();
-		System.out.println(defTheme.toString());
 		themes.add(defTheme);
 		currTheme = (Theme)defTheme.clone();
 		modTheme = currTheme.clone();
@@ -430,7 +429,6 @@ public class ThemeManager
 	public void addObserver(Observer o)
 	{
 		observers.add(o);
-		System.out.println("Observer Added");
 	}
 
 	/**

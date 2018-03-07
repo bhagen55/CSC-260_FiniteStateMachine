@@ -226,7 +226,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             stateShapes.add(new StateShape(state.getX(),state.getY(), state.getName(), state.canAccept(), isStart,
 							currTheme.getStateOutlineColor(), currTheme.getStateFillColor(),
 							currTheme.getStateTextColor(), currTheme.getStateAcceptColor(),
-							currTheme.getStateStartColor()));
+							currTheme.getStateStartColor(), currTheme.getStateHighlightColor()));
         }
 
         // Go through all the stateshapes and add their transitions from the model
@@ -449,7 +449,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         	if (inBounds != null) {
                 String stateName = transitionField.getText();
                 toState = inBounds;
-                System.out.println(inBounds.getName());
+                // System.out.println(inBounds.getName());
 
                 // Adds transition from selState to tostate
                 if (selState != null) {

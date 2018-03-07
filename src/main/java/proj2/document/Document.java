@@ -104,7 +104,6 @@ public class Document
     {
         haveAddedCoordinates=true;
         if (!this.hasState(state)) {
-                        System.out.println("Adding state");
             State toAdd = new State(state);
             toAdd.addCoordinates(xpos, ypos);
             content.add(toAdd);
@@ -256,7 +255,6 @@ public class Document
     public void addObserver(Observer o)
     {
         observers.add(o);
-		System.out.println("Observer Added");
     }
 
     /**

@@ -139,7 +139,7 @@ public class TransitionShape extends Component implements Shape {
 			transition.setCurve(orgX,orgY,contX,contY,destX,destY);
 
 			AffineTransform rotater = new AffineTransform();
-			System.out.println(getAngle());
+			// System.out.println(getAngle());
 			rotater.rotate(Math.toRadians(getAngle()), 0, 0);
 			Font rotatedFont = font.deriveFont(rotater);
 			g2d.setFont(rotatedFont);

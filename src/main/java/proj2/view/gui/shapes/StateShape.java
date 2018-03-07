@@ -51,6 +51,7 @@ public class StateShape extends Component implements Shape {
 	Color textColor;
 	Color acceptColor;
 	Color startColor;
+	Color highlightColor;
 
 	/**
 	* Constructs a StateShape object
@@ -63,7 +64,7 @@ public class StateShape extends Component implements Shape {
 	*/
 	public StateShape(int xPos, int yPos, String name, boolean isAccepting, boolean isStart,
 						Color outlineColor, Color fillColor, Color textColor,
-						Color acceptColor, Color startColor) {
+						Color acceptColor, Color startColor, Color highlightColor) {
 
 		this.name = name;
 
@@ -83,6 +84,7 @@ public class StateShape extends Component implements Shape {
 		this.textColor = textColor;
 		this.acceptColor = acceptColor;
 		this.startColor = startColor;
+		this.highlightColor = highlightColor;
 
 		// Construct the ellipse to represent this shape
 		ellipse = makeEllipse(xPos, yPos, radius);
@@ -282,7 +284,7 @@ public class StateShape extends Component implements Shape {
 		if(isStart) {
 			g2d.setColor(startColor);
 		} else if (isCurrent) {
-			g2d.setColor(simulatorCurrentColor);
+			g2d.setColor(highlightColor);
 		} else {
 			g2d.setColor(outlineColor);
 		}
