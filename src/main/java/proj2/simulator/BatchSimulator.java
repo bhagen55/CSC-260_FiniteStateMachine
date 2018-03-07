@@ -47,7 +47,7 @@ public class BatchSimulator extends JPanel implements Simulator, KeyListener{
     private boolean current;
     private StateShape currentShape;
 
-    private LinkedList<String> toParse;
+    private String[] toParse;
     private LinkedList<StateShape> states;
     private LinkedList<TransitionShape> transitions;
     private LinkedList<State> stateItems;
@@ -61,7 +61,7 @@ public class BatchSimulator extends JPanel implements Simulator, KeyListener{
     private JFrame f2;
 
 
-    public BatchSimulator(DrawPanel dpanel, Document doc, LinkedList<String> input) {
+    public BatchSimulator(DrawPanel dpanel, Document doc, String[] input) {
 
         dp = dpanel;
         d = doc;
@@ -129,7 +129,7 @@ public class BatchSimulator extends JPanel implements Simulator, KeyListener{
         currentShape.toggleCurrent();
 
         String shapeSymbol = currentShape.getName();
-        String transitionSymbol = toParse.get(step);
+        String transitionSymbol = toParse[step];
         State currentShapeItem = getNextStateItem(shapeSymbol, transitionSymbol);
         if (currentShapeItem == null) {
             notNextException();
