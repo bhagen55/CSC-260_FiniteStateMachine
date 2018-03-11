@@ -114,8 +114,8 @@ public class BatchSimulator extends JPanel implements Simulator{
 
         String shapeSymbol = currentShape.getName();
         System.out.println("shapeSymbol is " + shapeSymbol);
-        String transitionSymbol = toParse[currentStep-1];
-        System.out.println("toParse currentstep " + toParse[currentStep-1]);
+        String transitionSymbol = toParse[currentStep];
+        //System.out.println("toParse currentstep " + toParse[currentStep-1]);
         State currentShapeItem = getNextStateItem(shapeSymbol, transitionSymbol);
         if (currentShapeItem == null) {
             System.out.println("not next exception?");
