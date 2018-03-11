@@ -35,6 +35,8 @@ import proj2.view.gui.menus.*;
 import proj2.view.theme.*;
 import proj2.document.ActionMenu;
 
+import java.util.Arrays;
+
 /*
 * Extension of JPanel that handles drawing of states and state objects
 * Adapted from this tutorial: https://docs.oracle.com/javase/tutorial/uiswing/painting/refining.html
@@ -90,6 +92,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     /*
     * Simulators
     */
+    private BatchSimulator bs;
     private JButton batchSimulatorButton;
 
     /*
@@ -131,6 +134,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     	System.out.println("Setting up");
 
 		gui = this;
+        bs = null;
 
         // Set border of the panel
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -178,7 +182,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Call the Batch Simulator creation when button pressed
         batchSimulatorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                BatchSimulator bs = new BatchSimulator(getThis(), doc, getSteps());
+                if (bs == null) {
+                    bs = new BatchSimulator(getThis(), doc, getSteps());
+                }
+                bs.simulate();
+                repaint();
             }
         });
 
@@ -265,6 +273,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         String master = batchSimulatorField.getText();
         master = removeSpaces(master);
         String[] toReturn = master.split(",");
+        System.out.println("GETSTEPS IN DRAWPANEL " + Arrays.toString(toReturn));
         return toReturn;
     }
 

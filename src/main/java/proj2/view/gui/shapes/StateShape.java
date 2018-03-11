@@ -44,7 +44,7 @@ public class StateShape extends Component implements Shape {
 	private static final int DOUBLE_MULT = 2;
 	private static final int DEFAULT_FONT_SIZE = 12;
 
-	private static final Color simulatorCurrentColor = Color.BLACK;
+	private static final Color simulatorCurrentColor = Color.CYAN;
 
 	Color outlineColor;
 	Color fillColor;
@@ -225,6 +225,10 @@ public class StateShape extends Component implements Shape {
 		isCurrent = !isCurrent;
 	}
 
+	public boolean isCurrent() {
+		return isCurrent;
+	}
+
     /**
     * Get whether or not the state object is an accepting state
     *
@@ -281,10 +285,10 @@ public class StateShape extends Component implements Shape {
 		g2d.setColor(fillColor);
 		g2d.fill(ellipse);
 
-		if(isStart) {
+		if (isCurrent) {
+			g2d.setColor(simulatorCurrentColor);
+		} else if(isStart) {
 			g2d.setColor(startColor);
-		} else if (isCurrent) {
-			g2d.setColor(highlightColor);
 		} else {
 			g2d.setColor(outlineColor);
 		}
