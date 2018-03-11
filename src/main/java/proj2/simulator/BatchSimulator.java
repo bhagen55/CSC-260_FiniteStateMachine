@@ -32,7 +32,7 @@ import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 
 
-public class BatchSimulator extends JPanel implements Simulator, KeyListener{
+public class BatchSimulator extends JPanel implements Simulator{
 
     private DrawPanel dp;
     private Document d;
@@ -79,65 +79,55 @@ public class BatchSimulator extends JPanel implements Simulator, KeyListener{
         System.out.println("transitions size " + transitions.size());
         System.out.println("states size " + states.size());
 
-        this.addKeyListener(this);
-
         // add(new ArrowPress(RIGHT_ARROW_KEY_CODE, 0));
         // add(new ArrowPress(LEFT_ARROW_KEY_CODE, 0));
-        simulate();
+        //simulate();
 
     }
 
     public void simulate() {
 
-        repaint();
         System.out.println("Should be painted but isn't probably");
 
-        // InputMap im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
-        // ActionMap am = getActionMap();
-        //
-        // im.put(KeyStroke.getKeyStroke(RIGHT_ARROW_KEY_CODE, 0, false), "stepForward");
-        // im.put(KeyStroke.getKeyStroke(LEFT_ARROW_KEY_CODE, 0, true), "stepBack");
-        //
-        // am.put("stepForward", new AbstractAction() {
-        //         @Override
-        //         public void actionPerformed(ActionEvent e) {
-        //             stepForward(currentStep);
-        //             repaint();
-        //         }
-        //     });
-        //
-        // am.put("stepBack", new AbstractAction() {
-        //         @Override
-        //         public void actionPerformed(ActionEvent e) {
-        //             stepForward(currentStep);
-        //             repaint();
-        //         }
-        //     });
-        //
-        currentStep++;
-        if (currentStep == 1) {
+        if (currentStep == 0) {
             currentShape = getStartShape();
+            System.out.println("#### PRE TOGGLE START " + currentShape.isCurrent());
+            currentShape.toggleCurrent();
+            System.out.println("#### POST TOGGLE START " + currentShape.isCurrent());
+
+
+        } else if (currentStep < toParse.length) {
+            System.out.println("currentSHAPE IS " + currentShape.getName());
+            stepForward();
         }
-        stepForward(currentStep);
+        currentStep++;
         repaint();
 
     }
 
 
-    private void stepForward(int step) {
+    private void stepForward() {
 
+        // unhighlights current shape
         currentShape.toggleCurrent();
 
         String shapeSymbol = currentShape.getName();
-        String transitionSymbol = toParse[step];
+        System.out.println("shapeSymbol is " + shapeSymbol);
+        String transitionSymbol = toParse[currentStep-1];
+        System.out.println("toParse currentstep " + toParse[currentStep-1]);
         State currentShapeItem = getNextStateItem(shapeSymbol, transitionSymbol);
         if (currentShapeItem == null) {
+            System.out.println("not next exception?");
             notNextException();
         } else {
-            System.out.println("STEPFORWARD ELSE " + shapeSymbol);
+            System.out.println("** NOW STATE ** " + currentShape.getName());
             currentShape = getShape(currentShapeItem.getName());
+            System.out.println("** NEXT STATE ** " + currentShape.getName());
+
+            // unhighlights the next shape
             currentShape.toggleCurrent();
         }
+        
 
     }
 
@@ -149,7 +139,7 @@ public class BatchSimulator extends JPanel implements Simulator, KeyListener{
         for (int i=0; i < size; i++) {
             StateShape currShape = states.get(i);
             if (currShape.isStart() == true) {
-                currShape.toggleCurrent();
+                //currShape.toggleCurrent();
                 return currShape;
             }
         }
@@ -228,26 +218,6 @@ public class BatchSimulator extends JPanel implements Simulator, KeyListener{
 
     private BatchSimulator getThis() {
         return this;
-    }
-
-
-    public void keyPressed(KeyEvent e) {}
-    public void keyReleased(KeyEvent e) {}
-    public void keyTyped(KeyEvent e) {
-
-        System.out.println("TYPED");
-
-        buttonPressed = true;
-
-        if (e.getKeyCode() == RIGHT_ARROW_KEY_CODE) {
-            stepForward(currentStep);
-        } else if (e.getKeyCode() == LEFT_ARROW_KEY_CODE) {
-
-        }
-
-        repaint();
-        buttonPressed = false;
-
     }
 
 }
