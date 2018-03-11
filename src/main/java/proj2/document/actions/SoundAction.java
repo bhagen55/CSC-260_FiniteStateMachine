@@ -1,9 +1,8 @@
-package proj2.document;
+package proj2.document.actions;
 
-import java.util.ArrayList;
 import java.awt.Toolkit;
 
-import proj2.simulator.Action;
+import proj2.document.Action;
 
 public class SoundAction implements Action
 {
@@ -21,5 +20,10 @@ public class SoundAction implements Action
     public void execute()
     {
         Toolkit.getDefaultToolkit().beep();
+    }
+
+    public String toString()
+    {
+        return "SoundAction";
     }
 }

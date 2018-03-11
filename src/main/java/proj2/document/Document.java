@@ -2,7 +2,10 @@ package proj2.document;
 
 import java.util.LinkedList;
 import java.util.ArrayList;
+
 import proj2.view.gui.Observer;
+import proj2.document.Action;
+import proj2.document.actions.*;
 
 /**
  * Class that holds a linked list of State objects
@@ -104,7 +107,6 @@ public class Document
     {
         haveAddedCoordinates=true;
         if (!this.hasState(state)) {
-                        System.out.println("Adding state");
             State toAdd = new State(state);
             toAdd.addCoordinates(xpos, ypos);
             content.add(toAdd);
@@ -256,7 +258,6 @@ public class Document
     public void addObserver(Observer o)
     {
         observers.add(o);
-		System.out.println("Observer Added");
     }
 
     /**
@@ -275,8 +276,31 @@ public class Document
     */
     public int getY(String StateName)
     {
-          int stateIndex = stateIndices.indexOf(StateName);
+		int stateIndex = stateIndices.indexOf(StateName);
         return content.get(stateIndex).getY();
+    }
+
+	/**
+	* Adds an action to a state
+	*
+	* @param StateName name of state to add action to
+	*/
+	public void addAction(String stateName, Action action)
+	{
+		int stateIndex = stateIndices.indexOf(stateName);
+		content.get(stateIndex).setAction(action);
+	}
+
+    /**
+    * Get action associated with state
+    *
+    * @param stateName name of state to get action of
+    * @return action associated with state
+    */
+    public Action getAction(String stateName)
+    {
+        int stateIndex = stateIndices.indexOf(stateName);
+        return content.get(stateIndex).getAction();
     }
 
 

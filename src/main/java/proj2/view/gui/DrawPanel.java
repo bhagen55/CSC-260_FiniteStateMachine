@@ -33,6 +33,7 @@ import proj2.view.gui.Observer;
 import proj2.filehandler.concretefilehandler.TextSave;
 import proj2.view.gui.menus.*;
 import proj2.view.theme.*;
+import proj2.document.ActionMenu;
 
 import java.util.Arrays;
 
@@ -110,6 +111,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 	private Theme currTheme;
 	private JButton themeButton;
 
+    /*
+    * Action menu
+    */
+    private ActionMenu actionMenu;
+
     private static final int RIGHT_CLICK = 3;
     private static final int LEFT_CLICK = 1;
 
@@ -165,6 +171,9 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         doc = d;
 
         ts = textsaver;
+
+        // Action menu stuff
+        actionMenu = new ActionMenu(doc);
 
         // Add mouse listener to the panel to deal with mouse events
         this.addMouseListener(this);
@@ -241,7 +250,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             stateShapes.add(new StateShape(state.getX(),state.getY(), state.getName(), state.canAccept(), isStart,
 							currTheme.getStateOutlineColor(), currTheme.getStateFillColor(),
 							currTheme.getStateTextColor(), currTheme.getStateAcceptColor(),
-							currTheme.getStateStartColor()));
+							currTheme.getStateStartColor(), currTheme.getStateHighlightColor()));
         }
 
         // Go through all the stateshapes and add their transitions from the model
@@ -465,7 +474,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         	if (inBounds != null) {
                 String stateName = transitionField.getText();
                 toState = inBounds;
-                System.out.println(inBounds.getName());
+                // System.out.println(inBounds.getName());
 
                 // Adds transition from selState to tostate
                 if (selState != null) {
@@ -496,9 +505,12 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
                 if (e.getClickCount() == 2) {
                     doc.toggleAccept(inBounds.getName());
                 }
+                // If single click, open the action menu
+                else if (e.getClickCount() == 1) {
+                    actionMenu.showMenu(inBounds.getName());
+                }
                 foundState = true;
             }
-
             if (foundState == false) {
   				String stateName = stateField.getText();
                 doc.addState(stateName, e.getX(), e.getY());

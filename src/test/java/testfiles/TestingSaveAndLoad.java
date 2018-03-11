@@ -19,7 +19,7 @@ public class TestingSaveAndLoad{
 		d.addState("B",55,117);
 		d.addState("C",1,27);
 		d.addTransition("A","B","z");
-		f.saveFile("FiniteStateMachine");
+		// f.saveFile("FiniteStateMachine");
 
 	// }
 		 // catch(FileNotFoundException ex) {
@@ -45,7 +45,7 @@ public class TestingSaveAndLoad{
 		d.addState("B");
 		d.addState("C");
 		d.addTransition("A","B","z");
-		f.saveFile("FiniteStateMachine");
+		// f.saveFile("FiniteStateMachine");
 
 	}
 }
