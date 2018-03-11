@@ -93,6 +93,7 @@ public class BatchSimulator extends JPanel implements Simulator{
             currentShape = getStartShape();
             System.out.println("#### PRE TOGGLE START " + currentShape.isCurrent());
             currentShape.toggleCurrent();
+            stepForward();
             System.out.println("#### POST TOGGLE START " + currentShape.isCurrent());
 
 
@@ -100,7 +101,7 @@ public class BatchSimulator extends JPanel implements Simulator{
             System.out.println("currentSHAPE IS " + currentShape.getName());
             stepForward();
         }
-        currentStep++;
+        //currentStep++;
         repaint();
 
     }
@@ -127,7 +128,7 @@ public class BatchSimulator extends JPanel implements Simulator{
             // unhighlights the next shape
             currentShape.toggleCurrent();
         }
-        
+        currentStep++;
 
     }
 
