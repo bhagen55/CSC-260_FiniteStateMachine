@@ -250,11 +250,13 @@ public class State{
     }
 
     /**
-     *
+     * Sets the action of this state that can be run
+	 *
+	 * @param action action to be applied to this state
      */
-    public void setAction()
+    public void setAction(Action action)
     {
-
+		this.action = action;
     }
 
 	/**
