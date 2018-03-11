@@ -87,21 +87,16 @@ public class BatchSimulator extends JPanel implements Simulator{
 
     public void simulate() {
 
-        System.out.println("Should be painted but isn't probably");
 
         if (currentStep == 0) {
             currentShape = getStartShape();
-            System.out.println("#### PRE TOGGLE START " + currentShape.isCurrent());
             currentShape.toggleCurrent();
             stepForward();
-            System.out.println("#### POST TOGGLE START " + currentShape.isCurrent());
 
 
         } else if (currentStep < toParse.length) {
-            System.out.println("currentSHAPE IS " + currentShape.getName());
             stepForward();
         }
-        //currentStep++;
         repaint();
 
     }
@@ -113,17 +108,14 @@ public class BatchSimulator extends JPanel implements Simulator{
         currentShape.toggleCurrent();
 
         String shapeSymbol = currentShape.getName();
-        System.out.println("shapeSymbol is " + shapeSymbol);
         String transitionSymbol = toParse[currentStep];
-        //System.out.println("toParse currentstep " + toParse[currentStep-1]);
         State currentShapeItem = getNextStateItem(shapeSymbol, transitionSymbol);
         if (currentShapeItem == null) {
-            System.out.println("not next exception?");
             notNextException();
         } else {
-            System.out.println("** NOW STATE ** " + currentShape.getName());
             currentShape = getShape(currentShapeItem.getName());
-            System.out.println("** NEXT STATE ** " + currentShape.getName());
+
+            getState(currentShapeItem.getName()).getAction().execute();
 
             // unhighlights the next shape
             currentShape.toggleCurrent();
@@ -176,6 +168,16 @@ public class BatchSimulator extends JPanel implements Simulator{
         }
         return null;
     }
+
+    private State getState(String name) {
+        for (State curr : stateItems) {
+            if (curr.getName().equals(name)) {
+                return curr;
+            }
+        }
+        return null;
+    }
+
 
     private Color getStateOutline() {
         return StateOutline;

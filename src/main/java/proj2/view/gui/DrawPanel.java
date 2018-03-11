@@ -183,16 +183,9 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         batchSimulatorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (bs == null) {
-
-                    System.out.println("if bs is null");
-
                     bs = new BatchSimulator(getThis(), doc, getSteps());
-                    bs.simulate();
-                } else {
-                    System.out.println("else");
-
-                    bs.simulate();
                 }
+                bs.simulate();
                 repaint();
             }
         });
