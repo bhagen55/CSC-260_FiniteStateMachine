@@ -33,6 +33,7 @@ import proj2.view.gui.Observer;
 import proj2.filehandler.concretefilehandler.TextSave;
 import proj2.view.gui.menus.*;
 import proj2.view.theme.*;
+import proj2.document.ActionMenu;
 
 /*
 * Extension of JPanel that handles drawing of states and state objects
@@ -107,6 +108,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 	private Theme currTheme;
 	private JButton themeButton;
 
+    /*
+    * Action menu
+    */
+    private ActionMenu actionMenu;
+
     private static final int RIGHT_CLICK = 3;
     private static final int LEFT_CLICK = 1;
 
@@ -161,6 +167,9 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         doc = d;
 
         ts = textsaver;
+
+        // Action menu stuff
+        actionMenu = new ActionMenu(doc);
 
         // Add mouse listener to the panel to deal with mouse events
         this.addMouseListener(this);
@@ -480,9 +489,12 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
                 if (e.getClickCount() == 2) {
                     doc.toggleAccept(inBounds.getName());
                 }
+                // If single click, open the action menu
+                else if (e.getClickCount() == 1) {
+                    actionMenu.showMenu(inBounds.getName());
+                }
                 foundState = true;
             }
-
             if (foundState == false) {
   				String stateName = stateField.getText();
                 doc.addState(stateName, e.getX(), e.getY());

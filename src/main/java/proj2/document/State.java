@@ -3,6 +3,7 @@ package proj2.document;
 import java.util.ArrayList;
 
 import proj2.document.Action;
+import proj2.document.actions.*;
 
 public class State{
 
@@ -25,6 +26,7 @@ public class State{
 		isAcceptState = false;
 		symbol = givenSymbol;
 		transitions = new ArrayList<Transition>();
+		action = new NoAction();
 	}
 
 	/**
@@ -258,6 +260,15 @@ public class State{
     {
 		this.action = action;
     }
+
+	/**
+	* Get action of this state
+	*
+	* @return action associated with this state
+	*/
+	public Action getAction() {
+		return action;
+	}
 
 	/**
 	* Creates a string representation of the state

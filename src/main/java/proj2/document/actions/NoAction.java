@@ -13,4 +13,9 @@ public class NoAction implements Action
     {
 
     }
+
+    public String toString()
+    {
+        return "NoAction";
+    }
 }

@@ -291,6 +291,18 @@ public class Document
 		content.get(stateIndex).setAction(action);
 	}
 
+    /**
+    * Get action associated with state
+    *
+    * @param stateName name of state to get action of
+    * @return action associated with state
+    */
+    public Action getAction(String stateName)
+    {
+        int stateIndex = stateIndices.indexOf(stateName);
+        return content.get(stateIndex).getAction();
+    }
+
 
     /**
      * Removes an observer from the list of observers stored in the document

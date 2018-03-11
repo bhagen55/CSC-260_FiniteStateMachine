@@ -21,4 +21,9 @@ public class SoundAction implements Action
     {
         Toolkit.getDefaultToolkit().beep();
     }
+
+    public String toString()
+    {
+        return "SoundAction";
+    }
 }
