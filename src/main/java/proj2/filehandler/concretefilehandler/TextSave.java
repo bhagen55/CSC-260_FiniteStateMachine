@@ -114,7 +114,7 @@ public class TextSave implements Saver, Loader
             BufferedReader bufferedReader =
                 new BufferedReader(fileReader);
             boolean havePassedCoordinates=false;
-           //d.empty();
+            d.empty();
             while((line = bufferedReader.readLine()) != null) {
             	if(!line.contains("@")){
 		            if(line.compareTo("$") == 0)
