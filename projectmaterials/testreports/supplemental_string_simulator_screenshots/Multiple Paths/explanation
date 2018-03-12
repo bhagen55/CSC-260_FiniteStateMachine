@@ -1,0 +1,14 @@
+This supplemental test case represents a simulation in which there are multiple paths to go down but only one correct path.
+
+CLICK 0: This is a premade FSM with a multiple paths. The input string references an existing path from transitions a to b to c to d, however there are multiple transitions leading to separate states. Notice the string simulator input sequence in the bottom right indicating simulation in this order.
+
+CLICK 1: The simulation begins at the start state (state a). The transition with weight 'a' leads to state b, which is now highlighted in blue.
+
+CLICK 2: b leads to c, not f.
+
+CLICK 3: c leads to d, not g.
+
+CLICK 4: d leads to e, not h.
+
+CLICK 5: Hitting the string simulator button again does not lead to another state (namely i), and unhighlights the last state to indicate the simulation is over.
+

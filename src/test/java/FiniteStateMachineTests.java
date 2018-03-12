@@ -116,4 +116,12 @@ public class FiniteStateMachineTests
     	assertTrue("Testing removed Transition not found",d.numTransitions("A")==0);
     	assertTrue("Testing Transitions not both ways",d.numTransitions("B")==0);
     }
+
+
+	// BEGINNING OF STRING SIMULATOR TESTS
+
+
+	//@Test
+	//public void Testing
+
 }

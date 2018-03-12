@@ -1,0 +1,9 @@
+This supplemental test case represents a simulation in which a transition weight is inputted that doesn't exist.
+
+CLICK 0: This is a premade FSM with a single path. Transitions go from a to b to d. Notice the string simulator input sequence in the bottom right indicating simulation in this order.
+
+CLICK 1: The simulation begins at the start state (state a). The transition with weight 'a' leads to state b, which is now highlighted in blue.
+
+CLICK 2: b leads to c.
+
+CLICK 3: The next transition weight 'd' doesn't exist in this simulation. Pressing the string simulator button unhighlights the last current state, indicating the simulation is over.
