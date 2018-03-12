@@ -35,14 +35,6 @@ public class FiniteStateMachine {
 		f.setVisible(true);
 	}
 
-	private static void cr (BatchSimulator bs) {
-		JFrame f2 = new JFrame("Simulator");
-		f2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f2.add(bs);
-		f2.setSize(800,800);
-		f2.setVisible(true);
-	}
-
 	/**
 	* Threaded function to draw guis related to this fsm
 	*
@@ -63,7 +55,6 @@ public class FiniteStateMachine {
 		example.add("d");
 		// Create the view panel and pass it the document
 		DrawPanel panel = new DrawPanel(doc, ts);
-		//BatchSimulator bs = new BatchSimulator(panel, doc, example);
 
 		// Add the view panel as an observer to the document
 		doc.addObserver(panel);
@@ -72,7 +63,6 @@ public class FiniteStateMachine {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				createAndShowGUI(panel);
-				//cr(bs);
 			}
 		});
 	}

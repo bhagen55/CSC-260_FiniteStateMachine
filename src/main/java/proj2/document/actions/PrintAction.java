@@ -2,12 +2,12 @@ package proj2.document.actions;
 
 import proj2.document.Action;
 
-public class printAction implements Action
+public class PrintAction implements Action
 {
     /**
      * Default constructor for the print action.
      */
-    public printAction()
+    public PrintAction()
     {
 
     }
