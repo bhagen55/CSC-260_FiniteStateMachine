@@ -45,7 +45,7 @@ public class ActionMenu {
 
 		JLabel title = new JLabel("Current Action:");
 
-		Action[] actions = {new NoAction(), new SoundAction()};
+		Action[] actions = {new NoAction(), new SoundAction(), new PrintAction()};
 		cb = new JComboBox<Action>(actions);
 		cb.setSelectedIndex(0);
 
