@@ -1,0 +1,1 @@
+Action menu shows the available actions which at the time of testing were NoAction, SoundAction, and PrintAction.
