@@ -33,7 +33,6 @@ public class Document
         {
         content = new LinkedList<State>();
         stateIndices = new ArrayList<String>();
-        observers = new LinkedList<Observer>();
         boolean haveAddedCoordinates=false;
 		notifyObservers();
     }
