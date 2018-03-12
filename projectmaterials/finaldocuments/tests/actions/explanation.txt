@@ -1,0 +1,8 @@
+defaultAction: Tests that the default action of a state is noAction
+Result: The default action is noAction
+
+addAction: Tests that adding an action to a state actually adds the action
+Result: The action is added successfully
+
+changeAction: Tests that changing an action on a state that has already had an action applied to it changes the action correctly.
+Result: The action is changed from the old applied action to the new one.

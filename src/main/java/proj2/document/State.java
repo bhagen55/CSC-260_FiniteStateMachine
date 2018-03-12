@@ -35,7 +35,7 @@ public class State{
      * of the given vertices does not exist, it is added to the
      * graph before the transition is created between them.
      *
-     * @param from the source state for the added transition
+     * @param transitionWeight string that the transition accepts
      * @param to the destination state for the added transition
      */
     public void addTransition(State to, String transitionWeight)
