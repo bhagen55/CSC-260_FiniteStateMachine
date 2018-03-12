@@ -48,11 +48,6 @@ public class FiniteStateMachine {
 		// Creates the File Format Controller
 		TextSave ts = new TextSave(doc);
 
-		LinkedList example = new LinkedList();
-		example.add("a");
-		example.add("b");
-		example.add("c");
-		example.add("d");
 		// Create the view panel and pass it the document
 		DrawPanel panel = new DrawPanel(doc, ts);
 
