@@ -94,6 +94,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     */
     //private StringSimulator bs;
     private JButton stringSimulatorButton;
+    private JButton resetSSButton;
 
     /*
     * Save/Load Button and Path
@@ -121,15 +122,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
     private boolean simulationRunning = false;
     private boolean resettingScreen = false;
-    private LinkedList example = new LinkedList();
 
+    private StringSimulator bs;
 
 	public DrawPanel(Document d, TextSave textsaver) {
-
-        example.add("a");
-        example.add("b");
-        example.add("c");
-        example.add("d");
 
     	System.out.println("Setting up");
 
@@ -150,6 +146,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
         // Add simulator buttons
         stringSimulatorButton = new JButton("String Simulator");
+        resetSSButton = new JButton("Reset SS");
 
         // Add save/load buttons and paths
         saveButton = new JButton("Save");
@@ -182,11 +179,17 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Call the String Simulator creation when button pressed
         stringSimulatorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //if (bs == null) {
-                    //bs = new StringSimulator(getThis(), doc, getSteps());
-                //}
-                //bs.simulate();
+                if (bs == null) {
+                    bs = new StringSimulator(getThis(), doc, getSteps());
+                }
+                bs.simulate();
                 repaint();
+            }
+        });
+
+        resetSSButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                bs = null;
             }
         });
 
@@ -382,6 +385,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Paints the simulator buttons
         stringSimulatorButton.setBounds(600,780,200,20);
         add(stringSimulatorButton);
+        resetSSButton.setBounds(500, 780, 100, 20);
+        add(resetSSButton);
 
         // Paints the save/load buttons and paths
         saveButton.setBounds(300, 1, 100, 20);
