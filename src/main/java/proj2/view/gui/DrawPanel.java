@@ -276,7 +276,6 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         String master = stringSimulatorField.getText();
         master = removeSpaces(master);
         String[] toReturn = master.split(",");
-        System.out.println("GETSTEPS IN DRAWPANEL " + Arrays.toString(toReturn));
         return toReturn;
     }
 
@@ -357,10 +356,6 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             super.paintComponent(g);
             this.removeAll();
             resettingScreen = false;
-
-        // } else if (simulationRunning == true) {
-        //     StringSimulator bs = new StringSimulator(gui, doc, example);
-        //     bs.simulate();
         } else {
 
 		// Paints the panel
