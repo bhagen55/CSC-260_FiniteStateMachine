@@ -215,6 +215,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 
     }
 
+    /**
+    * Simple method to get a link to this drawpanel
+    *
+    * @return this drawpanel object
+    */
     private DrawPanel getThis() {
         return this;
     }
