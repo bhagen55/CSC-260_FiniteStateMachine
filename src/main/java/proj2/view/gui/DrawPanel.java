@@ -272,6 +272,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         repaint();
     }
 
+    /**
+    * Gets steps to use in the simulator
+    *
+    * @return string with steps for simulator
+    */
     private String[] getSteps() {
         String master = stringSimulatorField.getText();
         master = removeSpaces(master);
@@ -279,6 +284,12 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         return toReturn;
     }
 
+    /**
+    * Removes spaces from a given input string
+    *
+    * @param input the string to remove spaces from
+    * @return string with spaces removed
+    */
     private String removeSpaces(String input) {
         int size = input.length();
         String toReturn = "";
@@ -291,6 +302,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         return toReturn;
     }
 
+    /**
+    * Converts an array list to a linked list
+    *
+    * @return a linked list of the same content as the array list
+    */
     private LinkedList convertArrayListToLinkedList(ArrayList aL) {
         LinkedList toReturn = new LinkedList();
         int size = aL.size();
@@ -300,11 +316,21 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         return toReturn;
     }
 
+    /**
+    * Get state shapes
+    *
+    * @return list of state shapes
+    */
     public LinkedList<StateShape> getStates() {
         LinkedList<StateShape> toReturn = (LinkedList<StateShape>)convertArrayListToLinkedList(stateShapes);
         return toReturn;
     }
 
+    /**
+    * Get transition shapes
+    *
+    * @return list of transition shapes
+    */
     public LinkedList<TransitionShape> getTransitions() {
         LinkedList<TransitionShape> toReturn = (LinkedList<TransitionShape>)convertArrayListToLinkedList(transitionShapes);
         return toReturn;
@@ -410,6 +436,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     }
     }
 
+    /**
+    * Searches for a stateshape that a mouse event clicked on
+    *
+    * @param e mouse event to compare to
+    */
     private StateShape search(MouseEvent e) {
         for (StateShape state: stateShapes) {
     		if (state.getEllipse().getBounds().contains(e.getPoint())) {
