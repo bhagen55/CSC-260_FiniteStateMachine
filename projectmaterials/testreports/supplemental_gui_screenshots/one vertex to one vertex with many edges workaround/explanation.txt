@@ -1,1 +1,0 @@
-Using spaces to manually space out the labels shows that they are still shown on the gui, but don't account for existing labels positions.

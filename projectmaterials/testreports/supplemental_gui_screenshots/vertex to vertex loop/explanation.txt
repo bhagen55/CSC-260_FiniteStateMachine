@@ -1,1 +1,0 @@
-An edge going to a vertex from right to left is shown below the line. This is to allow edges that go in both directions to show their corresponding labels.

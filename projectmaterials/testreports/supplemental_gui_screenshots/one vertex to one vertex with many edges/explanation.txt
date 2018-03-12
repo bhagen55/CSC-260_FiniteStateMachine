@@ -1,1 +1,0 @@
-The save/load functionality handles multiple edges from one vertex to one vertex, but the gui does not. The text is overlayed on top of each other. This is a limitation of our GUI implementation. If labels for the edges are spaced out manually as a workaround, they can be seen.

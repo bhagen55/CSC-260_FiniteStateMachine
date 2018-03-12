@@ -1,1 +1,0 @@
-A limitation of the save/load functionality is special characters in the names of edges and vertices. These existing in their names might cause load errors.
