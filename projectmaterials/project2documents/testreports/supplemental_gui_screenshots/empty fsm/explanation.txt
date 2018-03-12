@@ -1,0 +1,1 @@
+Shows that an FSM with nothing in it can still be saved to a file, and that file contains no information. When it is loaded into another blank fsm, nothing is created.

@@ -1,0 +1,1 @@
+Creating multiple edges from one vertex to many other vertexes is shown correctly and is saved correctly. Loading into a blank fsm creates all edges and vertices properly.

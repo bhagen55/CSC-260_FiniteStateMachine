@@ -1,0 +1,1 @@
+default theme is applied to all new fsms and the colors match. Only color not shown here is the highlight color.

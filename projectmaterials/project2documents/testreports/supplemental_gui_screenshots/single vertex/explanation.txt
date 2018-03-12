@@ -1,0 +1,1 @@
+A single vertex can be saved and loaded with no extra information that doesn't exist being created, such as a ghost edge.

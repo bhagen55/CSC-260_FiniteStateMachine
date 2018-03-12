@@ -1,0 +1,1 @@
+Applying a custom saved theme works as it should.
