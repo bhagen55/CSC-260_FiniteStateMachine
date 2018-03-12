@@ -35,7 +35,7 @@ public class State{
      * of the given vertices does not exist, it is added to the
      * graph before the transition is created between them.
      *
-     * @param transitionWeight the string for the transition
+     * @param from the source state for the added transition
      * @param to the destination state for the added transition
      */
     public void addTransition(State to, String transitionWeight)
@@ -134,7 +134,7 @@ public class State{
 		for (Transition currTransition:transitions)
         {
 			if (currTransition.getWeight().equals(transitionWeight) &&
-				currTransition.getGoingTo().equals(to))
+				currTransition.getGoingToName().equals(to))
             {
 					return currTransition;
 			}

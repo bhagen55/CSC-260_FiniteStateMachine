@@ -241,7 +241,7 @@ public class Document
         if (this.hasState(from) && this.hasState(to)) {
             int index = stateIndices.indexOf(from);
             State v = content.get(index);
-            return v.hasTransition(to, transitionWeight);
+           return v.hasTransition(to, transitionWeight);
         }
         return false;
     }

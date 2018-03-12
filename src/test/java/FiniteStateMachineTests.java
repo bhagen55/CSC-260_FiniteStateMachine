@@ -92,7 +92,8 @@ public class FiniteStateMachineTests
         assertTrue("states are there",d.hasState("B"));
         assertTrue("states are there",d.hasState("A"));
         assertTrue("Testing hasTransition for a single added transition",d.numTransitions("A")==1);
-    	assertTrue("Testing hasTransition for a single added transition",d.hasTransition("A","B","r"));
+
+    	assertTrue(d.toString(),d.hasTransition("A","B","r"));
     	assertFalse("Testing nonexistent Transition not found",d.hasTransition("B","A","z"));
     }
 
