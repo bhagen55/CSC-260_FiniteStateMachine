@@ -1,4 +1,4 @@
-@@ Top section is: StateName|xPosition|yPosition
+@@ Top section is: StateName|xPosition|yPosition|ifAnAcceptState|nameOfActionDoneHere
 @@ Bottom section is: StateName than its transitions, each in parenthesis separated by a comma
 @@ in each parenthesis it is ordered (State this transition points to, this transition's weight)
 @@ the $ in the middle separates the coordiante section from the transitions section
