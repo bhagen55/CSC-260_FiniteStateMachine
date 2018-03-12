@@ -50,13 +50,13 @@ public class TestingSaveAndLoad{
 
 
 		text.save("FiniteStateMachine");
-		//FSMSave.save("FiniteStateMachine");
+		fsm.save("FiniteStateMachine");
 
 		text.load("FiniteStateMachine");
-		//FSMSave.load("FiniteStateMachine");
+		fsm.load("FiniteStateMachine");
 
 		text.save("FiniteStateMachine_copy");
-		//FSMSave.save("FiniteStateMachine_copy");
+		fsm.save("FiniteStateMachine_copy");
 	}
 	 
 		  
