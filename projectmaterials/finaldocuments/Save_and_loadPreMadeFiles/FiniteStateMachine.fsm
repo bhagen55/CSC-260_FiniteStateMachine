@@ -1,0 +1,8 @@
+@@Contains only Information about the finite state machine, This cannot be imported back into the FiniteStateMachine With the Gui
+A|true|NoAction
+B|false|SoundAction
+C|false|PrintAction
+$
+A(B,z)(A,s)
+B(A,q)
+C(A,r)

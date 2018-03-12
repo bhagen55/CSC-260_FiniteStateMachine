@@ -29,11 +29,14 @@ public class Document
     */
     public void empty()
     {
+        if(content.size()!=0)
+        {
         content = new LinkedList<State>();
         stateIndices = new ArrayList<String>();
         observers = new LinkedList<Observer>();
         boolean haveAddedCoordinates=false;
 		notifyObservers();
+    }
     }
 
     /**
