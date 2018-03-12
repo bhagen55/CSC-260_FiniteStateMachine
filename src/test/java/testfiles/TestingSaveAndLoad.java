@@ -49,40 +49,19 @@ public class TestingSaveAndLoad{
 		d2.toggleAccept("A");
 
 
+		text.save("FiniteStateMachine");
+		//FSMSave.save("FiniteStateMachine");
 
+		text.load("FiniteStateMachine");
+		//FSMSave.load("FiniteStateMachine");
+
+		text.save("FiniteStateMachine_copy");
+		//FSMSave.save("FiniteStateMachine_copy");
+	}
 	 
 		  
-	}
+	
 
-	public void save()
-	{
-		text.save("FiniteStateMachine");
-		FSMSave.save("FiniteStateMachine");
-	}
-
-	public void load()
-	{
-		text.load("FiniteStateMachine");
-		FSMSave.load("FiniteStateMachine");
-	}
-
-	public void save2()
-	{
-		text.save("FiniteStateMachine_copy");
-		FSMSave.save("FiniteStateMachine_copy");
-	}
-
-	public static void main(String[] args) throws FileNotFoundException
-	{
-		Document d;
-	    TextSave f;
-		d= new Document();
-		f= new TextSave(d);
-		d.addState("A");
-		d.addState("B");
-		d.addState("C");
-		d.addTransition("A","B","z");
-		// f.saveFile("FiniteStateMachine");
-
-	}
+	
+	
 }

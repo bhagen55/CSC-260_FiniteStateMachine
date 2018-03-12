@@ -45,9 +45,7 @@ public class FiniteStateMachineTests
     	//creates two save files that should be identitcal, one will be named FiniteStateMachine.txt 
         // the other will be named FiniteStateMachine_copy.txt
     	t= new TestingSaveAndLoad();
-        t.save();
-        t.load();
-        t.save2();
+
     }
 
     @Test
