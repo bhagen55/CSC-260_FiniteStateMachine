@@ -101,8 +101,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     private JButton saveButton;
     private JButton loadButton;
 
-    private JTextField savePath;
-    private JTextField loadPath;
+    // private JTextField savePath;
+    // private JTextField loadPath;
 
 	/*
 	* Theme manager
@@ -155,8 +155,8 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         saveButton = new JButton("Save");
         loadButton = new JButton("Load");
 
-        savePath = new JTextField("fsm");
-        loadPath = new JTextField("fsm");
+        // savePath = new JTextField("fsm");
+        // loadPath = new JTextField("fsm");
 
 		// Add theme manager stuff
 		themeButton = new JButton("Open Theme Chooser");
@@ -389,10 +389,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         add(saveButton);
         add(loadButton);
 
-        savePath.setBounds(300, 21, 100, 20);
-        loadPath.setBounds(400, 21, 100, 20);
-        add(savePath);
-        add(loadPath);
+        // savePath.setBounds(300, 21, 100, 20);
+        // loadPath.setBounds(400, 21, 100, 20);
+        // add(savePath);
+        // add(loadPath);
 
 		// Paints theme manager button
 		themeButton.setBounds(500, 1, 200, 20);
