@@ -33,6 +33,7 @@ public class Document
         stateIndices = new ArrayList<String>();
         observers = new LinkedList<Observer>();
         boolean haveAddedCoordinates=false;
+		notifyObservers();
     }
 
     /**
@@ -153,6 +154,7 @@ public class Document
             int stateIndex = stateIndices.indexOf(stateName);
             State foundState = content.get(stateIndex);
             foundState.addCoordinates(xPos,yPos);
+			notifyObservers();
         }
     }
 
@@ -215,7 +217,7 @@ public class Document
             if(!vFrom.hasTransition(to, transitionWeight)) {
                 vFrom.addTransition(vTo, transitionWeight);
     			notifyObservers();
-                }
+            }
         }
     }
 
@@ -324,6 +326,7 @@ public class Document
 	{
 		int stateIndex = stateIndices.indexOf(stateName);
 		content.get(stateIndex).setAction(action);
+		notifyObservers();
 	}
 
     /**
