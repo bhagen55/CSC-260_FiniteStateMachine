@@ -51,6 +51,8 @@ public class TestingSaveAndLoad{
 
 		text.save("FiniteStateMachine");
 		fsm.save("FiniteStateMachine");
+		text.save("OtherName");
+		fsm.save("OtherName");
 
 		text.load("FiniteStateMachine");
 		fsm.load("FiniteStateMachine");
