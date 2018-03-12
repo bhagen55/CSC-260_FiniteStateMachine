@@ -278,7 +278,9 @@ public class Document
 
     /**
     *returns x coordinate
-    *@return x coordinate of this state
+	*
+	* @param StateName state to get x coordinate of
+    * @return x coordinate of this state
     */
     public int getX(String StateName)
     {
@@ -288,7 +290,9 @@ public class Document
 
     /**
     *returns y coordinate
-    *@return y coordinate of this state
+	*
+	* @param StateName state to get y coordinate of
+    * @return y coordinate of this state
     */
     public int getY(String StateName)
     {
@@ -299,7 +303,8 @@ public class Document
 	/**
 	* Adds an action to a state
 	*
-	* @param StateName name of state to add action to
+	* @param stateName name of state to add action to
+	* @param action action to add to the state
 	*/
 	public void addAction(String stateName, Action action)
 	{

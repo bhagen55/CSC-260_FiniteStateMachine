@@ -1,0 +1,1 @@
+Changing the colors in the theme manager does not affect the fsm gui until the apply button is pressed.

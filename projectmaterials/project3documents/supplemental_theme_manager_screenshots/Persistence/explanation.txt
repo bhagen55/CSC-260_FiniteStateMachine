@@ -1,0 +1,1 @@
+Saved themes do not persist between sessions or instances. Top instance has two custom themes saved but bottom does not show them. Saving custom themes is a feature that should be added to the next release.

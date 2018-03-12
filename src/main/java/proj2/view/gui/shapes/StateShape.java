@@ -61,6 +61,13 @@ public class StateShape extends Component implements Shape {
 	* @param name name of state
 	* @param isAccepting whether or not this is an accept state
 	* @param isStart whether or not this is a start state
+	* @param outlineColor color of state outline
+	* @param fillColor color of state fill
+	* @param textColor color of state text
+	* @param acceptColor color of accept state
+	* @param startColor color of start state
+	* @param highlightColor color of highlighted state
+	*
 	*/
 	public StateShape(int xPos, int yPos, String name, boolean isAccepting, boolean isStart,
 						Color outlineColor, Color fillColor, Color textColor,
@@ -258,6 +265,9 @@ public class StateShape extends Component implements Shape {
 
 	/**
 	* Pass through a contains command to the shape
+	*
+	* @param x coordinate to be checked
+	* @param y coordinate to be checked
 	*
 	* @return whether or not the click is contained
 	* within the shape

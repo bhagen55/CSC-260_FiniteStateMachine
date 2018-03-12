@@ -85,15 +85,15 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 	private JLabel stateFieldName;
 	private JLabel transitionFieldName;
 
-    private String batchSimulatorEntry;
-    private JTextField batchSimulatorField;
-    private JLabel batchSimulatorFieldName;
+    private String stringSimulatorEntry;
+    private JTextField stringSimulatorField;
+    private JLabel stringSimulatorFieldName;
 
     /*
     * Simulators
     */
-    private BatchSimulator bs;
-    private JButton batchSimulatorButton;
+    private StringSimulator bs;
+    private JButton stringSimulatorButton;
 
     /*
     * Save/Load Button and Path
@@ -145,11 +145,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 		stateFieldName = new JLabel("New State Name");
 		transitionFieldName = new JLabel("New Transition Name");
 
-        batchSimulatorField = new JTextField("");
-        batchSimulatorFieldName = new JLabel("New Simulator Sequence");
+        stringSimulatorField = new JTextField("");
+        stringSimulatorFieldName = new JLabel("New Simulator Sequence");
 
         // Add simulator buttons
-        batchSimulatorButton = new JButton("Batch Simulator");
+        stringSimulatorButton = new JButton("String Simulator");
 
         // Add save/load buttons and paths
         saveButton = new JButton("Save");
@@ -179,11 +179,11 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
 
-        // Call the Batch Simulator creation when button pressed
-        batchSimulatorButton.addActionListener(new ActionListener() {
+        // Call the String Simulator creation when button pressed
+        stringSimulatorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (bs == null) {
-                    bs = new BatchSimulator(getThis(), doc, getSteps());
+                    bs = new StringSimulator(getThis(), doc, getSteps());
                 }
                 bs.simulate();
                 repaint();
@@ -270,7 +270,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     }
 
     private String[] getSteps() {
-        String master = batchSimulatorField.getText();
+        String master = stringSimulatorField.getText();
         master = removeSpaces(master);
         String[] toReturn = master.split(",");
         System.out.println("GETSTEPS IN DRAWPANEL " + Arrays.toString(toReturn));
@@ -356,7 +356,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
             resettingScreen = false;
 
         // } else if (simulationRunning == true) {
-        //     BatchSimulator bs = new BatchSimulator(gui, doc, example);
+        //     StringSimulator bs = new StringSimulator(gui, doc, example);
         //     bs.simulate();
         } else {
 
@@ -374,14 +374,14 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
 		add(stateFieldName);
 		add(transitionFieldName);
 
-        batchSimulatorField.setBounds(700,740,100,20);
-        add(batchSimulatorField);
-        batchSimulatorFieldName.setBounds(700,760,100,20);
-        add(batchSimulatorFieldName);
+        stringSimulatorField.setBounds(600,740,200,20);
+        add(stringSimulatorField);
+        stringSimulatorFieldName.setBounds(600,760,200,20);
+        add(stringSimulatorFieldName);
 
         // Paints the simulator buttons
-        batchSimulatorButton.setBounds(700,780,100,20);
-        add(batchSimulatorButton);
+        stringSimulatorButton.setBounds(600,780,200,20);
+        add(stringSimulatorButton);
 
         // Paints the save/load buttons and paths
         saveButton.setBounds(300, 1, 100, 20);

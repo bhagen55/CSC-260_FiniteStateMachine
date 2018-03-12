@@ -1,0 +1,1 @@
+applying an action to a state then closing and re-opening the action manager correctly shows the current action applied to that state.

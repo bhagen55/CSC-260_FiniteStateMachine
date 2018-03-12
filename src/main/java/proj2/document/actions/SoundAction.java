@@ -1,6 +1,6 @@
 package proj2.document.actions;
 
-import java.awt.Toolkit;
+import java.awt.*;
 
 import proj2.document.Action;
 
