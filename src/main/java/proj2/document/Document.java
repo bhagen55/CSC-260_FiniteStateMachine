@@ -166,6 +166,7 @@ public class Document
     * Determine accept state of a state
     *
     * @param stateName a state
+    *@return if given state is an accpet state or not
     */
     public boolean getAccept(String stateName)
     {
@@ -176,6 +177,8 @@ public class Document
             int stateIndex = stateIndices.indexOf(stateName);
             return content.get(stateIndex).canAccept();
         }
+        return false;
+
     }
 
 

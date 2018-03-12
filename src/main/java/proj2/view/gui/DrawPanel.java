@@ -92,7 +92,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     /*
     * Simulators
     */
-    private StringSimulator bs;
+    //private StringSimulator bs;
     private JButton stringSimulatorButton;
 
     /*
@@ -134,7 +134,7 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
     	System.out.println("Setting up");
 
 		gui = this;
-        bs = null;
+        //bs = null;
 
         // Set border of the panel
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -182,10 +182,10 @@ public class DrawPanel extends JPanel implements Observer, MouseListener, MouseM
         // Call the String Simulator creation when button pressed
         stringSimulatorButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (bs == null) {
-                    bs = new StringSimulator(getThis(), doc, getSteps());
-                }
-                bs.simulate();
+                //if (bs == null) {
+                    //bs = new StringSimulator(getThis(), doc, getSteps());
+                //}
+                //bs.simulate();
                 repaint();
             }
         });

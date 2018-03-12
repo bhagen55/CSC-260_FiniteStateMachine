@@ -88,6 +88,10 @@ public class FiniteStateMachineTests
     	d.addState("A");
     	d.addState("B");
     	d.addTransition("A","B","r");
+        //project.logger.lifecycle("my message visible by default");
+        assertTrue("states are there",d.hasState("B"));
+        assertTrue("states are there",d.hasState("A"));
+        assertTrue("Testing hasTransition for a single added transition",d.numTransitions("A")==1);
     	assertTrue("Testing hasTransition for a single added transition",d.hasTransition("A","B","r"));
     	assertFalse("Testing nonexistent Transition not found",d.hasTransition("B","A","z"));
     }
@@ -98,6 +102,7 @@ public class FiniteStateMachineTests
     	d.addState("A");
     	d.addState("B");
     	d.addTransition("A","B","r");
+
     	assertTrue("Testing hasTransition for a single added transition",d.hasTransition("A","B","r"));
     	d.removeTransition("A","B","r");
     	assertFalse("Testing removed Transition not found",d.hasTransition("A","B","r"));

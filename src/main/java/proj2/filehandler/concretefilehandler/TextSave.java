@@ -134,16 +134,19 @@ public class TextSave implements Saver, Loader
 		           			d.toggleAccept(curStateName);
 		           		}
 		           		if(lineParts[4].equals("NoAction")){
-		           			d.addAction(curStateName,new Action NoAction())
+		           			Action none= new NoAction();
+		           			d.addAction(curStateName,none);
 		           		}
 		           		else if(lineParts[4].equals("PrintAction")){
-		           			d.addAction(curStateName,new Action PrintAction())
+		           			Action print=new PrintAction();
+		           			d.addAction(curStateName,print);
 		           		}
 		           		else if(lineParts[4].equals("SoundAction")){
-		           			d.addAction(curStateName,new Action SoundAction())
+		           			Action sound=new SoundAction();
+		           			d.addAction(curStateName,sound);
 		           		}
 		           		else{
-		           			console.log("No Action added")
+		           			System.out.println("No Action added");
 		           		}
 
 		           	}
