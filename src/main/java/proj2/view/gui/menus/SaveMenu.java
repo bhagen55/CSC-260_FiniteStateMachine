@@ -24,6 +24,9 @@ public class SaveMenu {
     /**
     * Constructs a menu using a printable object as the print source
     * for image savers and the document for text savers
+	*
+	* @param gui to pass through to saver/loaders
+	* @param doc to pass through to saver/loaders
     */
     public SaveMenu(DrawPanel gui, Document doc) {
         JFrame f = new JFrame();

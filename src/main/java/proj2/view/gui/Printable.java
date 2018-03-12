@@ -8,8 +8,11 @@ import java.awt.image.BufferedImage;
 */
 public interface Printable
 {
-    /**
+	/**
     * Get a printable representation of the jpanel
+    * but only with states and transitions
+    *
+    * @return bufferedimage representation of jpanel without buttons
     */
     public BufferedImage getPrintable();
 }

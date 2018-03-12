@@ -1,0 +1,1 @@
+Saving a theme causes it to show up in the combo box with the correct inputted name.

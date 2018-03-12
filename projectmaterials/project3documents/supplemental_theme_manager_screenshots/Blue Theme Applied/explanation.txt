@@ -1,0 +1,2 @@
+blue theme, a pre-constructed theme, can be selected in the themes combo box and then applied using the apply button.
+All colors are represented accurately and update immediately.

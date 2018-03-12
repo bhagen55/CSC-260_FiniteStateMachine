@@ -1,0 +1,1 @@
+Saving a custom theme twice, ie with the same name, causes it to show up in the menu twice. This is not ideal behaviour and should be fixed for the next release with an error message or prompt to input an alternate name.

@@ -19,17 +19,19 @@ import proj2.document.State;
 */
 public class ActionMenu {
 
-	String selState;
+	private String selState;
 
-	JFrame f;
+	private JFrame f;
 
-	Document doc;
+	private Document doc;
 
-	JComboBox<Action> cb;
+	private JComboBox<Action> cb;
 
 	/**
 	* Constructs a menu with a list of actions
 	* to add to states
+	*
+	* @param doc document to add actions to
 	*/
 	public ActionMenu(Document doc) {
 
@@ -45,7 +47,7 @@ public class ActionMenu {
 
 		JLabel title = new JLabel("Current Action:");
 
-		Action[] actions = {new NoAction(), new SoundAction()};
+		Action[] actions = {new NoAction(), new SoundAction(), new PrintAction()};
 		cb = new JComboBox<Action>(actions);
 		cb.setSelectedIndex(0);
 

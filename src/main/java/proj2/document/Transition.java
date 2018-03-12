@@ -63,7 +63,7 @@ public class Transition{
 	 }
 
     /**
-    *@Return a String containing the Transition name and weight separated by an Ω
+    * @return a String containing the Transition name and weight separated by an Ω
     */
      public String getStringOfTransitionContents()
      {
