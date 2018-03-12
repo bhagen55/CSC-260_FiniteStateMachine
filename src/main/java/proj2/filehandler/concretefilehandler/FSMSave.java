@@ -19,12 +19,13 @@ public class FSMSave implements Saver, Loader
     public void save(String fileName){
         try{
              String home = System.getProperty("user.home");
-             File file = new File(home+"/Downloads/" + fileName + ".FSM");
+             File file = new File(home+"/Downloads/" + fileName + ".fsm");
 
 
              file.getParentFile().mkdirs();
         // Write into the text file
         writer = new PrintWriter(file);
+        writer.println("@@Contains only Information about the finite state machine, This cannot be imported back into the FiniteStateMachine With the Gui");
         ArrayList<String> states = d.getStates();
         for(String state:states){
             String curLine=state;
@@ -54,7 +55,7 @@ public class FSMSave implements Saver, Loader
         try {
             // Create a file object to hold the path to the text file
             String home = System.getProperty("user.home");
-            File file = new File(home+"/Downloads/" + fileName + ".txt");
+            File file = new File(home+"/Downloads/" + fileName + ".fsm");
             // Create file if it doesn't exist
             file.getParentFile().mkdirs();
 
@@ -66,42 +67,25 @@ public class FSMSave implements Saver, Loader
             // Always wrap FileReader in BufferedReader.
             BufferedReader bufferedReader =
                 new BufferedReader(fileReader);
-            boolean havePassedCoordinates=false;
             while((line = bufferedReader.readLine()) != null) {
                 if(!line.contains("@")){
-                    if(line.compareTo("$") == 0)
+                    String[] lineParts=line.split("\\(");
+                    String state="";
+                    for(String part: lineParts)
                     {
-                        havePassedCoordinates=true;
-                    }
-
-                    if(!havePassedCoordinates)
-                    {
-                        String[] lineParts=line.split("\\|");
-                        for (String part: lineParts) {
-                            System.out.println(part);
-                        }
-                        d.addState(lineParts[0],Integer.parseInt(lineParts[1]),Integer.parseInt(lineParts[2]));
-
-                    }
-                    else{
-                        String[] lineParts=line.split("\\(");
-                        String state="";
-                        for(String part: lineParts)
+                        if(!part.contains(")"))
                         {
-                            if(!part.contains(")"))
-                            {
-                                state=part;
-                            }
-                            else{
-                                String[] transition=part.split(",");
-                                String temp = transition[1];
-                                transition[1]=temp.substring(0,transition[1].length()-1);
-                                d.addTransition(state,transition[0],transition[1]);
-                            }
+                          state=part;
                         }
-
+                        else{
+                            String[] transition=part.split(",");
+                            String temp = transition[1];
+                            transition[1]=temp.substring(0,transition[1].length()-1);
+                            d.addTransition(state,transition[0],transition[1]);
+                        }
                     }
-               }
+
+                }
                }
 
                 // Always close files.

@@ -162,6 +162,22 @@ public class Document
         }
     }
 
+    /**
+    * Determine accept state of a state
+    *
+    * @param stateName a state
+    */
+    public boolean getAccept(String stateName)
+    {
+        if (!this.hasState(stateName)) {
+            System.out.println("State specified to toggle state does not exist");
+        }
+        else {
+            int stateIndex = stateIndices.indexOf(stateName);
+            return content.get(stateIndex).canAccept();
+        }
+    }
+
 
     /**
      * Adds a directed transition between two vertices.  If there is already an transition

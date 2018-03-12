@@ -3,6 +3,8 @@ package proj2.filehandler.concretefilehandler;
 import proj2.document.Document;
 import proj2.filehandler.*;
 import java.util.ArrayList;
+import proj2.document.Action;
+import proj2.document.actions.*;
 /*
 import java.io.PrintWriter;
 import java.io.File;
@@ -56,7 +58,7 @@ public class TextSave implements Saver, Loader
 
 		ArrayList<String> states = d.getStates();
 		for(String state: states){
-			writer.println(state+"|"+d.getX(state)+"|"+d.getY(state));
+			writer.println(state+"|"+d.getX(state)+"|"+d.getY(state)+"|"+d.getAccept(state)+"|"+d.getAction(state).toString());
 		}
 		writer.println("$");
 
@@ -125,7 +127,24 @@ public class TextSave implements Saver, Loader
 						for (String part: lineParts) {
 							System.out.println(part);
 						}
-		           		d.addState(lineParts[0],Integer.parseInt(lineParts[1]),Integer.parseInt(lineParts[2]));
+		           		String curStateName= lineParts[0];
+		           		d.addState(curStateName,Integer.parseInt(lineParts[1]),Integer.parseInt(lineParts[2]));
+		           		if(lineParts[3].equals("true"))
+		           		{
+		           			d.toggleAccept(curStateName);
+		           		}
+		           		if(lineParts[4].equals("NoAction")){
+		           			d.addAction(curStateName,new Action NoAction())
+		           		}
+		           		else if(lineParts[4].equals("PrintAction")){
+		           			d.addAction(curStateName,new Action PrintAction())
+		           		}
+		           		else if(lineParts[4].equals("SoundAction")){
+		           			d.addAction(curStateName,new Action SoundAction())
+		           		}
+		           		else{
+		           			console.log("No Action added")
+		           		}
 
 		           	}
 		           	else{
