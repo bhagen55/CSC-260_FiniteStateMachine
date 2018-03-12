@@ -40,6 +40,8 @@ public class TransitionShape extends Component implements Shape {
 	* @param o origin StateShape
 	* @param d destination StateShape
 	* @param n name/transition name for transition
+	* @param lineColor color of transition line
+	* @param textColor color of transition text
 	*/
 	public TransitionShape(StateShape o, StateShape d, String n,
 							Color lineColor, Color textColor) {

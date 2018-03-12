@@ -24,6 +24,18 @@ public class Theme
 
 	/**
 	* Constructor for a theme, requires all colors and name string
+	*
+	* @param name name of the theme
+	* @param stateOutlineColor color of state outline
+	* @param stateFillColor color of state fill
+	* @param stateTextColor color of state text
+	* @param stateAcceptColor color of accept state
+	* @param stateStartColor color of start state
+	* @param stateHighlightColor color of highlighted state
+	* @param transLineColor color of transition line
+	* @param transTextColor color of transition text
+	* @param backgroundColor color of background
+	*
 	*/
 	public Theme(String name, Color stateOutlineColor, Color stateFillColor,
 				Color stateTextColor, Color stateAcceptColor,

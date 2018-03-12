@@ -30,6 +30,8 @@ public class ActionMenu {
 	/**
 	* Constructs a menu with a list of actions
 	* to add to states
+	*
+	* @param doc document to add actions to
 	*/
 	public ActionMenu(Document doc) {
 
