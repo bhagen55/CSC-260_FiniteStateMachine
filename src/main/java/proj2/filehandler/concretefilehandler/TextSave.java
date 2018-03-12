@@ -51,7 +51,7 @@ public class TextSave implements Saver, Loader
 		// Write into the text file
 		writer = new PrintWriter(file);
 
-		writer.println("@@ Top section is: StateName|xPosition|yPosition");
+		writer.println("@@ Top section is: StateName|xPosition|yPosition|ifAnAcceptState|nameOfActionDoneHere");
 		writer.println("@@ Bottom section is: StateName than its transitions, each in parenthesis separated by a comma");
 		writer.println("@@ in each parenthesis it is ordered (State this transition points to, this transition's weight)");
 		writer.println("@@ the $ in the middle separates the coordiante section from the transitions section");
