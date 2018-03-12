@@ -19,13 +19,13 @@ import proj2.document.State;
 */
 public class ActionMenu {
 
-	String selState;
+	private String selState;
 
-	JFrame f;
+	private JFrame f;
 
-	Document doc;
+	private Document doc;
 
-	JComboBox<Action> cb;
+	private JComboBox<Action> cb;
 
 	/**
 	* Constructs a menu with a list of actions
