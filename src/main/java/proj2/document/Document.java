@@ -25,6 +25,17 @@ public class Document
     }
 
     /**
+    *Emptys the document of all content
+    */
+    public void empty()
+    {
+        content = new LinkedList<State>();
+        stateIndices = new ArrayList<String>();
+        observers = new LinkedList<Observer>();
+        boolean haveAddedCoordinates=false;
+    }
+
+    /**
      * Returns the number vertices in the FSM
      *
      * @return the number of vertices in the machine.

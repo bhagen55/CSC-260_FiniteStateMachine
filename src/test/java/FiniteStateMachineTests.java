@@ -42,8 +42,12 @@ public class FiniteStateMachineTests
     @Test
     public void TestingSaveAndLoad()
     {
-    	//uncomment to create test file
-    	//t= new TestingSaveAndLoad();
+    	//creates two save files that should be identitcal, one will be named FiniteStateMachine.txt 
+        // the other will be named FiniteStateMachine_copy.txt
+    	t= new TestingSaveAndLoad();
+        t.save();
+        t.load();
+        t.save2();
     }
 
     @Test
@@ -88,12 +92,7 @@ public class FiniteStateMachineTests
     	d.addState("A");
     	d.addState("B");
     	d.addTransition("A","B","r");
-        //project.logger.lifecycle("my message visible by default");
-        assertTrue("states are there",d.hasState("B"));
-        assertTrue("states are there",d.hasState("A"));
-        assertTrue("Testing hasTransition for a single added transition",d.numTransitions("A")==1);
-
-    	assertTrue(d.toString(),d.hasTransition("A","B","r"));
+    	assertTrue("Testing hasTransition for a single added transition",d.hasTransition("A","B","r"));
     	assertFalse("Testing nonexistent Transition not found",d.hasTransition("B","A","z"));
     }
 
